@@ -9,7 +9,7 @@
                 <div class="card-header">Create a student</div>
 
                 <div class="card-body">
-                  <form method="post" action="{{route('admin.student.update')}}">
+                  <form method="post" action="{{route('admin.student.save')}}">
                     @csrf
                   <div class="form-group">
                   <label for="login">Login</label>

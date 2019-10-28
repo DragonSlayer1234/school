@@ -27,4 +27,17 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
     Route::get('student/edit/{id}', 'StudentController@edit')->name('student.edit');
 
+    Route::get('olympic', 'OlympicController@index')->name('olympic.index');
+
+    Route::get('olympic/create', 'OlympicController@create')->name('olympic.create');
+
+    Route::post('olympic/store', 'OlympicController@store')->name('olympic.store');
+
+    Route::post('olympic/download', 'OlympicController@download')->name('olympic.download');
+
+    Route::resource('subject', 'SubjectController');
+
+
+
+
 }) ;
