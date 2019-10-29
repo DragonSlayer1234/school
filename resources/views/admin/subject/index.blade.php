@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
+@include ('admin._nav')
 @section('content')
 
 <div class="container">
@@ -8,6 +9,7 @@
                 <div class="card-header">Subjects</div>
 
                 <div class="card-body">
+                  <a href="{{route('admin.subject.create')}}" class="btn btn-success">Add a subject</a>
                   <table class="table">
                     <thead>
                       <tr>

@@ -15,17 +15,13 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+Route::group([
+    'prefix'=>'admin',
+    'as'=>'admin.',
+    'namespace'=>'Admin'
+    ], function(){
 
-    Route::get('student', 'StudentController@index')->name('student.index');
-
-    Route::get('student/create', 'StudentController@create');
-
-    Route::post('student/save', 'StudentController@save')->name('student.save');
-
-    Route::post('student/update/{id}', 'StudentController@update')->name('student.update');
-
-    Route::get('student/edit/{id}', 'StudentController@edit')->name('student.edit');
+    Route::resource('student','StudentController');
 
     Route::get('olympic', 'OlympicController@index')->name('olympic.index');
 
@@ -36,6 +32,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
     Route::post('olympic/download', 'OlympicController@download')->name('olympic.download');
 
     Route::resource('subject', 'SubjectController');
+
+    Route::get('','HomeController@index')->name('home');
 
 
 

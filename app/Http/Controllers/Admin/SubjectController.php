@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubjectRequest;
 
 class SubjectController extends Controller
 {
@@ -35,9 +36,10 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubjectRequest $request)
     {
-        $subject = Subject::create(['name'=>$request->name]);
+        $validated=$request->validated();
+        $subject = Subject::create($validated);
         return redirect('/admin/subject');
     }
 
@@ -70,7 +72,7 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(SubjectRequest $request, Subject $subject)
     {
         //
     }

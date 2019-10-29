@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
+@include ('admin._nav')
 @section('content')
 
 <div class="container">
@@ -8,6 +9,7 @@
                 <div class="card-header">Students</div>
 
                 <div class="card-body">
+                  <a href="{{route('admin.student.create')}}" class="btn btn-success">Add a student</a>
                   <table class="table">
                     <thead>
                       <tr>

@@ -11,5 +11,5 @@ class Student extends Model
       const STATUS_INACTIVE='Inactive';
       protected $table='student';
       public $timestamps = false;
-      protected $fillable = ['firstname', 'surname', 'lastname'];
+      protected $fillable = ['login', 'firstname', 'surname', 'lastname'];
 }

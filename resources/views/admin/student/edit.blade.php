@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
+@include ('admin._nav')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -11,15 +12,24 @@
                     @csrf
                   <div class="form-group">
                   <label for="firstname">Firstname</label>
-                  <input type="text" class="form-control" id="firstname" placeholder="Enter firstname" name="firstname" value="{{$student->firstname}}">
+                  <input type="text" class="form-control{{ $errors->has('firstname') ? ' is-invalid' : '' }}" id="firstname" placeholder="Enter firstname" name="firstname" value="{{$student->firstname}}">
+                  @if ($errors->has('firstname'))
+                  <span class="invalid-feedback"><strong>{{ $errors->first('firstname') }}</strong></span>
+                  @endif
                   </div>
                   <div class="form-group">
                   <label for="surname">Surname</label>
-                  <input type="text" class="form-control" id="surname" placeholder="Enter surname" name="surname" value="{{$student->surname}}">
+                  <input type="text" class="form-control{{ $errors->has('surname') ? ' is-invalid' : '' }}" id="surname" placeholder="Enter surname" name="surname" value="{{$student->surname}}">
+                  @if ($errors->has('surname'))
+                  <span class="invalid-feedback"><strong>{{ $errors->first('surname') }}</strong></span>
+                  @endif
                   </div>
                   <div class="form-group">
                   <label for="lastname">Lastname</label>
-                  <input type="text" class="form-control" id="lastname" placeholder="Enter lastname" name="lastname" value="{{$student->lastname}}">
+                  <input type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" id="lastname" placeholder="Enter lastname" name="lastname" value="{{$student->lastname}}">
+                  @if ($errors->has('lastname'))
+                  <span class="invalid-feedback"><strong>{{ $errors->first('lastname') }}</strong></span>
+                  @endif
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
