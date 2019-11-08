@@ -2,14 +2,20 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-      const STATUS_EMPTY='Empty';
-      const STATUS_ACTIVE='Active';
-      const STATUS_INACTIVE='Inactive';
-      protected $table='student';
-      public $timestamps = false;
-      protected $fillable = ['login', 'firstname', 'surname', 'lastname'];
+    const STATUS_EMPTY = 'empty';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_GENERATED = 'generated';
+
+    protected $fillable = [
+        'login', 'password', 'firstname', 'surname', 'lastname',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

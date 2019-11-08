@@ -17,7 +17,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
-        return view('admin.subject.index', compact('subjects', 'subjects'));
+        return view('admin.subjects.index', compact('subjects'));
     }
 
     /**
@@ -27,7 +27,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('admin.subject.create');
+        return view('admin.subjects.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class SubjectController extends Controller
     {
         $validated=$request->validated();
         $subject = Subject::create($validated);
-        return redirect('/admin/subject');
+        return redirect()->route('admin.subject.index');
     }
 
     /**

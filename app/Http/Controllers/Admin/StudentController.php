@@ -19,10 +19,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-      $students = Student::all();
-      return view('admin.student.index', [
-        'students'=>$students
-      ]);
+        $students = Student::all();
+        return view('admin.students.index', compact('students'));
     }
 
     /**
@@ -32,7 +30,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create');
+        return view('admin.students.create');
     }
 
     /**
@@ -43,13 +41,15 @@ class StudentController extends Controller
      */
     public function store(CreateStudentRequest $request)
     {
-      $validated = $request->validated();
-      $student = new Student();
-      $student->fill($validated);
-      $student->password=Str::random(8);
-      $student->status=Student::STATUS_EMPTY;
-      $student->save();
-      return redirect('/admin/student/');
+        $validated = $request->validated();
+
+        $student = new Student();
+        $student->fill($validated);
+        $student->password = Str::random(8);
+        $student->status = Student::STATUS_GENERATED;
+        $student->save();
+
+        return redirect()->route('admin.student.index');
     }
 
     /**
@@ -60,9 +60,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-      return view('admin.student.edit',[
-        'student'=>$student
-      ]);
+        return view('admin.students.edit', [
+            'student'=>$student
+        ]);
     }
 
     /**
@@ -73,9 +73,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-      return view('admin.student.edit',[
-        'student'=>$student
-      ]);
+        return view('admin.students.edit',[
+            'student' => $student
+        ]);
     }
 
     /**
@@ -87,10 +87,12 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-      $validated=$request->validated();
-      $student->fill($validated);
-      $student->save();
-      return redirect('/admin/student');
+        $validated = $request->validated();
+
+        $student->fill($validated);
+        $student->save();
+
+        return redirect()->route('admin.student.index');
     }
 
     /**

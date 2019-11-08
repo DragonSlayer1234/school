@@ -24,7 +24,7 @@ class SubjectRequest extends FormRequest
     public function rules()
     {
         return [
-           'name'=>'required|unique:subject,name|alpha'
+           'name' => 'required|unique:subjects,name|alpha'
         ];
     }
 }
