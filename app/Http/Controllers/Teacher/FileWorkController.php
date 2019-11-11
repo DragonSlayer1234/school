@@ -6,6 +6,7 @@ use App\Olympiad;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateFileWorkRequest;
 use App\FileWork;
+use Illuminate\Support\Facades\Storage;
 
 class FileWorkController extends Controller
 {
@@ -21,7 +22,16 @@ class FileWorkController extends Controller
         $file->path = $path;
         $olympiad->work_type = Olympiad::WORK_TYPE_FILE;
         $olympiad->file()->save($file);
+        $olympiad->save();
 
-        return redirect()->route('teacher.olympiad.index');
+        return redirect()->route('teacher.olympiad.draft');
+    }
+
+    public function delete(Olympiad $olympiad)
+    {
+        Storage::delete($olympiad->file->path);
+        $olympiad->file->delete();
+
+        return redirect()->route('teacher.olympiad.draft');
     }
 }

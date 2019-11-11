@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Teacher\Auth;
+namespace App\Http\Controllers\Student\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
@@ -18,12 +17,12 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:student')->except('logout');
     }
 
     public function showLoginForm()
     {
-        return view('teacher.auth.login');
+        return view('student.auth.login');
     }
 
     public function login(LoginRequest $request)
@@ -33,7 +32,7 @@ class LoginController extends Controller
             $this->sendLockoutResponse($request);
         }
 
-        $authenticate = Auth::guard('teacher')->attempt(
+        $authenticate = Auth::guard('student')->attempt(
             $request->only(['login', 'password']),
             $request->filled('remember')
         );
@@ -43,20 +42,19 @@ class LoginController extends Controller
             $this->clearLoginAttempts($request);
             $user = Auth::user();
 
-            return redirect()->intended(route('teacher.home'));
+            return redirect()->intended(route('student.home'));
         }
 
         $this->incrementLoginAttempts($request);
-
         throw ValidationException::withMessages(['login' => [trans('auth.failed')]]);
     }
 
 
     public function logout(Request $request)
     {
-        Auth::guard('teacher')->logout();
+        Auth::guard('student')->logout();
         $request->session()->invalidate();
-        return redirect()->route('teacher.login');
+        return redirect()->route('student.login');
     }
 
     protected function username()

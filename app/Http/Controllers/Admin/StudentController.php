@@ -45,7 +45,7 @@ class StudentController extends Controller
 
         $student = new Student();
         $student->fill($validated);
-        $student->password = Str::random(8);
+        $student->password = bcrypt('12345');
         $student->status = Student::STATUS_GENERATED;
         $student->save();
 

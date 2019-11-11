@@ -10,6 +10,9 @@ class Olympiad extends Model
     const STATUS_ACTIVE = 'active';
     const STATUS_PASSED = 'passed';
     const STATUS_DRAFT = 'draft';
+    const STATUS_CHECKING = 'checking';
+    const STATUS_MODERATING = 'moderating';
+    const STATUS_REJECTED = 'rejected';
 
     const TYPE_SCHOOL = 'school';
     const TYPE_CITY = 'city';
@@ -28,7 +31,10 @@ class Olympiad extends Model
             self::STATUS_UPCOMING,
             self::STATUS_ACTIVE,
             self::STATUS_PASSED,
-            self::STATUS_DRAFT
+            self::STATUS_DRAFT,
+            self::STATUS_CHECKING,
+            self::STATUS_MODERATING,
+            self::STATUS_REJECTED
         ];
     }
 
@@ -57,6 +63,21 @@ class Olympiad extends Model
         ]);
     }
 
+    public function scopeAuthor($query, $teacher)
+    {
+        return $query->where('teacher_id', $teacher);
+    }
+
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
     public function subject()
     {
         return $this->belongsTo(Subject::class);
@@ -69,7 +90,7 @@ class Olympiad extends Model
 
     public function winners()
     {
-        return $this->hasMany(Winner::class, 'winners', 'olympiad_id');
+        return $this->hasMany(Winner::class);
     }
 
     public function file()
@@ -85,5 +106,10 @@ class Olympiad extends Model
     public function isTestWork()
     {
         return $this->work_type == self::WORK_TYPE_TEST;
+    }
+
+    public function hasWork()
+    {
+        return $this->file ? true : false;
     }
 }

@@ -16,6 +16,11 @@ class Student extends Authenticatable
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
+
+    public function isGenerated()
+    {
+        return $this->status === self::STATUS_GENERATED;
+    }
 }

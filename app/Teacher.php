@@ -18,4 +18,19 @@ class Teacher extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function olympiads()
+    {
+        return $this->hasMany(Olympiad::class);
+    }
+
+    public function getFullname()
+    {
+        return $this->firstname . ' ' . $this->surname .  ' ' . $this->lastname;
+    }
+
+    public function isGenerated()
+    {
+        return $this->status === self::STATUS_GENERATED;
+    }
 }

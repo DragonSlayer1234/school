@@ -12,7 +12,7 @@ class Subject extends Model
         'name'
     ];
 
-    public function olympics()
+    public function olympiads()
     {
         return $this->hasMany(Olympiad::class);
     }

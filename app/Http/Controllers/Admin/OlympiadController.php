@@ -25,7 +25,7 @@ class OlympiadController extends Controller
     public function store(CreateOlympiadRequest $request)
     {
         $request->validated();
-        
+
         $olympiad = new Olympiad();
         $olympiad->fill($request->except('exercise'));
 

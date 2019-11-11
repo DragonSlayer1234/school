@@ -11,21 +11,55 @@ use Illuminate\Support\Facades\Auth;
 
 class OlympiadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function upcoming()
     {
-        //
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_UPCOMING)
+                    ->get();
+        return view('teacher.olympiad.upcoming', compact('olympiads'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function active()
+    {
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_ACTIVE)
+                    ->get();
+        return view('teacher.olympiad.active', compact('olympiads'));
+    }
+
+    public function draft()
+    {
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_DRAFT)
+                    ->get();
+        return view('teacher.olympiad.draft', compact('olympiads'));
+    }
+
+    public function checking()
+    {
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_CHECKING)
+                    ->get();
+        return view('teacher.olympiad.checking', compact('olympiads'));
+    }
+
+    public function moderating()
+    {
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_MODERATING)
+                    ->get();
+        return view('teacher.olympiad.moderating', compact('olympiads'));
+    }
+
+    public function rejected()
+    {
+        $olympiads = Olympiad::author(Auth::id())
+                    ->byStatus(Olympiad::STATUS_REJECTED)
+                    ->get();
+        return view('teacher.olympiad.rejected', compact('olympiads'));
+    }
+
     public function create()
     {
         $subjects = Subject::all();
@@ -33,13 +67,7 @@ class OlympiadController extends Controller
 
         return view('teacher.olympiad.create', compact('subjects', 'types'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(CreateOlympiadRequest $request)
     {
         $olympiad = new Olympiad();
@@ -49,12 +77,15 @@ class OlympiadController extends Controller
         $olympiad->status = Olympiad::STATUS_DRAFT;
         $olympiad->save();
 
-        return redirect()->route('teacher.olympiad.choose-work-type', compact('olympiad'));
+        return redirect()->route('teacher.work.choose-type', compact('olympiad'));
     }
 
-    public function choose(Olympiad $olympiad)
+    public function toModeration(Olympiad $olympiad)
     {
-        return view('teacher.olympiad.choose-work-type', compact('olympiad'));
+        $olympiad->status = Olympiad::STATUS_MODERATING;
+        $olympiad->save();
+
+        return redirect()->route('teacher.olympiad.moderating');
     }
 
     /**
@@ -65,7 +96,7 @@ class OlympiadController extends Controller
      */
     public function show(Olympiad $olympiad)
     {
-        //
+        return view('teacher.olympiad.show', compact('olympiad'));
     }
 
     /**
@@ -87,17 +118,6 @@ class OlympiadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Olympiad $olympiad)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Olympiad  $olympiad
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Olympiad $olympiad)
     {
         //
     }
