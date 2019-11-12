@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWinnersTable extends Migration
+class CreateFileWorkAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateWinnersTable extends Migration
      */
     public function up()
     {
-        Schema::create('winners', function (Blueprint $table) {
+        Schema::create('file_work_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('participant_id');
-            $table->integer('place');
+            $table->string('path');
+
         });
     }
 
@@ -27,6 +28,6 @@ class CreateWinnersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('winners');
+        Schema::dropIfExists('file_work_answers');
     }
 }

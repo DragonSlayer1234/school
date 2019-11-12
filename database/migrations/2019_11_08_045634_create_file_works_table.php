@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFileWorkTable extends Migration
+class CreateFileWorksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFileWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_work', function (Blueprint $table) {
+        Schema::create('file_works', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('olympiad_id');
             $table->string('path');
@@ -27,6 +27,6 @@ class CreateFileWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_work');
+        Schema::dropIfExists('file_works');
     }
 }

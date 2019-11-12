@@ -1,5 +1,5 @@
 @extends('student.layouts.app')
 
-@section('')
+@section('content')
     @include ('student.nav')
 @endsection

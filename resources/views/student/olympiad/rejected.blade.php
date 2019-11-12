@@ -6,14 +6,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Active olympiads</div>
+                <div class="card-header">Rejected olympiads</div>
 
                 <div class="card-body">
                   <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Participants</th>
                       </tr>
                     </thead>
 
@@ -21,7 +20,6 @@
                         @foreach($olympiads as $olympiad)
                             <tr>
                                 <td><a href="{{ route('teacher.olympiad.show', $olympiad) }}">{{ $olympiad->name }}</a></td>
-                                <td><a href="{{ route('teacher.olympiad.participants', $olympiad) }}">Participants</a></td>
                             </tr>
                         @endforeach
 

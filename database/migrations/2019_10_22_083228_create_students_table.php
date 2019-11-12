@@ -18,11 +18,12 @@ class CreateStudentsTable extends Migration
             $table->string('login')->unique();
             $table->string('firstname');
             $table->string('surname');
-            $table->string('lastname')->nullable();
+            $table->string('lastname');
             $table->string('password');
             $table->string('status');
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

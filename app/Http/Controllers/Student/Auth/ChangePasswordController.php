@@ -27,7 +27,8 @@ class ChangePasswordController extends Controller
         $user->password = bcrypt($request->password);
         $user->status = Student::STATUS_EMPTY;
         $user->save();
+        Auth::guard("student")->logout();
 
-        return redirect()->route('student.logout');
+        return redirect()->route('student.login');
     }
 }

@@ -60,6 +60,11 @@ class OlympiadController extends Controller
         return view('teacher.olympiad.rejected', compact('olympiads'));
     }
 
+    public function participants(Olympiad $olympiad)
+    {
+        return view('teacher.olympiad.participants', compact('olympiad'));
+    }
+
     public function create()
     {
         $subjects = Subject::all();
@@ -67,7 +72,7 @@ class OlympiadController extends Controller
 
         return view('teacher.olympiad.create', compact('subjects', 'types'));
     }
-    
+
     public function store(CreateOlympiadRequest $request)
     {
         $olympiad = new Olympiad();

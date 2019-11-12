@@ -15,15 +15,15 @@ class CreateOlympiadsTable extends Migration
     {
         Schema::create('olympiads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('teacher_id');
             $table->integer('subject_id');
+            $table->integer('teacher_id');
+            $table->string('name');
             $table->string('type');
             $table->string('work_type')->nullable();
-            $table->string('name');
             $table->boolean('paid');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
             $table->integer('cost')->nullable();
+            $table->datetime('start_date');
+            $table->datetime('end_date');
             $table->string('status');
             $table->timestamps();
         });

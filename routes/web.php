@@ -92,6 +92,7 @@ Route::group([
         Route::post('file/{olympiad}', 'FileWorkController@store')->name('file.store');
         Route::delete('file/{olympiad}', 'FileWorkController@delete')->name('file.delete');
 
+        Route::get('olympiad/{olympiad}/participants', 'OlympiadController@participants')->name('olympiad.participants');
     });
 
 });
@@ -108,17 +109,26 @@ Route::group([
         Route::get('login', 'LoginController@showLoginForm')->name('login-form');
         Route::post('login', 'LoginController@login')->name('login');
         Route::post('logout', 'LoginController@logout')->name('logout');
-        Route::get('profile/change-password', 'ChangePasswordController@showPasswordForm')->name('show-password-form');
-        Route::post('profile/change-password', 'ChangePasswordController@changePassword')->name('change-password');
+
+        Route::get('cabinet/change-password', 'ChangePasswordController@showPasswordForm')->name('show-password-form');
+        Route::post('cabinet/change-password', 'ChangePasswordController@changePassword')->name('change-password');
     });
 
     Route::group([
       'middleware' => ['auth:student', 'generated.user:student']
     ], function() {
+        Route::get('cabinet/edit', 'CabinetController@edit')->name('cabinet.edit');
+        Route::put('cabinet/update', 'CabinetController@update')->name('cabinet.update');
 
-        Route::get('', 'HomeController@index')->name('home');
-
-
+        Route::group([
+          'middleware' => ['empty.profile:student']
+        ], function(){
+            Route::get('', 'HomeController@index')->name('home');
+            Route::get('cabinet', 'CabinetController@index')->name('cabinet.index');
+            Route::get('olympiads/active', 'OlympiadController@active')->name('olympiad.active');
+            Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
+        });
     });
+
 
 });

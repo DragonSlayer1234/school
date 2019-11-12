@@ -23,4 +23,14 @@ class Student extends Authenticatable
     {
         return $this->status === self::STATUS_GENERATED;
     }
+
+    public function getFullname()
+    {
+        return $this->firstname . ' ' . $this->surname .  ' ' . $this->lastname;
+    }
+
+    public function isEmpty()
+    {
+        return $this->status === self::STATUS_EMPTY;
+    }
 }
