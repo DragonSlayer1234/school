@@ -41,6 +41,12 @@ Route::group([
         Route::get('student/{student}/edit', 'StudentController@edit')->name('student.edit');
         Route::put('student/{student}', 'StudentController@update')->name('student.update');
 
+        Route::get('teachers', 'TeacherController@index')->name('teacher.index');
+        Route::get('teacher/create', 'TeacherController@create')->name('teacher.create');
+        Route::post('teacher', 'TeacherController@store')->name('teacher.store');
+        Route::get('teacher/{teacher}/edit', 'TeacherController@edit')->name('teacher.edit');
+        Route::put('teacher/{teacher}', 'TeacherController@update')->name('teacher.update');
+
         Route::get('subjects', 'SubjectController@index')->name('subject.index');
         Route::get('subject/create', 'SubjectController@create')->name('subject.create');
         Route::post('subject', 'SubjectController@store')->name('subject.store');
@@ -117,14 +123,14 @@ Route::group([
     Route::group([
       'middleware' => ['auth:student', 'generated.user:student']
     ], function() {
-        Route::get('cabinet/edit', 'CabinetController@edit')->name('cabinet.edit');
+      
+        Route::get('cabinet', 'CabinetController@index')->name('cabinet.index');
         Route::put('cabinet/update', 'CabinetController@update')->name('cabinet.update');
 
         Route::group([
           'middleware' => ['empty.profile:student']
         ], function(){
             Route::get('', 'HomeController@index')->name('home');
-            Route::get('cabinet', 'CabinetController@index')->name('cabinet.index');
             Route::get('olympiads/active', 'OlympiadController@active')->name('olympiad.active');
             Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
         });

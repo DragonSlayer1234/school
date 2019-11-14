@@ -6,10 +6,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Students</div>
+                <div class="card-header">Teachers</div>
 
                 <div class="card-body">
-                  <a href="{{ route('admin.student.create') }}" class="btn btn-success">Add a student</a>
+                  <a href="{{ route('admin.teacher.create') }}" class="btn btn-success">Add a teacher</a>
                   <table class="table">
                     <thead>
                       <tr>
@@ -23,14 +23,14 @@
                     </thead>
 
                     <tbody>
-                        @foreach($students as $student)
+                        @foreach($teachers as $teacher)
                             <tr>
-                                <td>{{$student->id}}</td>
-                                <td><a href="{{route('admin.student.edit', $student)}}">{{$student->login}}</a></td>
-                                <td>{{$student->firstname}}</td>
-                                <td>{{$student->surname}}</td>
-                                <td>{{$student->lastname}}</td>
-                                <td>{{$student->status}}</td>
+                                <td>{{$teacher->id}}</td>
+                                <td><a href="{{route('admin.teacher.edit', $teacher)}}">{{$teacher->login}}</a></td>
+                                <td>{{$teacher->firstname}}</td>
+                                <td>{{$teacher->surname}}</td>
+                                <td>{{$teacher->lastname}}</td>
+                                <td>{{$teacher->status}}</td>
                             </tr>
                         @endforeach
 

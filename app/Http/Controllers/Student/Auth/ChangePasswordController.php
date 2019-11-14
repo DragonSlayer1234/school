@@ -13,7 +13,7 @@ class ChangePasswordController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:student');
+        $this->middleware(['auth:student', 'empty.profile:student']);
     }
 
     public function showPasswordForm()
@@ -25,7 +25,11 @@ class ChangePasswordController extends Controller
     {
         $user = Auth::user();
         $user->password = bcrypt($request->password);
-        $user->status = Student::STATUS_EMPTY;
+        
+        if ($user->isGenerated()) {
+            $user->status = Student::STATUS_EMPTY;
+        }
+
         $user->save();
         Auth::guard("student")->logout();
 

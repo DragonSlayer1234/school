@@ -17,7 +17,7 @@ class EmptyProfile
     public function handle($request, Closure $next, $guard)
     {
         if (Auth::guard($guard)->check() && Auth::user()->isEmpty()) {
-            return redirect()->route($guard . '.cabinet.edit');
+            return redirect()->route($guard . '.cabinet.index');
         }
         return $next($request);
     }
