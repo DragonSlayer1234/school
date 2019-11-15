@@ -1,4 +1,5 @@
 @section('nav')
+
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Users
@@ -9,6 +10,17 @@
 
         </div>
     </li>
+
     <li class="nav-item"><a class="nav-link" href="{{ route('admin.subject.index') }}">Subjects</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('admin.olympiad.index') }}">Olympiads</a></li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Olympiads
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ route('admin.olympiad.index') }}">Active</a>
+          <a class="dropdown-item" href="{{ route('admin.olympiad.moderating') }}">Moderating</a>
+
+        </div>
+    </li>
 @endsection

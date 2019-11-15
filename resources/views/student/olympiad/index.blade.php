@@ -1,38 +1,37 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('student.layouts.app')
+@include ('student.nav')
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">My olympiads</div>
+                <div class="card-header">Active olympiads</div>
 
                 <div class="card-body">
-                  <a href="{{route('teacher.olympiad.create')}}" class="btn btn-success">Add an olympiad</a>
+                  @if (session('error'))
+                      <div class="alert alert-danger">
+                          {{ session('error') }}
+                      </div>
+                  @endif
                   <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Subject</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Paid</th>
-                        <th scope="col">Start date</th>
-                        <th scope="col">End date</th>
-                        <th scope="col">Cost</th>
+                        <th scope="col">Participants</th>
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
 
                     <tbody>
                         @foreach($olympiads as $olympiad)
                             <tr>
-                                <td>{{$olympiad->name}}</td>
-                                <td>{{$olympiad->subject->name}}</td>
-                                <td>{{$olympiad->type}}</td>
-                                <td>{{ $olympiad->paid ? 'Paid' : 'Free' }}</td>
-                                <td>{{$olympiad->start_date}}</td>
-                                <td>{{$olympiad->end_date}}</td>
-                                <td>{{$olympiad->cost}}</td>
+                                <td>{{ $olympiad->name }}</td>
+                                <td><a href="{{ route('student.olympiad.participants', $olympiad) }}">show</a></td>
+                                <td><form action="{{ route('student.olympiad.join', $olympiad) }}" method="post">
+                                    @csrf
+                                    <input type="submit" value="join" class="btn btn-primary">
+                                </form></td>
                             </tr>
                         @endforeach
 

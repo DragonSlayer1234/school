@@ -73,6 +73,17 @@ class Olympiad extends Model
         return $query->where('status', $status);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', self::STATUS_UPCOMING)
+                     ->orWhere('status', self::STATUS_ACTIVE);
+    }
+
+    public function scopeModerating($query)
+    {
+        return $query->where('status', self::STATUS_MODERATING);
+    }
+
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
@@ -106,6 +117,11 @@ class Olympiad extends Model
     public function isTestWork()
     {
         return $this->work_type == self::WORK_TYPE_TEST;
+    }
+
+    public function isModerating()
+    {
+        return $this->status === self::STATUS_MODERATING;
     }
 
     public function hasWork()

@@ -10,25 +10,28 @@ use App\Participant;
 
 class OlympiadController extends Controller
 {
-    public function active()
+    public function index()
     {
-        $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_ACTIVE)
-                    ->get();
-        return view('student.olympiad.active', compact('olympiads'));
+        $olympiads = Olympiad::active()->get();
+        return view('student.olympiad.index', compact('olympiads'));
+    }
+
+    public function participants(Olympiad $olympiad)
+    {
+        return view('student.olympiad.participants', compact('olympiad'));
     }
 
     public function join(Olympiad $olympiad)
     {
         if($this->getParticipant($olympiad->id, Auth::id())){
-            return redirect()->route('student.olympiad.active')->with('error', 'you have already joined');
+            return redirect()->route('student.olympiad.index')->with('error', 'you have already joined');
         }
         $participant = new Participant();
         $participant->student_id = Auth::id();
         $participant->olympiad_id = $olympiad->id;
         $participant->save();
 
-        return redirect()->route('student.olympiad.active');
+        return redirect()->route('student.olympiad.index');
     }
 
     private function getParticipant($olympiad, $student)

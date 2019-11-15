@@ -9,6 +9,12 @@
                 <div class="card-header">Olympiads</div>
 
                 <div class="card-body">
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                   <table class="table">
                     <thead>
                       <tr>

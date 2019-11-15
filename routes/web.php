@@ -52,9 +52,13 @@ Route::group([
         Route::post('subject', 'SubjectController@store')->name('subject.store');
 
         Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
+        Route::get('olympiads/moderating', 'OlympiadController@moderating')->name('olympiad.moderating');
         Route::get('olympiad/create', 'OlympiadController@create')->name('olympiad.create');
+        Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
         Route::post('olympiad', 'OlympiadController@store')->name('olympiad.store');
         Route::post('olympiad/download', 'OlympiadController@download')->name('olympiad.download');
+        Route::post('olympiad/{olympiad}/accept', 'OlympiadController@accept')->name('olympiad.accept');
+        Route::post('olympiad/{olympiad}/reject', 'OlympiadController@reject')->name('olympiad.reject');
 
     });
 
@@ -123,7 +127,7 @@ Route::group([
     Route::group([
       'middleware' => ['auth:student', 'generated.user:student']
     ], function() {
-      
+
         Route::get('cabinet', 'CabinetController@index')->name('cabinet.index');
         Route::put('cabinet/update', 'CabinetController@update')->name('cabinet.update');
 
@@ -131,7 +135,8 @@ Route::group([
           'middleware' => ['empty.profile:student']
         ], function(){
             Route::get('', 'HomeController@index')->name('home');
-            Route::get('olympiads/active', 'OlympiadController@active')->name('olympiad.active');
+            Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
+            Route::get('olympiad/{olympiad}/participants', 'OlympiadController@participants')->name('olympiad.participants');
             Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
         });
     });

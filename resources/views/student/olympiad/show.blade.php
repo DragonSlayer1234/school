@@ -1,5 +1,5 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('student.layouts.app')
+@include ('student.nav')
 @section('content')
 
 <div class="container">

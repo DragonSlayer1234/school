@@ -1,12 +1,12 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('student.layouts.app')
+@include ('student.nav')
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Upcoming olympiads</div>
+                <div class="card-header">{{ $olympiad->name }}'s participants</div>
 
                 <div class="card-body">
                   <table class="table">
@@ -17,9 +17,9 @@
                     </thead>
 
                     <tbody>
-                        @foreach($olympiads as $olympiad)
+                        @foreach($olympiad->participants as $participant)
                             <tr>
-                                <td><a href="{{ route('teacher.olympiad.show', $olympiad) }}">{{ $olympiad->name }}</a></td>
+                                <td>{{ $participant->student->getFullname() }}</td>
                             </tr>
                         @endforeach
 
