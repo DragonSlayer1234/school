@@ -1,5 +1,4 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('layouts.app')
 @section('content')
 
 <div class="container">
@@ -13,6 +12,7 @@
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Answers</th>
                       </tr>
                     </thead>
 
@@ -20,6 +20,7 @@
                         @foreach($olympiads as $olympiad)
                             <tr>
                                 <td><a href="{{ route('teacher.olympiad.show', $olympiad) }}">{{ $olympiad->name }}</a></td>
+                                <td><a href="{{ route('teacher.olympiad.answers', $olympiad) }}">Check</a></td>
                             </tr>
                         @endforeach
 

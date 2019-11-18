@@ -1,19 +1,18 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('layouts.app')
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit the olympiad</div>
+                <div class="card-header">Create an olympiad</div>
 
                 <div class="card-body">
-                  <form method="post" action="{{route('teacher.olympiad.update', $olympiad)}}">
+                  <form method="post" action="{{route('teacher.olympiad.store')}}">
                   @csrf
                   <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Enter name" name="name" value="{{ $olympiad->name }}">
+                  <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Enter name" name="name" value="{{old('name')}}">
                   @error('name')
                       <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                   @enderror
@@ -45,7 +44,7 @@
 
                   <div class="form-group">
                   <label for="start_date">Start date</label>
-                  <input type="date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" id="start_date" placeholder="Enter startdate" name="start_date" value="{{ $olympiad->start_date }}">
+                  <input type="date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" id="start_date" placeholder="Enter startdate" name="start_date" value="{{old('start_date')}}">
 
                   @error('start_date')
                       <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
@@ -54,7 +53,7 @@
 
                   <div class="form-group">
                   <label for="end_date">End date</label>
-                  <input type="date" class="form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}" id="end_date" placeholder="Enter endDate" name="end_date" value="{{ $olympiad->end_date }}">
+                  <input type="date" class="form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}" id="end_date" placeholder="Enter endDate" name="end_date" value="{{old('end_date')}}">
                   @error('end_date')
                       <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                   @enderror
@@ -70,7 +69,7 @@
 
                   <div class="form-group">
                   <label for="cost">Cost</label>
-                  <input type="text" class="form-control{{ $errors->has('cost') ? ' is-invalid' : '' }}" id="cost" placeholder="Enter cost" name="cost" value="{{ $olympiad->cost }}">
+                  <input type="text" class="form-control{{ $errors->has('cost') ? ' is-invalid' : '' }}" id="cost" placeholder="Enter cost" name="cost" value="{{old('cost')}}">
                   @error('cost')
                       <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                   @enderror

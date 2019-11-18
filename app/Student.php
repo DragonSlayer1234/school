@@ -16,7 +16,7 @@ class Student extends Authenticatable
     ];
 
     protected $hidden = [
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     public function isGenerated()
@@ -32,5 +32,14 @@ class Student extends Authenticatable
     public function isEmpty()
     {
         return $this->status === self::STATUS_EMPTY;
+    }
+
+    public function changePassword($password)
+    {
+        if ($this->isGenerated()) {
+          $this->status = Student::STATUS_EMPTY;
+        }
+        $this->password = bcrypt($password);
+        $this->save();
     }
 }

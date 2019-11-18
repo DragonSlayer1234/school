@@ -15,7 +15,7 @@
                               <p>Starts at: {{$olympiad->start_date}}</p>
                               <p>Ends at: {{$olympiad->end_date}}</p>
                               @if ($olympiad->isFileWork())
-                                  <p><form action="{{ route('admin.olympiad.download') }}" method="POST">
+                                  <p><form action="{{ route('download') }}" method="POST">
                                       @csrf
                                       <input type="hidden" name="path" value="{{ $olympiad->file->path }}">
                                       <input type="submit" value="download" class="btn btn-primary">

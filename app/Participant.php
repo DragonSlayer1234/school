@@ -20,6 +20,6 @@ class Participant extends Model
 
     public function fileAnswer()
     {
-        return $this->belongsTo(FileWorkAnswer::class);
+        return $this->hasOne(FileWorkAnswer::class);
     }
 }

@@ -22,7 +22,8 @@ class Olympiad extends Model
     const WORK_TYPE_TEST = 'test';
 
     protected $fillable = [
-        'name', 'start_date', 'end_date', 'cost', 'subject_id', 'type', 'paid'
+        'name', 'start_date', 'end_date', 'cost', 'subject_id',
+        'type', 'paid', 'teacher_id', 'status'
     ];
 
     public static function getStatuses()
@@ -47,17 +48,16 @@ class Olympiad extends Model
         ];
     }
 
-    public static function newDraft($author, $subject, $type, $name, $paid, $startDate, $endDate, $cost = null)
+    public static function newDraft($author, $subject, $name, $type, $start_date, $end_date, $paid, $cost = null)
     {
         return static::create([
             'teacher_id' => $author,
             'subject_id' => $subject,
-            'type' => $type,
-            'work_type' => $workType,
             'name' => $name,
+            'type' => $type,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
             'paid' => $paid,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
             'cost' => $cost,
             'status' => self::STATUS_DRAFT
         ]);
@@ -76,12 +76,30 @@ class Olympiad extends Model
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_UPCOMING)
-                     ->orWhere('status', self::STATUS_ACTIVE);
+                     ->orWhere('status', self::STATUS_ACTIVE)
+                     ->orderBy('start_date', 'asc')
+                     ->orderBy('status', 'desc');
     }
 
     public function scopeModerating($query)
     {
         return $query->where('status', self::STATUS_MODERATING);
+    }
+
+    public function canSendToModeration()
+    {
+        return $this->isDraft() || $this->isRejected();
+    }
+
+    public function toModeration()
+    {
+        if (!$this->canSendToModeration()) {
+            throw new \LogicException('Can not send to moderation');
+        } elseif (!$this->hasWork()) {
+            throw new \LogicException('Can not send to moderation without work');
+        }
+        $this->status = self::STATUS_MODERATING;
+        $this->save();
     }
 
     public function teacher()
@@ -101,7 +119,7 @@ class Olympiad extends Model
 
     public function winners()
     {
-        return $this->hasMany(Winner::class);
+        return $this->hasManyThrough(Winner::class, Participant::class);
     }
 
     public function file()
@@ -122,6 +140,26 @@ class Olympiad extends Model
     public function isModerating()
     {
         return $this->status === self::STATUS_MODERATING;
+    }
+
+    public function isUpcoming()
+    {
+        return $this->status === self::STATUS_UPCOMING;
+    }
+
+    public function isActive()
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function isDraft()
+    {
+        return $this->status === self::STATUS_DRAFT;
+    }
+
+    public function isRejected()
+    {
+        return $this->status === self::STATUS_REJECTED;
     }
 
     public function hasWork()

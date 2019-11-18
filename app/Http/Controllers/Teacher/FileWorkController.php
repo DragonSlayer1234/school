@@ -15,7 +15,7 @@ class FileWorkController extends Controller
         return view('teacher.file.create', compact('olympiad'));
     }
 
-    public function store(CreateFileWorkRequest $request, Olympiad $olympiad)
+    public function attach(CreateFileWorkRequest $request, Olympiad $olympiad)
     {
         $file = new FileWork();
         $path = $request->file('file')->store('exercises');
@@ -27,7 +27,7 @@ class FileWorkController extends Controller
         return redirect()->route('teacher.olympiad.draft');
     }
 
-    public function delete(Olympiad $olympiad)
+    public function detach(Olympiad $olympiad)
     {
         Storage::delete($olympiad->file->path);
         $olympiad->file->delete();

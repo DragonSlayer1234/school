@@ -1,4 +1,4 @@
-@extends('teacher.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     @include ('teacher.nav')

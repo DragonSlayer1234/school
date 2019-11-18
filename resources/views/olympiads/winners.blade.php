@@ -1,25 +1,26 @@
-@extends('teacher.layouts.app')
-@include ('teacher.nav')
+@extends('layouts.app')
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$olympiad->name}} participants</div>
+                <div class="card-header">{{$olympiad->name}} winners</div>
 
                 <div class="card-body">
                   <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Place</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($olympiad->participants as $participant)
+                        @foreach($olympiad->winners as $winner)
                             <tr>
-                                <td>{{$participant->student->getFullname()}}</td>
+                                <td>{{$winner->participant->student->getFullname()}}</td>
+                                <td>{{$winner->place}}</td>
                             </tr>
                         @endforeach
 

@@ -1,8 +1,6 @@
 @extends('student.layouts.app')
 
 @section('content')
-    @include ('student.nav')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -20,7 +18,7 @@
                     <div class="card-header">Options</div>
 
                     <div class="card-body">
-                        <a href="{{ route('student.show-password-form') }}">Change password</a>
+                        <a href="{{ route('show-password-form') }}">Change password</a>
                     </div>
                 </div>
             </div>

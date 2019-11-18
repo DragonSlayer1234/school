@@ -1,5 +1,5 @@
-@section('nav')
-    <li class="nav-item"><a class="nav-link" href="{{route('student.home')}}">Home</a></li>
+
+    <li class="nav-item"><a class="nav-link" href="{{route('home')}}">Home</a></li>
 
 
       <li class="nav-item dropdown">
@@ -7,7 +7,6 @@
             Olympiad
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{route('student.olympiad.index')}}">Active</a>
+            <a class="dropdown-item" href="{{route('olympiad.index')}}">Active</a>
           </div>
         </li>
-@endsection
