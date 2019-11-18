@@ -15,6 +15,7 @@
                         <th scope="col">Start date</th>
                         <th scope="col">End date</th>
                         <th scope="col">Participants</th>
+                        <th scope='col'>Action</th>
                       </tr>
                     </thead>
 
@@ -25,6 +26,10 @@
                                 <td>{{$olympiad->start_date}}</td>
                                 <td>{{$olympiad->end_date}}</td>
                                 <td><a href="{{ route('olympiad.participants') }}">Participants</a></td>
+                                <td><form action="{{ route('student.olympiad.join', $olympiad) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">join</button>
+                                </form></td>
                             </tr>
                         @endforeach
 

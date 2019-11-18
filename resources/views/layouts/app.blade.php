@@ -58,9 +58,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('teacher.login-form') }}">{{ __('Teacher') }}</a>
                             </li>
+
+                        @else
+                            @yield('auth')
                         @endguest
 
-                        @yield('auth')
                     </ul>
                 </div>
             </div>

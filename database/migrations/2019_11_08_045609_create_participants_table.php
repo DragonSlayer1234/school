@@ -17,6 +17,7 @@ class CreateParticipantsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('olympiad_id');
             $table->integer('student_id');
+            $table->boolean('is_answered')->default(false);
             $table->integer('mark')->nullable();
         });
     }

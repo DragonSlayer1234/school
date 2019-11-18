@@ -12,23 +12,19 @@ class OlympiadController extends Controller
 {
     public function join(Olympiad $olympiad)
     {
-        if($this->getParticipant($olympiad->id, Auth::id())){
-            return redirect()->route('student.olympiad.file-answer-form', $olympiad);
+        if ($this->getParticipant($olympiad->id)) {
+            return redirect()->route('student.file-answer.paper', $olympiad);
         }
-        $participant = new Participant();
-        $participant->student_id = Auth::id();
-        $participant->olympiad_id = $olympiad->id;
-        $participant->save();
+        $participant = Participant::new($olympiad->id, Auth::id());
 
-        return redirect()->route('student.olympiad.file-answer-form', $olympiad);
+        return redirect()->route('student.file-answer.paper', $olympiad);
     }
 
-    private function getParticipant($olympiad, $student)
+    private function getParticipant($olympiad)
     {
-        $participant = Participant::where([
-            ['olympiad_id', $olympiad],
-            ['student_id', $student]
-        ])->first();
-        return $participant;
+        return Participant::where([
+                                ['olympiad_id', $olympiad],
+                                ['student_id', Auth::id()]
+                            ])->first();
     }
 }

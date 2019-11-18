@@ -87,30 +87,13 @@ class OlympiadController extends Controller
         return redirect()->route('teacher.olympiad.moderating');
     }
 
-    public function mark(Participant $participant, Request $request)
-    {
-        $participant->mark = $request->mark;
-        $participant->save();
-        $olympiad = $participant->olympiad;
-
-        return redirect()->route('teacher.olympiad.answers', compact('olympiad'));
-    }
-
-    public function chooseWinner(Participant $participant, Request $request)
-    {
-        $winner = new Winner();
-        $winner->participant_id = $participant->id;
-        $winner->place = $request->place;
-        $winner->save();
-        $olympiad = $participant->olympiad;
-
-        return redirect()->route('teacher.olympiad.answers', compact('olympiad'));
-    }
-
     public function announce(Olympiad $olympiad)
     {
-        $olympiad->status = Olympiad::STATUS_PASSED;
-        $olympiad->save();
+        try {
+            $olympiad->announce();
+        } catch (\LogicException $e) {
+            return redirect()->route('teacher.olympiad.checking', $olympiad);
+        }
 
         return redirect()->route('teacher.olympiad.checking');
     }

@@ -18,7 +18,7 @@ class GeneratedUser
     public function handle($request, Closure $next, $guard)
     {
         if (Auth::guard($guard)->check() && Auth::user()->isGenerated()) {
-            return redirect()->route($guard . '.show-password-form');
+            return redirect()->route('change-password');
         }
         return $next($request);
     }

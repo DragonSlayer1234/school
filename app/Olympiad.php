@@ -162,8 +162,22 @@ class Olympiad extends Model
         return $this->status === self::STATUS_REJECTED;
     }
 
+    public function isChecking()
+    {
+        return $this->status === self::STATUS_CHECKING;
+    }
+
     public function hasWork()
     {
         return $this->file ? true : false;
+    }
+
+    public function announce()
+    {
+        if (!$this->isChecking()) {
+            throw new \LogicException('Can not announce the olympiad');
+        }
+        $this->status = self::STATUS_PASSED;
+        $this->save();
     }
 }

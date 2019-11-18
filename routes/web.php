@@ -21,8 +21,8 @@ Route::get('olympiad/{olympiad}/participants', 'OlympiadController@participants'
 Route::get('olympiad/{olympiad}/winners', 'OlympiadController@winners')->name('olympiad.winners');
 Route::post('download', 'FileWorkController@download')->name('download');
 
-Route::get('change-password', 'ChangePasswordController@showPasswordForm')->name('show-password-form');
-Route::post('change-password', 'ChangePasswordController@changePassword')->name('change-password');
+Route::get('change-password', 'Auth\ChangePasswordController@showPasswordForm')->name('show-password-form');
+Route::post('change-password', 'Auth\ChangePasswordController@changePassword')->name('change-password');
 
 Route::group([
   'prefix'=>'admin',
@@ -41,6 +41,8 @@ Route::group([
     Route::group([
       'middleware' => ['auth:admin']
     ], function() {
+
+        Route::get('', 'HomeController@index')->name('home');
 
         Route::get('students', 'StudentController@index')->name('student.index');
         Route::get('student/create', 'StudentController@create')->name('student.create');
@@ -95,8 +97,7 @@ Route::group([
           'middleware' => ['empty.profile:teacher']
         ], function () {
 
-            Route::get('cabinet', 'CabinetController@index')->name('cabinet.index');
-            Route::get('profile', 'ProfileController@index')->name('profile.index');
+            Route::get('', 'CabinetController@index')->name('cabinet.index');
 
             Route::get('my-olympiads/draft', 'OlympiadController@draft')->name('olympiad.draft');
             Route::get('my-olympiads/checking', 'OlympiadController@checking')->name('olympiad.checking');
@@ -109,14 +110,13 @@ Route::group([
             Route::post('my-olympiads/{olympiad}/announce', 'OlympiadController@announce')->name('olympiad.announce');
 
             Route::post('participant/{participant}/mark', 'ParticipantController@mark')->name('participant.mark');
-            Route::post('winner/{participant}/choose', 'OlympiadController@choose')->name('winner.choose');
+            Route::post('winner/{participant}/choose', 'WinnerController@choose')->name('winner.choose');
 
             Route::get('work/{olympiad}/choose-type', 'WorkController@chooseType')->name('work.choose-type');
 
             Route::get('file-work/{olympiad}/create', 'FileWorkController@create')->name('file-work.create');
             Route::post('file-work/{olympiad}/attach', 'FileWorkController@attach')->name('file-work.attach');
-            Route::delete('file-work/{olympiad}/detach', 'FileWorkController@delete')->name('file-work.detach');
-
+            Route::delete('file-work/{olympiad}/detach', 'FileWorkController@detach')->name('file-work.detach');
 
         });
     });
@@ -150,13 +150,14 @@ Route::group([
         ], function () {
 
             Route::get('', 'CabinetController@index')->name('cabinet.index');
-            Route::get('profile', 'ProfileController@index')->name('profile.index');
 
             Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
-            Route::get('olympiad/{olympiad}/answer', 'FileWorkAnswerController@answer')->name('olympiad.answer');
 
-            Route::post('file-answer/{olympiad}/attach', 'FileWorkAnswerController@attach')->name('file-answer.attach');
-            Route::delete('file-answer/{olympiad}/detach', 'FileWorkAnswerController@detach')->name('file-answer.detach');
+            Route::post('participant/{participant}/answer', 'ParticipantController@answer')->name('participant.answer');
+            Route::get('participant/{olympiad}/paper', 'FileWorkAnswerController@paper')->name('file-answer.paper');
+
+            Route::post('file-answer/{participant}/attach', 'FileWorkAnswerController@attach')->name('file-answer.attach');
+            Route::delete('file-answer/{participant}/detach', 'FileWorkAnswerController@detach')->name('file-answer.detach');
 
         });
     });

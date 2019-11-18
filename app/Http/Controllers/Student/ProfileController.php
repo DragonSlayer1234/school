@@ -10,12 +10,6 @@ use App\Student;
 
 class ProfileController extends Controller
 {
-    public function index()
-    {
-        $student = Auth::user();
-        return view('student.profile.index', compact('student'));
-    }
-
     public function edit()
     {
         $student = Auth::user();
@@ -31,6 +25,6 @@ class ProfileController extends Controller
         $student->status = Student::STATUS_ACTIVE;
         $student->save();
 
-        return redirect()->route('student.profile.index');
+        return redirect()->route('student.profile.edit');
     }
 }

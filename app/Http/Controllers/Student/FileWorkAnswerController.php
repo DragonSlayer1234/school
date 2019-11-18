@@ -12,21 +12,35 @@ use Illuminate\Support\Facades\Auth;
 
 class FileWorkAnswerController extends Controller
 {
-    public function answer(Olympiad $olympiad)
+    public function paper(Olympiad $olympiad)
     {
-        return view('student.olympiad.answer', compact('olympiad'));
+        $participant = $this->getParticipant($olympiad->id);
+        return view('student.file-answer.paper', compact('olympiad', 'participant'));
     }
 
-    public function attach(FileWorkRequest $request, Olympiad $olympiad)
+    public function attach(FileWorkRequest $request, Participant $participant)
     {
         $file = new FileWorkAnswer();
         $path = $request->file('path')->store('answers');
         $file->path = $path;
-        $participant = Participant::where([
-            ['olympiad_id', $olympiad->id],
-            ['student_id', Auth::id()]
-        ])->first();
-        $participant->fileAnswer()->save($file);
-        return redirect()->route('student.olympiad.index');
+
+        $participant->file()->save($file);
+        return redirect()->route('student.file-answer.paper');
+    }
+
+    public function detach(Participant $participant)
+    {
+      Storage::delete($participant->file->path);
+      $participant->file->delete();
+
+      return redirect()->route('student.file-answer.paper');
+    }
+
+    private function getParticipant($olympiad)
+    {
+        return Participant::where([
+                                  ['olympiad_id', $olympiad->id],
+                                  ['student_id', Auth::id()]
+                            ])->first();
     }
 }

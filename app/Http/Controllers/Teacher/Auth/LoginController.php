@@ -43,7 +43,7 @@ class LoginController extends Controller
             $this->clearLoginAttempts($request);
             $user = Auth::user();
 
-            return redirect()->intended(route('teacher.home'));
+            return redirect()->intended(route('teacher.cabinet.index'));
         }
 
         $this->incrementLoginAttempts($request);
