@@ -13,6 +13,10 @@
 
 Auth::routes();
 
+Route::get('test', function(){
+  return view('test');
+});
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
 Route::get('olympiads/passed', 'OlympiadController@passed')->name('olympiad.passed');

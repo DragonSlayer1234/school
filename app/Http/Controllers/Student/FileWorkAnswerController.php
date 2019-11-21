@@ -6,41 +6,34 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Olympiad;
 use App\Participant;
-use App\FileWorkAnswer;
 use App\Http\Requests\FileWorkRequest;
-use Illuminate\Support\Facades\Auth;
+use App\UseCases\Student\FileWOrkAnswerService;
 
 class FileWorkAnswerController extends Controller
 {
-    public function paper(Olympiad $olympiad)
+    private $file;
+
+    public function __construct(FileWOrkAnswerService $file)
     {
-        $participant = $this->getParticipant($olympiad->id);
+        $this->file = $file;
+    }
+
+    public function paper(Olympiad $olympiad, Participant $participant)
+    {
         return view('student.file-answer.paper', compact('olympiad', 'participant'));
     }
 
     public function attach(FileWorkRequest $request, Participant $participant)
     {
-        $file = new FileWorkAnswer();
-        $path = $request->file('path')->store('answers');
-        $file->path = $path;
+        $this->file->attach($request, $participant);
 
-        $participant->file()->save($file);
         return redirect()->route('student.file-answer.paper');
     }
 
     public function detach(Participant $participant)
     {
-      Storage::delete($participant->file->path);
-      $participant->file->delete();
+        $this->file->detach($participant);
 
-      return redirect()->route('student.file-answer.paper');
-    }
-
-    private function getParticipant($olympiad)
-    {
-        return Participant::where([
-                                  ['olympiad_id', $olympiad->id],
-                                  ['student_id', Auth::id()]
-                            ])->first();
+        return redirect()->route('student.file-answer.paper');
     }
 }

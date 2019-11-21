@@ -10,9 +10,19 @@ use App\Winner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateOlympiadRequest;
 use Illuminate\Support\Facades\Auth;
+use App\UseCases\Teacher\OlympiadManagerService;
+use LogicException;
+use DomainException;
 
 class OlympiadController extends Controller
 {
+    private $olympiadManager;
+
+    public function __construct(OlympiadManagerService $olympiadManager)
+    {
+        $this->olympiadManager = $olympiadManager;
+    }
+
     public function draft()
     {
         $olympiads = Olympiad::author(Auth::id())
@@ -60,25 +70,16 @@ class OlympiadController extends Controller
 
     public function store(CreateOlympiadRequest $request)
     {
-        $olympiad = Olympiad::newDraft(
-                                  Auth::id(),
-                                  $request->subject_id,
-                                  $request->name,
-                                  $request->type,
-                                  $request->start_date,
-                                  $request->end_date,
-                                  $request->filled('paid'),
-                                  $request->cost
-                                );
+        $olympiad = $this->olympiadManager->create($request);
 
         return redirect()->route('teacher.work.choose-type', compact('olympiad'));
     }
 
-    public function toModeration(Olympiad $olympiad, Request $request)
+    public function toModeration(Request $request, Olympiad $olympiad)
     {
         try {
-            $olympiad->toModeration();
-        } catch (\LogicException $e) {
+            $this->olympiadManager->sendToModeration($olympiad);
+        } catch (LogicException $e) {
             return redirect()
                   ->route('teacher.olympiad.draft')
                   ->with('error', $e->getMessage());
@@ -90,8 +91,8 @@ class OlympiadController extends Controller
     public function announce(Olympiad $olympiad)
     {
         try {
-            $olympiad->announce();
-        } catch (\LogicException $e) {
+            $this->olympiadManager->announce($olympiad);
+        } catch (LogicException $e) {
             return redirect()->route('teacher.olympiad.checking', $olympiad);
         }
 

@@ -15,7 +15,7 @@ class Winner extends Model
         return $this->belongsTo(Participant::class);
     }
 
-    public static function choose($participant, $place)
+    public static function new($participant, $place)
     {
         return static::create([
             'participant_id' => $participant,

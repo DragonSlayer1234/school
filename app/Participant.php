@@ -33,10 +33,18 @@ class Participant extends Model
         return $this->hasOne(FileWorkAnswer::class);
     }
 
-    public function answered()
+    public function mark($mark)
     {
-        if (!$this->hasAnswer()) {
-            return \LogicException('You do not have answer');
+        $this->mark = $mark;
+        $this->save();
+    }
+
+    public function changeToAnswered()
+    {
+        if ($this->isAnswered()) {
+            throw new \LogicException('You have already answered');
+        } elseif ($this->hasAnswer()) {
+            throw new \LogicException('The participant does not have an answer');
         }
         $this->is_answered = true;
         $this->save();

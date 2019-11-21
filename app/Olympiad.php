@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Olympiad extends Model
 {
@@ -25,6 +26,8 @@ class Olympiad extends Model
         'name', 'start_date', 'end_date', 'cost', 'subject_id',
         'type', 'paid', 'teacher_id', 'status'
     ];
+
+    protected $dates = ['start_date', 'end_date'];
 
     public static function getStatuses()
     {
@@ -86,20 +89,9 @@ class Olympiad extends Model
         return $query->where('status', self::STATUS_MODERATING);
     }
 
-    public function canSendToModeration()
+    public function canChangeToModeration()
     {
         return $this->isDraft() || $this->isRejected();
-    }
-
-    public function toModeration()
-    {
-        if (!$this->canSendToModeration()) {
-            throw new \LogicException('Can not send to moderation');
-        } elseif (!$this->hasWork()) {
-            throw new \LogicException('Can not send to moderation without work');
-        }
-        $this->status = self::STATUS_MODERATING;
-        $this->save();
     }
 
     public function teacher()
@@ -172,10 +164,71 @@ class Olympiad extends Model
         return $this->file ? true : false;
     }
 
-    public function announce()
+    private function isStartTime()
+    {
+        return $this->start_date->diffInHours(Carbon::now()) === 0;
+    }
+
+    private function isEndDate()
+    {
+        return $this->end_date->diffInHours(Carbon::now()) === 0;
+    }
+
+    public function changeToUpcoming()
+    {
+        if (!$this->isModerating()) {
+            throw new \DomainException('The olympiad does not match the requirements');
+        }
+        $this->status = self::STATUS_UPCOMING;
+        $this->save();
+    }
+
+    public function changeToRejected()
+    {
+        if (!$this->isModerating()) {
+            throw new \DomainException('The olympiad does not match the requirements');
+        }
+        $this->status = self::STATUS_REJECTED;
+        $this->save();
+    }
+
+    public function changeToActive()
+    {
+        if (!$this->isUpcoming()) {
+            throw new \DomainException('The olympiad does not match the requirements');
+        } elseif (!$this->isStartTime()) {
+            throw new \LogicException('Current time does not match the start date');
+        }
+        $this->status = self::STATUS_ACTIVE;
+        $this->save();
+    }
+
+    public function changeToChecking()
+    {
+        if (!$this->isActive()) {
+            throw new \DomainException('The olympiad does not match the requirements');
+        } elseif (!$this->isEndDate()) {
+            throw new \LogicException('Current time does not match the end date');
+        }
+        $this->status = self::STATUS_CHECKING;
+        $this->save();
+    }
+
+    public function changeToModeration()
+    {
+        if (!$this->canChangeToModeration()) {
+            throw new \DomainException('The olympiad does not match the requirements');
+        } elseif (!$this->hasWork()) {
+            throw new \LogicException('The olympiad does not have a work');
+        }
+        $this->status = self::STATUS_MODERATING;
+        $this->save();
+    }
+
+    public function changeToPassed()
     {
         if (!$this->isChecking()) {
-            throw new \LogicException('Can not announce the olympiad');
+            throw new \DomainException('The olympiad does not match the requirements');
         }
         $this->status = self::STATUS_PASSED;
         $this->save();

@@ -7,10 +7,17 @@ use App\Http\Requests\CreateOlympiadRequest;
 use Illuminate\Http\Request;
 use App\Olympiad;
 use App\Subject;
-use Illuminate\Support\Facades\Storage;
+use App\UseCases\Admin\OlympiadManagerService;
 
 class OlympiadController extends Controller
 {
+    private $olympiadManager;
+
+    public function __construct(OlympiadManagerService $olympiadManager)
+    {
+        $this->olympiadManager = $olympiadManager
+    }
+
     public function index()
     {
         $olympiads = Olympiad::active()->get();
@@ -34,31 +41,46 @@ class OlympiadController extends Controller
         return view('admin.olympiads.show', compact('olympiad'));
     }
 
-    public function accept(Olympiad $olympiad)
+    public function accept(Request $request, Olympiad $olympiad)
     {
-        $olympiad->status = Olympiad::STATUS_UPCOMING;
-        $olympiad->save();
+        try {
+            $this->olympiadManager->accept($olympiad);
+        } catch (\DomainException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
+
         return redirect()->route('admin.olympiad.moderating');
     }
 
     public function reject(Olympiad $olympiad)
-    {
-        $olympiad->status = Olympiad::STATUS_REJECTED;
-        $olympiad->save();
+      {
+        try {
+            $this->olympiadManager->reject($olympiad);
+        } catch (\DomainException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
+
         return redirect()->route('admin.olympiad.moderating');
     }
 
     public function start(Olympiad $olympiad)
     {
-        $olympiad->status = Olympiad::STATUS_ACTIVE;
-        $olympiad->save();
+        try {
+            $this->olympiadManager->start($olympiad);
+        } catch (\DomainException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
+
         return redirect()->route('admin.olympiad.index');
     }
 
     public function finish(Olympiad $olympiad)
     {
-        $olympiad->status = Olympiad::STATUS_CHECKING;
-        $olympiad->save();
+        try {
+            $this->olympiadManager->finish($olympiad);
+        } catch (\DomainException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
         return redirect()->route('admin.olympiad.index');
     }
 }

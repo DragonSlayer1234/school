@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Teacher;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateTeacherRequest;
-use App\Http\Requests\UpdateTeacherRequest;
+use App\Http\Requests\Admin\CreateTeacherRequest;
+use App\Http\Requests\Admin\UpdateTeacherRequest;
+use App\UseCases\Admin\TeacherService;
+use App\Teacher;
 
 class TeacherController extends Controller
 {
+    private $teacherService;
+
+    public function __construct(TeacherService $teacherService)
+    {
+        $this->teacherService = $teacherService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,13 +46,7 @@ class TeacherController extends Controller
      */
     public function store(CreateTeacherRequest $request)
     {
-        $validated = $request->validated();
-
-        $teacher = new Teacher();
-        $teacher->fill($validated);
-        $teacher->password = bcrypt('12345');
-        $teacher->status = Teacher::STATUS_GENERATED;
-        $teacher->save();
+        $this->teacherService->generate($request);
 
         return redirect()->route('admin.teacher.index');
     }
@@ -83,10 +82,14 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
-        $validated = $request->validated();
+        $this->teacherService->updateInformation($teacher, $request);
 
-        $teacher->fill($validated);
-        $teacher->save();
+        return redirect()->route('admin.teacher.index');
+    }
+
+    public function resetPassword(Teacher $teacher)
+    {
+        $this->teacherService->resetPassword($teacher);
 
         return redirect()->route('admin.teacher.index');
     }

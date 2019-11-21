@@ -24,7 +24,7 @@ class CreateFileWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file'
+            'path' => 'required|file'
         ];
     }
 }

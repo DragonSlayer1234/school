@@ -3,15 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Student;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Admin\CreateStudentRequest;
+use App\Http\Requests\Admin\UpdateStudentRequest;
+use App\UseCases\Admin\StudentService;
+use App\Student;
 
 class StudentController extends Controller
 {
+    private $studentService;
+
+    public function __construct(StudentService $studentService)
+    {
+        $this->studentService = $studentService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,13 +46,7 @@ class StudentController extends Controller
      */
     public function store(CreateStudentRequest $request)
     {
-        $validated = $request->validated();
-
-        $student = new Student();
-        $student->fill($validated);
-        $student->password = bcrypt('12345');
-        $student->status = Student::STATUS_GENERATED;
-        $student->save();
+        $this->studentService->generate($request);
 
         return redirect()->route('admin.student.index');
     }
@@ -87,10 +86,14 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        $validated = $request->validated();
+        $this->studentService->updateInformation($student, $request);
 
-        $student->fill($validated);
-        $student->save();
+        return redirect()->route('admin.student.index');
+    }
+
+    public function resetPassword(Student $student)
+    {
+        $this->studentService->resetPassword($student);
 
         return redirect()->route('admin.student.index');
     }

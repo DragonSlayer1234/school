@@ -6,7 +6,7 @@ use Route;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class GeneratedUser
+class GeneratedPassword
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class GeneratedUser
      */
     public function handle($request, Closure $next, $guard)
     {
-        if (Auth::guard($guard)->check() && Auth::user()->isGenerated()) {
+        if (Auth::guard($guard)->check() && Auth::user()->isGeneratedPassword()) {
             return redirect()->route('change-password');
         }
         return $next($request);

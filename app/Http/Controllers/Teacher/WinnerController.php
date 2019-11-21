@@ -9,9 +9,9 @@ use App\Winner;
 
 class WinnerController extends Controller
 {
-    public function chooseWinner(Participant $participant, Request $request)
+    public function choose(WinnerService $service, Participant $participant, Request $request)
     {
-        Winner::choose($participant->id, $request->place);
+        $service->choose($participant, $place);
 
         return redirect()->route('teacher.olympiad.answers', $participant->olympiad);
     }
