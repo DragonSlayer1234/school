@@ -3,8 +3,8 @@
 namespace App\UseCases\Admin;
 
 use App\Student;
-use App\Http\Requests\CreateStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Admin\CreateStudentRequest;
+use App\Http\Requests\Admin\UpdateStudentRequest;
 
 class StudentService
 {

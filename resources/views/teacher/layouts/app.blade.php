@@ -24,8 +24,12 @@
                     <div class="card-header">Options</div>
 
                     <div class="card-body">
-                        <p><a href="{{ route('show-password-form') }}" class="btn btn-outline-danger">Change password</a></p>
+                        <p><a href="{{ route('teacher.olympiad.draft') }}" class="btn btn-outline-success">My olympiads</a></p>
+                        <p><a href="{{ route('teacher.olympiad.moderating') }}" class="btn btn-outline-primary">Olympiads on moderation</a></p>
+                        <p><a href="{{ route('teacher.olympiad.checking') }}" class="btn btn-outline-primary">Checking olympiads</a></p>
+                        <p><a href="{{ route('teacher.olympiad.rejected') }}" class="btn btn-outline-danger">Rejected olympiads</a></p>
                         <p><a href="{{ route('teacher.profile.edit') }}" class="btn btn-outline-info">Edit profile</a></p>
+                        <p><a href="{{ route('show-password-form') }}" class="btn btn-outline-danger">Change password</a></p>
                     </div>
                 </div>
             </div>

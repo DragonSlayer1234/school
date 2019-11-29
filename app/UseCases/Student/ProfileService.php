@@ -3,7 +3,7 @@
 namespace App\UseCases\Student;
 
 use App\Student;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
 
 class ProfileService
 {

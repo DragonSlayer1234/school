@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateStudentRequest;
 use App\Http\Requests\Admin\UpdateStudentRequest;
 use App\UseCases\Admin\StudentService;
+use Illuminate\Support\Facades\Auth;
 use App\Student;
 
 class StudentController extends Controller
@@ -59,9 +60,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('admin.students.edit', [
-            'student'=>$student
-        ]);
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -72,9 +71,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('admin.students.edit',[
-            'student' => $student
-        ]);
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -94,6 +91,7 @@ class StudentController extends Controller
     public function resetPassword(Student $student)
     {
         $this->studentService->resetPassword($student);
+        Auth::guard('student')->logout();
 
         return redirect()->route('admin.student.index');
     }

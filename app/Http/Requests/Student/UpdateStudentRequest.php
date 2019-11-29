@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateFileWorkRequest extends FormRequest
+class UpdateStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class CreateFileWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'path' => 'required|file'
+            'firstname' => 'required|alpha',
+            'surname' => 'required|alpha',
+            'lastname' => 'nullable|alpha'
         ];
     }
 }

@@ -25,7 +25,7 @@
                                 <td>{{$olympiad->name}}</td>
                                 <td>{{$olympiad->start_date}}</td>
                                 <td>{{$olympiad->end_date}}</td>
-                                <td><a href="{{ route('olympiad.participants') }}">Participants</a></td>
+                                <td><a href="{{ route('olympiad.participants', $olympiad) }}">Participants</a></td>
                                 <td><form action="{{ route('student.olympiad.join', $olympiad) }}" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">join</button>

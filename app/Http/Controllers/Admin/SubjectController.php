@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubjectRequest;
+use App\Http\Requests\Admin\SubjectRequest;
 
 class SubjectController extends Controller
 {
@@ -38,20 +38,9 @@ class SubjectController extends Controller
      */
     public function store(SubjectRequest $request)
     {
-        $validated=$request->validated();
-        $subject = Subject::create($validated);
-        return redirect()->route('admin.subject.index');
-    }
+        Subject::new($request->name);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Subject $subject)
-    {
-        //
+        return redirect()->route('admin.subject.index');
     }
 
     /**
@@ -62,7 +51,7 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        //
+        return view('admin.subjects.edit', compact('subject'));
     }
 
     /**
@@ -74,17 +63,8 @@ class SubjectController extends Controller
      */
     public function update(SubjectRequest $request, Subject $subject)
     {
-        //
-    }
+        $subject->rename($request->name);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Subject  $subject
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Subject $subject)
-    {
-        //
+        return redirect()->route('admin.subject.index');
     }
 }

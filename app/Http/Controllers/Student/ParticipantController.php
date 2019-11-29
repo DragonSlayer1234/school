@@ -12,11 +12,11 @@ class ParticipantController extends Controller
     public function answer(Request $request, ParticipantService $service, Participant $participant)
     {
         try {
-            $service->answered();
+            $service->answered($participant);
         } catch (\LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->route('student.file-answer.paper', $participant->olympiad);
+        return redirect()->route('student.file-answer.paper', $participant);
     }
 }

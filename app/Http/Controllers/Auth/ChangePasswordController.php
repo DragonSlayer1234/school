@@ -12,7 +12,7 @@ class ChangePasswordController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth:student,teacher', 'empty.profile:student,teacher']);
+        $this->middleware(['auth:student,teacher', 'empty.profile:student', 'empty.profile:teacher']);
     }
 
     public function showPasswordForm()

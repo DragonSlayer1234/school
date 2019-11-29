@@ -166,12 +166,12 @@ class Olympiad extends Model
 
     private function isStartTime()
     {
-        return $this->start_date->diffInHours(Carbon::now()) === 0;
+        return $this->start_date->diffInDays(Carbon::now()) === 0;
     }
 
     private function isEndDate()
     {
-        return $this->end_date->diffInHours(Carbon::now()) === 0;
+        return $this->end_date->diffInDays(Carbon::now()) === 0;
     }
 
     public function changeToUpcoming()

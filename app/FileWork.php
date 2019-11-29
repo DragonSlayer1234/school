@@ -8,7 +8,7 @@ class FileWork extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'olympiad_id'];
 
     public function answers()
     {

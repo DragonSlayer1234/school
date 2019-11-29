@@ -4,7 +4,7 @@ namespace App\UseCases\Teacher;
 
 use App\Olympiad;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CreateOlympiadRequest;
+use App\Http\Requests\Teacher\CreateOlympiadRequest;
 
 class OlympiadManagerService
 {

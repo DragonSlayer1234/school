@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTeacherRequest extends FormRequest
+class UpdateTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class CreateTeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|unique:teachers,login|alpha|string|max:60',
             'firstname' => 'required|alpha',
             'surname' => 'required|alpha',
-            'lastname' => 'alpha|nullable'
+            'lastname' => 'nullable|alpha'
         ];
     }
 }

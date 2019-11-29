@@ -13,7 +13,6 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Name</th>
                       </tr>
                     </thead>
@@ -21,8 +20,7 @@
                     <tbody>
                         @foreach($subjects as $subject)
                             <tr>
-                                <td>{{$subject->id}}</td>
-                                <td>{{$subject->name}}</td>
+                                <td><a href="{{ route('admin.subject.edit', $subject) }}">{{ $subject->name }}</a></td>
                             </tr>
                         @endforeach
 

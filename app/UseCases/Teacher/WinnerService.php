@@ -3,6 +3,7 @@
 namespace App\UseCases\Teacher;
 
 use App\Winner;
+use App\Participant;
 
 class WinnerService
 {

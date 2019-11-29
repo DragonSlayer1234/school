@@ -23,7 +23,7 @@
                       <a href="{{ route('teacher.work.choose-type', $olympiad) }}" class="btn btn-primary">attach</a>
                     @else
                       @if ($olympiad->isFileWork())
-                        <form action="{{ route('teacher.file.delete', $olympiad) }}" method="post">
+                        <form action="{{ route('teacher.file-work.detach', $olympiad) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="submit" value="detach">

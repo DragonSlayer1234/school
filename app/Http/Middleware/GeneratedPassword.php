@@ -17,7 +17,9 @@ class GeneratedPassword
      */
     public function handle($request, Closure $next, $guard)
     {
-        if (Auth::guard($guard)->check() && Auth::user()->isGeneratedPassword()) {
+        if (Auth::guard($guard)->check() &&
+          (Auth::user()->isGeneratedPassword()
+          || Auth::user()->isGeneratedUser())) {
             return redirect()->route('change-password');
         }
         return $next($request);

@@ -18,6 +18,11 @@ class Participant extends Model
         ]);
     }
 
+    public function scopeAnswered($query)
+    {
+        return $query->where('is_answered', true);
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class);
@@ -33,6 +38,21 @@ class Participant extends Model
         return $this->hasOne(FileWorkAnswer::class);
     }
 
+    public function hasFileAnswer()
+    {
+        return $this->file ? true : false;
+    }
+
+    public function hasAnswer()
+    {
+        return $this->hasFileAnswer();
+    }
+
+    public function isAnswered()
+    {
+        return $this->is_answered;
+    }
+
     public function mark($mark)
     {
         $this->mark = $mark;
@@ -43,7 +63,7 @@ class Participant extends Model
     {
         if ($this->isAnswered()) {
             throw new \LogicException('You have already answered');
-        } elseif ($this->hasAnswer()) {
+        } elseif (!$this->hasAnswer()) {
             throw new \LogicException('The participant does not have an answer');
         }
         $this->is_answered = true;

@@ -4,7 +4,7 @@
 
 @section('main-content')
 
-    <form method="post" action="{{route('teacher.olympiad.store')}}">
+    <form method="post" action="{{ route('teacher.olympiad.store') }}">
         @csrf
         <div class="form-group">
         <label for="name">Name</label>

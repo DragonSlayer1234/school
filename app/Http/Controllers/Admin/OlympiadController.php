@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateOlympiadRequest;
 use Illuminate\Http\Request;
+use App\UseCases\Admin\OlympiadManagerService;
 use App\Olympiad;
 use App\Subject;
-use App\UseCases\Admin\OlympiadManagerService;
+use DomainException;
+use LogicException;
 
 class OlympiadController extends Controller
 {
@@ -15,7 +16,7 @@ class OlympiadController extends Controller
 
     public function __construct(OlympiadManagerService $olympiadManager)
     {
-        $this->olympiadManager = $olympiadManager
+        $this->olympiadManager = $olympiadManager;
     }
 
     public function index()
@@ -45,40 +46,40 @@ class OlympiadController extends Controller
     {
         try {
             $this->olympiadManager->accept($olympiad);
-        } catch (\DomainException $e) {
+        } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
         return redirect()->route('admin.olympiad.moderating');
     }
 
-    public function reject(Olympiad $olympiad)
+    public function reject(Request $request, Olympiad $olympiad)
       {
         try {
             $this->olympiadManager->reject($olympiad);
-        } catch (\DomainException $e) {
+        } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
         return redirect()->route('admin.olympiad.moderating');
     }
 
-    public function start(Olympiad $olympiad)
+    public function start(Request $request, Olympiad $olympiad)
     {
         try {
             $this->olympiadManager->start($olympiad);
-        } catch (\DomainException $e) {
+        } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
         return redirect()->route('admin.olympiad.index');
     }
 
-    public function finish(Olympiad $olympiad)
+    public function finish(Request $request, Olympiad $olympiad)
     {
         try {
             $this->olympiadManager->finish($olympiad);
-        } catch (\DomainException $e) {
+        } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
         return redirect()->route('admin.olympiad.index');

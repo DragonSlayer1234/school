@@ -48,21 +48,13 @@ Route::group([
 
         Route::get('', 'HomeController@index')->name('home');
 
-        Route::get('students', 'StudentController@index')->name('student.index');
-        Route::get('student/create', 'StudentController@create')->name('student.create');
-        Route::post('student', 'StudentController@store')->name('student.store');
-        Route::get('student/{student}/edit', 'StudentController@edit')->name('student.edit');
-        Route::put('student/{student}', 'StudentController@update')->name('student.update');
+        Route::resource('student', 'StudentController');
+        Route::post('student/{student}/reset-password', 'StudentController@resetPassword')->name('student.reset-password');
 
-        Route::get('teachers', 'TeacherController@index')->name('teacher.index');
-        Route::get('teacher/create', 'TeacherController@create')->name('teacher.create');
-        Route::post('teacher', 'TeacherController@store')->name('teacher.store');
-        Route::get('teacher/{teacher}/edit', 'TeacherController@edit')->name('teacher.edit');
-        Route::put('teacher/{teacher}', 'TeacherController@update')->name('teacher.update');
+        Route::resource('teacher', 'TeacherController');
+        Route::post('teacher/{teacher}/reset-password', 'TeacherController@resetPassword')->name('teacher.reset-password');
 
-        Route::get('subjects', 'SubjectController@index')->name('subject.index');
-        Route::get('subject/create', 'SubjectController@create')->name('subject.create');
-        Route::post('subject', 'SubjectController@store')->name('subject.store');
+        Route::resource('subject', 'SubjectController');
 
         Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
         Route::get('olympiads/moderating', 'OlympiadController@moderating')->name('olympiad.moderating');
@@ -91,7 +83,7 @@ Route::group([
     });
 
     Route::group([
-      'middleware' => ['auth:teacher', 'generated.user:teacher']
+      'middleware' => ['auth:teacher', 'generated.password:teacher']
     ], function() {
 
         Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
@@ -109,6 +101,7 @@ Route::group([
             Route::get('my-olympiads/rejected', 'OlympiadController@rejected')->name('olympiad.rejected');
             Route::get('my-olympiads/{olympiad}/answers', 'OlympiadController@answers')->name('olympiad.answers');
             Route::get('my-olympiad/create', 'OlympiadController@create')->name('olympiad.create');
+            Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
             Route::post('my-olympiad', 'OlympiadController@store')->name('olympiad.store');
             Route::post('my-olympiad/{olympiad}/to-moderation', 'OlympiadController@toModeration')->name('olympiad.to-moderation');
             Route::post('my-olympiads/{olympiad}/announce', 'OlympiadController@announce')->name('olympiad.announce');
@@ -143,7 +136,7 @@ Route::group([
     });
 
     Route::group([
-      'middleware' => ['auth:student', 'generated.user:student']
+      'middleware' => ['auth:student', 'generated.password:student']
     ], function() {
 
         Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
@@ -157,8 +150,8 @@ Route::group([
 
             Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
 
+            Route::get('participant/{participant}/paper', 'FileWorkAnswerController@paper')->name('file-answer.paper');
             Route::post('participant/{participant}/answer', 'ParticipantController@answer')->name('participant.answer');
-            Route::get('participant/{olympiad}/paper', 'FileWorkAnswerController@paper')->name('file-answer.paper');
 
             Route::post('file-answer/{participant}/attach', 'FileWorkAnswerController@attach')->name('file-answer.attach');
             Route::delete('file-answer/{participant}/detach', 'FileWorkAnswerController@detach')->name('file-answer.detach');

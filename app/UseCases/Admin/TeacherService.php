@@ -3,8 +3,8 @@
 namespace App\UseCases\Admin;
 
 use App\Teacher;
-use App\Http\Requests\CreateTeacherRequest;
-use App\Http\Requests\UpdateTeacherRequest;
+use App\Http\Requests\Admin\CreateTeacherRequest;
+use App\Http\Requests\Admin\UpdateTeacherRequest;
 
 class TeacherService
 {

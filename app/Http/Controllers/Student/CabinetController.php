@@ -11,6 +11,7 @@ class CabinetController extends Controller
     public function index()
     {
         $student = Auth::user();
+        
         return view('student.cabinet.index', compact('student'));
     }
 }

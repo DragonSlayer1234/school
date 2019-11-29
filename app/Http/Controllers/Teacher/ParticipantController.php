@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Participant;
 use App\UseCases\Teacher\ParticipantService;
+use App\Participant;
 
 class ParticipantController extends Controller
 {

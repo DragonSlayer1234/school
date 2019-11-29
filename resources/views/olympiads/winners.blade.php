@@ -12,6 +12,7 @@
                     <thead>
                       <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Mark</th>
                         <th scope="col">Place</th>
                       </tr>
                     </thead>
@@ -20,6 +21,7 @@
                         @foreach($olympiad->winners as $winner)
                             <tr>
                                 <td>{{$winner->participant->student->getFullname()}}</td>
+                                <td>{{$winner->participant->mark}}</td>
                                 <td>{{$winner->place}}</td>
                             </tr>
                         @endforeach

@@ -13,24 +13,23 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Login</th>
-                        <th scope="col">Firstname</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Lastname</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Reset password</th>
                       </tr>
                     </thead>
 
                     <tbody>
                         @foreach($teachers as $teacher)
                             <tr>
-                                <td>{{$teacher->id}}</td>
                                 <td><a href="{{route('admin.teacher.edit', $teacher)}}">{{$teacher->login}}</a></td>
-                                <td>{{$teacher->firstname}}</td>
-                                <td>{{$teacher->surname}}</td>
-                                <td>{{$teacher->lastname}}</td>
+                                <td>{{$teacher->getFullname()}}</td>
                                 <td>{{$teacher->status}}</td>
+                                <td><form action="{{ route('admin.teacher.reset-password', $teacher) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">reset</button>
+                                </form></td>
                             </tr>
                         @endforeach
 

@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Olympiad;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\CreateOlympiadRequest;
+use Illuminate\Support\Facades\Auth;
+use App\UseCases\Teacher\OlympiadManagerService;
 use App\Subject;
 use App\Participant;
 use App\Winner;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateOlympiadRequest;
-use Illuminate\Support\Facades\Auth;
-use App\UseCases\Teacher\OlympiadManagerService;
 use LogicException;
 use DomainException;
 
@@ -28,7 +28,7 @@ class OlympiadController extends Controller
         $olympiads = Olympiad::author(Auth::id())
                     ->byStatus(Olympiad::STATUS_DRAFT)
                     ->get();
-        return view('teacher.olympiad.draft', compact('olympiads'));
+        return view('teacher.olympiads.draft', compact('olympiads'));
     }
 
     public function checking()
@@ -36,7 +36,7 @@ class OlympiadController extends Controller
         $olympiads = Olympiad::author(Auth::id())
                     ->byStatus(Olympiad::STATUS_CHECKING)
                     ->get();
-        return view('teacher.olympiad.checking', compact('olympiads'));
+        return view('teacher.olympiads.checking', compact('olympiads'));
     }
 
     public function moderating()
@@ -44,7 +44,7 @@ class OlympiadController extends Controller
         $olympiads = Olympiad::author(Auth::id())
                     ->byStatus(Olympiad::STATUS_MODERATING)
                     ->get();
-        return view('teacher.olympiad.moderating', compact('olympiads'));
+        return view('teacher.olympiads.moderating', compact('olympiads'));
     }
 
     public function rejected()
@@ -52,12 +52,13 @@ class OlympiadController extends Controller
         $olympiads = Olympiad::author(Auth::id())
                     ->byStatus(Olympiad::STATUS_REJECTED)
                     ->get();
-        return view('teacher.olympiad.rejected', compact('olympiads'));
+        return view('teacher.olympiads.rejected', compact('olympiads'));
     }
 
     public function answers(Olympiad $olympiad)
     {
-        return view('teacher.olympiad.answers', compact('olympiad'));
+        $participants = $olympiad->participants()->answered()->get();
+        return view('teacher.olympiads.answers', compact('olympiad', 'participants'));
     }
 
     public function create()
@@ -65,7 +66,7 @@ class OlympiadController extends Controller
         $subjects = Subject::all();
         $types = Olympiad::getTypes();
 
-        return view('teacher.olympiad.create', compact('subjects', 'types'));
+        return view('teacher.olympiads.create', compact('subjects', 'types'));
     }
 
     public function store(CreateOlympiadRequest $request)
@@ -80,12 +81,10 @@ class OlympiadController extends Controller
         try {
             $this->olympiadManager->sendToModeration($olympiad);
         } catch (LogicException $e) {
-            return redirect()
-                  ->route('teacher.olympiad.draft')
-                  ->with('error', $e->getMessage());
+            $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->route('teacher.olympiad.moderating');
+        return redirect()->route('teacher.olympiad.draft');
     }
 
     public function announce(Olympiad $olympiad)
@@ -93,10 +92,15 @@ class OlympiadController extends Controller
         try {
             $this->olympiadManager->announce($olympiad);
         } catch (LogicException $e) {
-            return redirect()->route('teacher.olympiad.checking', $olympiad);
+            $request->session()->flash('error', $e->getMessage());
         }
 
         return redirect()->route('teacher.olympiad.checking');
+    }
+
+    public function show(Olympiad $olympiad)
+    {
+        return view('olympiads.show', compact('olympiad'));
     }
 
     /**

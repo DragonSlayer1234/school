@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Olympiad;
 use App\Participant;
 use App\Http\Requests\FileWorkRequest;
-use App\UseCases\Student\FileWOrkAnswerService;
+use App\UseCases\Student\FileWorkAnswerService;
 
 class FileWorkAnswerController extends Controller
 {
@@ -18,22 +17,32 @@ class FileWorkAnswerController extends Controller
         $this->file = $file;
     }
 
-    public function paper(Olympiad $olympiad, Participant $participant)
+    public function paper(Participant $participant)
     {
-        return view('student.file-answer.paper', compact('olympiad', 'participant'));
+        $olympiad = $participant->olympiad;
+        return view('student.file-answer.paper', compact('participant', 'olympiad'));
     }
 
     public function attach(FileWorkRequest $request, Participant $participant)
     {
-        $this->file->attach($request, $participant);
+        try {
+            $this->file->attach($request, $participant);
+        } catch (\LogicException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
 
-        return redirect()->route('student.file-answer.paper');
+
+        return redirect()->route('student.file-answer.paper', $participant);
     }
 
-    public function detach(Participant $participant)
+    public function detach(Request $request, Participant $participant)
     {
-        $this->file->detach($participant);
+        try {
+            $this->file->detach($participant);
+        } catch (\LogicException $e) {
+            $request->session()->flash('error', $e->getMessage());
+        }
 
-        return redirect()->route('student.file-answer.paper');
+        return redirect()->route('student.file-answer.paper', $participant);
     }
 }

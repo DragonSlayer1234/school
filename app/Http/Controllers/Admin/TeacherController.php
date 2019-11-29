@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateTeacherRequest;
 use App\Http\Requests\Admin\UpdateTeacherRequest;
 use App\UseCases\Admin\TeacherService;
+use Illuminate\Support\Facades\Auth;
 use App\Teacher;
 
 class TeacherController extends Controller
@@ -90,6 +91,7 @@ class TeacherController extends Controller
     public function resetPassword(Teacher $teacher)
     {
         $this->teacherService->resetPassword($teacher);
+        Auth::guard('teacher')->logout();
 
         return redirect()->route('admin.teacher.index');
     }

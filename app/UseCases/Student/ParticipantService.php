@@ -11,15 +11,15 @@ class ParticipantService
     {
         $participant = $this->get($olympiad->id, $student);
 
-        if ($participant) {
-            return $participant;
+        if (!$participant) {
+            $participant = Participant::new($olympiad->id, $student);
         }
-        return $participant = Participant::new($olympiad->id, $student);
+        return $participant;
     }
 
     public function answered(Participant $participant)
     {
-        $participant-changeToAnswered();
+        $participant->changeToAnswered();
     }
 
     private function get($olympiad, $student)

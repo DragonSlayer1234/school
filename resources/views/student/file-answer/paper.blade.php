@@ -2,7 +2,7 @@
 
 @section('main-title', $olympiad->name . "'s answer paper")
 
-@section('content')
+@section('main-content')
 
     <p>
         <form action="{{ route('download') }}" method="POST">

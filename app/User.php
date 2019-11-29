@@ -9,6 +9,7 @@ class User extends Authenticatable
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
     const STATUS_EMPTY_PROFILE = 'empty profile';
+    const STATUS_GENERATED_USER = 'generated user';
     const STATUS_GENERATED_PASSWORD = 'generated password';
 
     protected $fillable = [
@@ -27,7 +28,7 @@ class User extends Authenticatable
             'firstname' => $firstname,
             'surname' => $surname,
             'lastname' => $lastname,
-            'status' => self::STATUS_GENERATED_PASSWORD
+            'status' => self::STATUS_GENERATED_USER
         ]);
     }
 
@@ -43,7 +44,12 @@ class User extends Authenticatable
 
     public function isGeneratedPassword()
     {
-        return $this->status === self::STATUS_GENERATED;
+        return $this->status === self::STATUS_GENERATED_PASSWORD;
+    }
+
+    public function isGeneratedUser()
+    {
+        return $this->status === self::STATUS_GENERATED_USER;
     }
 
     public function isEmptyProfile()
@@ -58,8 +64,10 @@ class User extends Authenticatable
 
     public function changePassword($password)
     {
-        if ($this->isGenerated()) {
-          $this->status = self::STATUS_EMPTY_PROFILE;
+        if ($this->isGeneratedUser()) {
+            $this->status = self::STATUS_EMPTY_PROFILE;
+        } else {
+            $this->status = self::STATUS_ACTIVE;
         }
         $this->password = bcrypt($password);
         $this->save();

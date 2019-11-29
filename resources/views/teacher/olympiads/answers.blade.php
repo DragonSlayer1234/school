@@ -14,20 +14,20 @@
       </thead>
 
       <tbody>
-          @foreach($olympiad->participants as $participant)
+          @foreach($participants as $participant)
               <tr>
                   <td>{{ $participant->student->getFullname() }}</td>
-                  <td><form action="{{ route('download') }}" method="post">
-                      @csrf
-                      <input type="hidden" name="path" value="{{ $participant->fileAnswer->path }}">
-                      <button type="submit">download</button>
-                  </form></td>
-                  <td><form action="{{ route('teacher.olympiad.mark', $participant) }}" method="post">
+                    <td><form action="{{ route('download') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="path" value="{{ $participant->file->path }}">
+                        <button type="submit">download</button>
+                    </form></td>
+                  <td><form action="{{ route('teacher.participant.mark', $participant) }}" method="post">
                       @csrf
                       <input type="text" name="mark" value="{{ $participant->mark }}">
                       <button type="submit">mark</button>
                   </form></td>
-                  <td><form action="{{ route('teacher.olympiad.choose-winner', $participant) }}" method="post">
+                  <td><form action="{{ route('teacher.winner.choose', $participant) }}" method="post">
                       @csrf
                       <input type="text" name="place">
                       <button type="submit">winner</button>

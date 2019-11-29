@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\UseCases\Teacher\ProfileService;
 use App\Teacher;
 
 class ProfileController extends Controller
@@ -16,14 +17,10 @@ class ProfileController extends Controller
         return view('teacher.profile.edit', compact('teacher'));
     }
 
-    public function update(UpdateStudentRequest $request)
+    public function update(UpdateTeacherRequest $request, ProfileService $profile)
     {
-        $validated = $request->validated();
         $teacher = Auth::user();
-
-        $teacher->fill($validated);
-        $teacher->status = Teacher::STATUS_ACTIVE;
-        $teacher->save();
+        $profile->edit($request, $teacher);
 
         return redirect()->route('teacher.profile.edit');
     }
