@@ -1,5 +1,11 @@
 @extends('teacher.layouts.app')
 
+@section('links')
+
+    <link href="{{ asset('css/summernote.css') }}" rel="stylesheet">
+
+@endsection
+
 @section('main-title', 'Attach file')
 
 @section('main-content')
@@ -29,9 +35,39 @@
 @endsection
 
 @section('scripts')
+  <script src="{{ asset('js/summernote.min.js') }}">
+
+  </script>
   <script>
     $(document).ready(function() {
-        $('#summernote').summernote();
+        $('#summernote').summernote({
+          callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+                that = $(this);
+            }
+          }
+        });
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        function sendFile(file, editor, welEditable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "{{ route('upload') }}",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    $(that).summernote('insertImage', url)
+                }
+            });
+        };
     });
   </script>
 @endsection

@@ -18,11 +18,6 @@ class Participant extends Model
         ]);
     }
 
-    public function scopeAnswered($query)
-    {
-        return $query->where('is_answered', true);
-    }
-
     public function student()
     {
         return $this->belongsTo(Student::class);
@@ -33,40 +28,19 @@ class Participant extends Model
         return $this->belongsTo(Olympiad::class);
     }
 
-    public function file()
+    public function answer()
     {
-        return $this->hasOne(FileWorkAnswer::class);
-    }
-
-    public function hasFileAnswer()
-    {
-        return $this->file ? true : false;
+        return $this->belongsTo(File::class, 'answer_id');
     }
 
     public function hasAnswer()
     {
-        return $this->hasFileAnswer();
-    }
-
-    public function isAnswered()
-    {
-        return $this->is_answered;
+        return $this->answer()->exists();
     }
 
     public function mark($mark)
     {
         $this->mark = $mark;
-        $this->save();
-    }
-
-    public function changeToAnswered()
-    {
-        if ($this->isAnswered()) {
-            throw new \LogicException('You have already answered');
-        } elseif (!$this->hasAnswer()) {
-            throw new \LogicException('The participant does not have an answer');
-        }
-        $this->is_answered = true;
         $this->save();
     }
 }

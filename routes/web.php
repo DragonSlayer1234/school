@@ -24,6 +24,7 @@ Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympia
 Route::get('olympiad/{olympiad}/participants', 'OlympiadController@participants')->name('olympiad.participants');
 Route::get('olympiad/{olympiad}/winners', 'OlympiadController@winners')->name('olympiad.winners');
 Route::post('download', 'FileWorkController@download')->name('download');
+Route::post('upload', 'ImageController@upload')->name('upload');
 
 Route::get('change-password', 'Auth\ChangePasswordController@showPasswordForm')->name('show-password-form');
 Route::post('change-password', 'Auth\ChangePasswordController@changePassword')->name('change-password');
@@ -32,7 +33,7 @@ Route::group([
   'prefix'=>'admin',
   'as'=>'admin.',
   'namespace'=>'Admin',
-], function(){
+], function() {
 
     Route::group([
       'namespace' => 'Auth'

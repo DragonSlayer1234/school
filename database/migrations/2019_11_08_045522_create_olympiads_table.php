@@ -15,17 +15,14 @@ class CreateOlympiadsTable extends Migration
     {
         Schema::create('olympiads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('subject_id');
-            $table->integer('teacher_id');
+            $table->integer('subject_id')->unsigned();
+            $table->integer('teacher_id')->unsigned();
+            $table->integer('work_id')->unsigned();
             $table->string('name');
-            $table->string('type');
-            $table->string('work_type')->nullable();
-            $table->boolean('paid');
-            $table->integer('cost')->nullable();
+            $table->integer('cost');
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->string('status');
-            $table->timestamps();
         });
     }
 

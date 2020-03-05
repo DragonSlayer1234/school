@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" ></script>
+
 
 
     <!-- Fonts -->
@@ -19,11 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+
+    @yield('links')
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -38,32 +41,15 @@
 
                         <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Olympiads
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('olympiad.index') }}">Active</a>
-                                <a class="dropdown-item" href="{{ route('olympiad.passed') }}">Passed</a>
-                            </div>
-                          </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">News</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="{{ route('olympiad.index') }}">Olympiads</a></li>
 
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('student.login-form') }}">{{ __('Student') }}</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('teacher.login-form') }}">{{ __('Teacher') }}</a>
-                            </li>
-
-                        @else
-                            @yield('auth')
-                        @endguest
+                        @include('layouts.auth')
 
                     </ul>
                 </div>
@@ -71,12 +57,11 @@
         </nav>
 
         <main class="py-4">
-            <div class="container">
-                @include('layouts.flash')
-            </div>
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ asset('js/app.js') }}" ></script>
     @yield('scripts')
 </body>
 </html>

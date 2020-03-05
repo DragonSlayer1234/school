@@ -15,9 +15,9 @@ class CreateParticipantsTable extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('olympiad_id');
-            $table->integer('student_id');
-            $table->boolean('is_answered')->default(false);
+            $table->integer('olympiad_id')->unsigned();
+            $table->integer('student_id')->unsigned();
+            $table->integer('answer_id')->unsigned()->nullable();
             $table->integer('mark')->nullable();
         });
     }

@@ -1,13 +1,15 @@
 @extends('admin.layouts.app')
-@include ('admin.nav')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Update</div>
 
                 <div class="card-body">
+                    <div class="avatar text-center">
+                        <img src="https://pngimage.net/wp-content/uploads/2018/05/cabello-de-naruto-png-3.png" alt="">
+                    </div>
                   <form method="post" action="{{route('admin.teacher.update', $teacher)}}">
                       @csrf
                       @method('PUT')

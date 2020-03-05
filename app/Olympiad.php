@@ -15,17 +15,12 @@ class Olympiad extends Model
     const STATUS_MODERATING = 'moderating';
     const STATUS_REJECTED = 'rejected';
 
-    const TYPE_SCHOOL = 'school';
-    const TYPE_CITY = 'city';
-    const TYPE_REGIONAL = 'regional';
-
-    const WORK_TYPE_FILE = 'file';
-    const WORK_TYPE_TEST = 'test';
-
     protected $fillable = [
-        'name', 'start_date', 'end_date', 'cost', 'subject_id',
-        'type', 'paid', 'teacher_id', 'status'
+        'name', 'start_date', 'end_date', 'cost', 'subject_id', 'teacher_id',
+        'status', 'work_id'
     ];
+
+    public $timestamps = false;
 
     protected $dates = ['start_date', 'end_date'];
 
@@ -42,25 +37,16 @@ class Olympiad extends Model
         ];
     }
 
-    public static function getTypes()
-    {
-        return [
-            self::TYPE_SCHOOL,
-            self::TYPE_CITY,
-            self::TYPE_REGIONAL
-        ];
-    }
-
-    public static function newDraft($author, $subject, $name, $type, $start_date, $end_date, $paid, $cost = null)
+    public static function newDraft($author, $subject, $work, $name,
+                                    $start_date, $end_date, $cost)
     {
         return static::create([
             'teacher_id' => $author,
             'subject_id' => $subject,
+            'work_id' => $work,
             'name' => $name,
-            'type' => $type,
             'start_date' => $start_date,
             'end_date' => $end_date,
-            'paid' => $paid,
             'cost' => $cost,
             'status' => self::STATUS_DRAFT
         ]);
@@ -111,22 +97,27 @@ class Olympiad extends Model
 
     public function winners()
     {
-        return $this->hasManyThrough(Winner::class, Participant::class);
+        return $this->hasMany(Winner::class);
     }
 
-    public function file()
+    public function work()
     {
-        return $this->hasOne(FileWork::class);
+        return $this->belongsTo(File::class, 'work_id');
     }
 
-    public function isFileWork()
+    public function participate(Student $student)
     {
-        return $this->work_type == self::WORK_TYPE_FILE;
+        if ($this->hasParticipant($student)) {
+            return;
+        }
+        return Participant::new($this->id, $student->id);
     }
 
-    public function isTestWork()
+    public function hasParticipant(Student $student)
     {
-        return $this->work_type == self::WORK_TYPE_TEST;
+        return $this->participants()
+                    ->where('student_id', $student->id)
+                    ->exists();
     }
 
     public function isModerating()
@@ -157,11 +148,6 @@ class Olympiad extends Model
     public function isChecking()
     {
         return $this->status === self::STATUS_CHECKING;
-    }
-
-    public function hasWork()
-    {
-        return $this->file ? true : false;
     }
 
     private function isStartTime()
@@ -218,8 +204,6 @@ class Olympiad extends Model
     {
         if (!$this->canChangeToModeration()) {
             throw new \DomainException('The olympiad does not match the requirements');
-        } elseif (!$this->hasWork()) {
-            throw new \LogicException('The olympiad does not have a work');
         }
         $this->status = self::STATUS_MODERATING;
         $this->save();

@@ -15,9 +15,10 @@ class CreateWinnersTable extends Migration
     {
         Schema::create('winners', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('participant_id');
+            $table->integer('olympiad_id')->unsigned();
+            $table->integer('participant_id')->unsigned();
             $table->integer('place');
-            
+
         });
     }
 

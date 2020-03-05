@@ -64,9 +64,8 @@ class OlympiadController extends Controller
     public function create()
     {
         $subjects = Subject::all();
-        $types = Olympiad::getTypes();
 
-        return view('teacher.olympiads.create', compact('subjects', 'types'));
+        return view('teacher.olympiads.create', compact('subjects'));
     }
 
     public function store(CreateOlympiadRequest $request)

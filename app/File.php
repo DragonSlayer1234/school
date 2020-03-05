@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FileWorkAnswer extends Model
+class File extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['path', 'participant_id'];
+    protected $fillable = ['path'];
 }
