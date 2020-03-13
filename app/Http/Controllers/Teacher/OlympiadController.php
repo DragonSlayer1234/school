@@ -23,43 +23,43 @@ class OlympiadController extends Controller
         $this->olympiadManager = $olympiadManager;
     }
 
-    public function draft()
-    {
-        $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_DRAFT)
-                    ->get();
-        return view('teacher.olympiads.draft', compact('olympiads'));
-    }
-
-    public function checking()
-    {
-        $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_CHECKING)
-                    ->get();
-        return view('teacher.olympiads.checking', compact('olympiads'));
-    }
-
-    public function moderating()
+    public function index()
     {
         $olympiads = Olympiad::author(Auth::id())
                     ->byStatus(Olympiad::STATUS_MODERATING)
                     ->get();
-        return view('teacher.olympiads.moderating', compact('olympiads'));
+        return view('teacher.olympiads.index', compact('olympiads'));
     }
 
-    public function rejected()
+    public function upcoming()
     {
         $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_REJECTED)
+                    ->byStatus(Olympiad::STATUS_UPCOMING)
                     ->get();
-        return view('teacher.olympiads.rejected', compact('olympiads'));
+        return view('teacher.olympiads.upcoming', compact('olympiads'));
     }
 
-    public function answers(Olympiad $olympiad)
-    {
-        $participants = $olympiad->participants()->answered()->get();
-        return view('teacher.olympiads.answers', compact('olympiad', 'participants'));
-    }
+    // public function checking()
+    // {
+    //     $olympiads = Olympiad::author(Auth::id())
+    //                 ->byStatus(Olympiad::STATUS_CHECKING)
+    //                 ->get();
+    //     return view('teacher.olympiads.checking', compact('olympiads'));
+    // }
+    //
+    // public function rejected()
+    // {
+    //     $olympiads = Olympiad::author(Auth::id())
+    //                 ->byStatus(Olympiad::STATUS_REJECTED)
+    //                 ->get();
+    //     return view('teacher.olympiads.rejected', compact('olympiads'));
+    // }
+    //
+    // public function answers(Olympiad $olympiad)
+    // {
+    //     $participants = $olympiad->participants()->answered()->get();
+    //     return view('teacher.olympiads.answers', compact('olympiad', 'participants'));
+    // }
 
     public function create()
     {
@@ -72,35 +72,35 @@ class OlympiadController extends Controller
     {
         $olympiad = $this->olympiadManager->create($request);
 
-        return redirect()->route('teacher.work.choose-type', compact('olympiad'));
-    }
-
-    public function toModeration(Request $request, Olympiad $olympiad)
-    {
-        try {
-            $this->olympiadManager->sendToModeration($olympiad);
-        } catch (LogicException $e) {
-            $request->session()->flash('error', $e->getMessage());
-        }
-
-        return redirect()->route('teacher.olympiad.draft');
-    }
-
-    public function announce(Olympiad $olympiad)
-    {
-        try {
-            $this->olympiadManager->announce($olympiad);
-        } catch (LogicException $e) {
-            $request->session()->flash('error', $e->getMessage());
-        }
-
-        return redirect()->route('teacher.olympiad.checking');
+        return redirect()->route('teacher.olympiad.index');
     }
 
     public function show(Olympiad $olympiad)
     {
-        return view('olympiads.show', compact('olympiad'));
+        return view('teacher.olympiads.show', compact('olympiad'));
     }
+
+    // public function toModeration(Request $request, Olympiad $olympiad)
+    // {
+    //     try {
+    //         $this->olympiadManager->sendToModeration($olympiad);
+    //     } catch (LogicException $e) {
+    //         $request->session()->flash('error', $e->getMessage());
+    //     }
+    //
+    //     return redirect()->route('teacher.olympiad.draft');
+    // }
+    //
+    // public function announce(Olympiad $olympiad)
+    // {
+    //     try {
+    //         $this->olympiadManager->announce($olympiad);
+    //     } catch (LogicException $e) {
+    //         $request->session()->flash('error', $e->getMessage());
+    //     }
+    //
+    //     return redirect()->route('teacher.olympiad.checking');
+    // }
 
     /**
      * Show the form for editing the specified resource.

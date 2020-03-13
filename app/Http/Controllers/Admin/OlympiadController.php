@@ -19,16 +19,12 @@ class OlympiadController extends Controller
         $this->olympiadManager = $olympiadManager;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $olympiads = Olympiad::active()->get();
-        return view('admin.olympiads.index', compact('olympiads'));
-    }
+        $status = $request->status;
+        $olympiads = Olympiad::byStatus($status)->paginate(10);
 
-    public function moderating()
-    {
-        $olympiads = Olympiad::moderating()->get();
-        return view('admin.olympiads.moderating', compact('olympiads'));
+        return view('admin.olympiads.index', compact('olympiads', 'status'));
     }
 
     public function create()
@@ -45,31 +41,36 @@ class OlympiadController extends Controller
     public function accept(Request $request, Olympiad $olympiad)
     {
         try {
-            $this->olympiadManager->accept($olympiad);
+            $olympiad->changeToUpcoming();
+            $request->session()->flash('success', 'Олимпиада была успешно принята');
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->route('admin.olympiad.moderating');
+        return redirect()->route('admin.olympiad.index');
     }
 
     public function reject(Request $request, Olympiad $olympiad)
       {
         try {
-            $this->olympiadManager->reject($olympiad);
+            $olympiad->changeToRejected();
+            $request->session()->flash('success', 'Олимпиада была успешно отклонена');
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->route('admin.olympiad.moderating');
+        return redirect()->route('admin.olympiad.index');
     }
 
     public function start(Request $request, Olympiad $olympiad)
     {
         try {
-            $this->olympiadManager->start($olympiad);
+            $olympiad->changeToActive();
+            $request->session()
+                    ->flash('success', "Олимпиада {$olympiad->name}  началась");
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
+            return redirect()->route('admin.olympiad.show', $olympiad->id);
         }
 
         return redirect()->route('admin.olympiad.index');

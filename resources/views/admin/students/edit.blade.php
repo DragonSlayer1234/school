@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="row">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-header">Update student information</div>
+    <div class="row justify-content-center">
+        <div class="col-7">
+            <div class="card mt-3">
+                <div class="card-header text-center">Update student information</div>
 
                 <div class="card-body">
-                    <div class="avatar text-center">
+                    <div class="avatar text-center mb-2">
                         <img src="https://pngimage.net/wp-content/uploads/2018/05/cabello-de-naruto-png-3.png" alt="">
                     </div>
 
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>

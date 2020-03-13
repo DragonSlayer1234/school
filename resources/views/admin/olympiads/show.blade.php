@@ -1,38 +1,91 @@
 @extends('admin.layouts.app')
-@include ('admin.nav')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{$olympiad->name}}</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                @include('admin.layouts.alert')
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <span class="mr-1"><i class="fas fa-pen"></i></span>
+                            {{$olympiad->name}}
 
-                <div class="card-body">
-                              <p>Subject: {{$olympiad->subject->name}}</p>
-                              <p>Type: {{$olympiad->type}}</p>
-                              <p>Cost: {{ $olympiad->paid ? $olympiad->cost : 'Free' }}</p>
-                              <p>Starts at: {{$olympiad->start_date}}</p>
-                              <p>Ends at: {{$olympiad->end_date}}</p>
-                              @if ($olympiad->isFileWork())
-                                  <p><form action="{{ route('download') }}" method="POST">
-                                      @csrf
-                                      <input type="hidden" name="path" value="{{ $olympiad->file->path }}">
-                                      <input type="submit" value="download" class="btn btn-primary">
-                                  </form></p>
-                              @endif
-                              <p><form action="{{ route('admin.olympiad.accept', $olympiad) }}" method="POST">
-                                      @csrf
-                                      <input type="submit" value="accept" class="btn btn-success">
-                                  </form>
-                                  <form action="{{ route('admin.olympiad.reject', $olympiad) }}" method="POST">
-                                      @csrf
-                                      <input type="submit" value="reject" class="btn btn-danger">
-                                  </form>
-                              </p>
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <p>
+                            Описание: {{ $olympiad->description }}
+                        </p>
+                        <p>Предмет: {{$olympiad->subject->name}}</p>
+                        <p>Цена: {{ $olympiad->paid ? $olympiad->cost : 'Free' }}</p>
+                        <p>Начало: {{$olympiad->start_date}}</p>
+                        <p>Конец: {{$olympiad->end_date}}</p>
+
+                    </div>
+                </div>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        @if ($olympiad->isModeration())
+                            <form action="{{ route('admin.olympiad.accept', $olympiad->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-success" type="submit">Принять</button>
+                            </form>
+                            <form action="{{ route('admin.olympiad.reject', $olympiad->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-primary" type="submit">Отклонить</button>
+                            </form>
+
+                        @elseif ($olympiad->isUpcoming())
+                            <form action="{{ route('admin.olympiad.start', $olympiad->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-success" type="submit">Принять</button>
+                            </form>
+
+                        @elseif ($olympiad->isCheck())
+                            <form action="{{ route('admin.olympiad.finish', $olympiad->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-success" type="submit">Принять</button>
+                            </form>
+
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card">
+
+                    <div class="card-body">
+                        <a href="{{ route('download', ['path' => $olympiad->work->path]) }}">
+                            <i class="fas fa-download"></i> Скачать задание
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <span class="mr-1"><i class="fas fa-users"></i></span>
+                            Участники
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            @foreach ($olympiad->participants as $participant)
+                                <li class="list-group-item">
+                                    - {{ $participant->student->getFullname() }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

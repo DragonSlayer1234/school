@@ -25,8 +25,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
-        return view('admin.students.index', compact('students'));
+        $users = Student::paginate(10);
+        $active = 'student';
+        $title = 'ученика';
+        return view('admin.users.index', compact('users', 'active', 'title'));
     }
 
     /**
@@ -36,7 +38,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.students.create');
+        $title = 'Создать ученика';
+        $active = 'student';
+        return view('admin.users.create', compact('title', 'active'));
     }
 
     /**
@@ -47,7 +51,12 @@ class StudentController extends Controller
      */
     public function store(CreateStudentRequest $request)
     {
-        $this->studentService->generate($request);
+        $student = Student::generate(
+            $request->username,
+            $request->firstname,
+            $request->lastname,
+            $request->surname
+        );
 
         return redirect()->route('admin.student.index');
     }

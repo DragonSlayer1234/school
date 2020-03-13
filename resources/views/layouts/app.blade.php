@@ -14,54 +14,48 @@
 
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
-    @yield('links')
-
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">News</a></li>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('olympiad.index') }}">Olympiads</a></li>
+                </ul>
 
-                        <li class="nav-item"><a class="nav-link" href="{{ route('olympiad.index') }}">Olympiads</a></li>
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        @include('layouts.auth')
-
-                    </ul>
-                </div>
+                <ul class="navbar-nav ml-auto">
+                    @include('layouts.auth')
+                </ul>
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <main class="container mt-5">
+        <div class="row justify-content-center">
 
-    <script src="{{ asset('js/app.js') }}" ></script>
-    @yield('scripts')
+            <div class="col-11">
+                @yield('content')
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="{{ asset('js/app.js') }}" ></script>
+@yield('scripts')
 </body>
 </html>

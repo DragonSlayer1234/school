@@ -11,7 +11,7 @@ class StudentService
     public function generate(CreateStudentRequest $request)
     {
         $student = Student::generate(
-          $request->login,
+          $request->username,
           $request->firstname,
           $request->surname,
           $request->lastname

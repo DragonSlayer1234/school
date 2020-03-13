@@ -29,18 +29,25 @@ html, body, #app, .container, .row {
     <div id="app">
         <main class="container">
             <div class="row justify-content-center align-items-center">
-                <div class="col-md-5">
+                <div class="col-4">
                     <div class="card">
-                        <div class="card-header text-center">Login to Admin Panel</div>
+                        <div class="card-header text-center">Вход в панель администратора</div>
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.login') }}">
                                 @csrf
 
                                 <div class="form-group">
-                                    <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" autofocus placeholder="Login">
-
-                                    @error('login')
+                                    <input
+                                        id="username"
+                                        type="text"
+                                        class="form-control @error('username') is-invalid @enderror"
+                                        name="username"
+                                        value="{{ old('username') }}"
+                                        autofocus
+                                        placeholder="Имя пользователя"
+                                    >
+                                    @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -48,8 +55,13 @@ html, body, #app, .container, .row {
                                 </div>
 
                                 <div class="form-group">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
-
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        name="password"
+                                        placeholder="Пароль"
+                                    >
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -59,17 +71,21 @@ html, body, #app, .container, .row {
 
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="remember"
+                                            id="remember" {{ old('remember') ? 'checked' : '' }}
+                                        >
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('Запомнить меня') }}
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-0 text-center">
                                     <button type="submit" class="form-control btn btn-primary">
-                                        {{ __('Sign in') }}
+                                        {{ __('Войти') }}
                                     </button>
                                 </div>
                             </form>

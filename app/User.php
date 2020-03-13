@@ -3,32 +3,34 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+abstract class User extends Authenticatable
 {
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
-    const STATUS_EMPTY_PROFILE = 'empty profile';
-    const STATUS_GENERATED_USER = 'generated user';
-    const STATUS_GENERATED_PASSWORD = 'generated password';
 
     protected $fillable = [
-        'login', 'password', 'firstname', 'surname', 'lastname', 'status'
+        'username', 'password', 'firstname', 'surname', 'lastname', 'status',
+        'generated_password'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public static function generate($login, $firstname, $surname, $lastname = null)
+    public static function generate($username, $firstname, $lastname, $surname = null)
     {
+        $password = Str::random(10);
+
         return static::create([
-            'login' => $login,
-            'password' => bcrypt('12345'),
+            'username' => $username,
+            'password' => bcrypt($password),
+            'generated_password' => $password,
             'firstname' => $firstname,
-            'surname' => $surname,
             'lastname' => $lastname,
-            'status' => self::STATUS_GENERATED_USER
+            'surname' => $surname,
+            'status' => self::STATUS_ACTIVE
         ]);
     }
 
@@ -42,19 +44,9 @@ class User extends Authenticatable
         return $this->status === self::STATUS_INACTIVE;
     }
 
-    public function isGeneratedPassword()
+    public function resetGeneratedPassword()
     {
-        return $this->status === self::STATUS_GENERATED_PASSWORD;
-    }
-
-    public function isGeneratedUser()
-    {
-        return $this->status === self::STATUS_GENERATED_USER;
-    }
-
-    public function isEmptyProfile()
-    {
-        return $this->status === self::STATUS_EMPTY_PROFILE;
+        $this->generated_password = null;
     }
 
     public function getFullname()
@@ -64,19 +56,24 @@ class User extends Authenticatable
 
     public function changePassword($password)
     {
-        if ($this->isGeneratedUser()) {
-            $this->status = self::STATUS_EMPTY_PROFILE;
-        } else {
-            $this->status = self::STATUS_ACTIVE;
-        }
+        $this->resetGeneratedPassword();
         $this->password = bcrypt($password);
         $this->save();
     }
 
     public function resetPassword()
     {
-        $this->password = bcrypt('12345');
-        $this->status = self::STATUS_GENERATED_PASSWORD;
+        $password = Str::random(10);
+        $this->password = bcrypt($password);
+        $this->generated_password = $password;
+        $this->save();
+    }
+
+    public function edit($firstname, $lastname, $surname = null)
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->surname = $surname;
         $this->save();
     }
 }

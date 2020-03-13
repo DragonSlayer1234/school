@@ -43,4 +43,13 @@ class Participant extends Model
         $this->mark = $mark;
         $this->save();
     }
+
+    public function addAnswer(File $answer)
+    {
+        if ($this->hasAnswer()) {
+            return;
+        }
+        $this->answer()->associate($answer);
+        $this->save();
+    }
 }

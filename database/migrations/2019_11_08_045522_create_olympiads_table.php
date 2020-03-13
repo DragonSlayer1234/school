@@ -19,6 +19,7 @@ class CreateOlympiadsTable extends Migration
             $table->integer('teacher_id')->unsigned();
             $table->integer('work_id')->unsigned();
             $table->string('name');
+            $table->text('description');
             $table->integer('cost');
             $table->datetime('start_date');
             $table->datetime('end_date');

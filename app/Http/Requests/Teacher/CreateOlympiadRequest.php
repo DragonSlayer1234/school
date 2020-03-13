@@ -26,12 +26,12 @@ class CreateOlympiadRequest extends FormRequest
     public function rules()
     {
         return [
-            'subject_id' => 'required|exists:subjects,id',
             'name' => 'required|string|alpha_dash',
-            'type' => ['required', Rule::in(Olympiad::getTypes())],
-            'start_date' => 'required|date|after_or_equal:today',
-            'end_date' => 'required|date|after:start_date',
-            'cost' => 'nullable|required_if:paid,on|integer',
+            'subject' => 'required|exists:subjects,id',
+            'startDate' => 'required|date|after_or_equal:today',
+            'endDate' => 'required|date|after:startDate',
+            'cost' => 'required|integer',
+            'work' => 'required|file'
         ];
     }
 }

@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
-@include ('admin.nav')
+
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-7">
             <div class="card">
-                <div class="card-header">Create a subject</div>
+                <div class="card-header">Редактирование предмета</div>
 
                 <div class="card-body">
                   <form method="post" action="{{ route('admin.subject.update', $subject) }}">
@@ -14,14 +14,16 @@
                       @method('PUT')
 
                       <div class="form-group">
-                          <label for="name">Name</label>
-                          <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Enter name" name="name" value="{{ $subject->name }}">
+                          <label for="name">Название</label>
+                          <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Введите название" name="name" value="{{ $subject->name }}">
                           @error('name')
                               <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                           @enderror
                       </div>
 
-                      <button type="submit" class="btn btn-primary">Update</button>
+                      <div class="form-group text-center">
+                          <button type="submit" class="btn btn-primary">Обновить</button>
+                      </div>
                   </form>
                 </div>
             </div>

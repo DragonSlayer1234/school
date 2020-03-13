@@ -24,10 +24,10 @@ class CreateStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|unique:students,login|alpha|string|max:60',
+            'username' => 'required|unique:students,username|alpha|string|max:60',
             'firstname' => 'required|alpha',
-            'surname' => 'required|alpha',
-            'lastname' => 'alpha|nullable'
+            'lastname' => 'required|alpha',
+            'surname' => 'alpha|nullable'
         ];
     }
 }

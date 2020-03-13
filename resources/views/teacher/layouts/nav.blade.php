@@ -1,5 +1,26 @@
-
-    <li class="nav-item"><a class="nav-link" href="{{ route('teacher.olympiad.draft') }}">Drafts</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('teacher.olympiad.checking') }}">Checking</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('teacher.olympiad.rejected') }}">Rejected</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('teacher.olympiad.moderating') }}">Moderating</a></li>
+<div class="list-group list-group-flush">
+    <a
+        href="{{ route('teacher.profile.edit') }}"
+        class="list-group-item {{ $active === 'profile.edit' ? 'active' : '' }}"
+    >
+        Редактировать профиль
+    </a>
+    <a
+        href="{{ route('teacher.profile.password-form') }}"
+        class="list-group-item {{ $active === 'profile.password' ? 'active' : '' }}"
+    >
+        Сменить пароль
+    </a>
+    <a
+        href="{{ route('teacher.olympiad.index') }}"
+        class="list-group-item {{ $active === 'olympiad.index' ? 'active' : '' }}"
+    >
+        Олимпиады
+    </a>
+    <a
+        href="{{ route('teacher.olympiad.index') }}"
+        class="list-group-item {{ $active === 'olympiad.index' ? 'active' : '' }}"
+    >
+        Активные олимпиады
+    </a>
+</div>

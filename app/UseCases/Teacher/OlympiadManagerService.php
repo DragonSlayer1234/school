@@ -3,6 +3,7 @@
 namespace App\UseCases\Teacher;
 
 use App\Olympiad;
+use App\File;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Teacher\CreateOlympiadRequest;
 
@@ -10,14 +11,20 @@ class OlympiadManagerService
 {
     public function create(CreateOlympiadRequest $request)
     {
-        $olympiad = Olympiad::newDraft (
-            Auth::id(),
-            $request->subject_id,
+        $teacher = Auth::user();
+        $path = $request->work->store("works/{$teacher->id}", 'public');
+
+        $work = File::create([
+            'path' => $path
+        ]);
+
+        $olympiad = Olympiad::new (
+            $teacher->id,
+            $request->subject,
+            $work->id,
             $request->name,
-            $request->type,
-            $request->start_date,
-            $request->end_date,
-            $request->filled('paid'),
+            $request->startDate,
+            $request->endDate,
             $request->cost
         );
 

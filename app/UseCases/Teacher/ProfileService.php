@@ -20,4 +20,9 @@ class ProfileService
         }
         $teacher->save();
     }
+
+    public function changePassword(Teacher $teacher, $password)
+    {
+        $teacher->changePassword($password);
+    }
 }

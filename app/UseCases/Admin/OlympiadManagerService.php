@@ -23,6 +23,6 @@ class OlympiadManagerService
 
     public function finish(Olympiad $olympiad)
     {
-        $olympiad->changeToChecking();
+        $olympiad->changeToCheck();
     }
 }

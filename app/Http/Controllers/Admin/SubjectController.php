@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Subject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SubjectRequest;
+use App\Http\Requests\Admin\CreateSubjectRequest;
+use App\Http\Requests\Admin\EditSubjectRequest;
 
 class SubjectController extends Controller
 {
@@ -16,7 +17,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        $subjects = Subject::paginate(10);
         return view('admin.subjects.index', compact('subjects'));
     }
 
@@ -36,9 +37,10 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubjectRequest $request)
+    public function store(CreateSubjectRequest $request)
     {
-        Subject::new($request->name);
+        $path = $request->image->store('subjects/', 'public');
+        Subject::new($request->name, $path);
 
         return redirect()->route('admin.subject.index');
     }
@@ -61,7 +63,7 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(SubjectRequest $request, Subject $subject)
+    public function update(EditSubjectRequest $request, Subject $subject)
     {
         $subject->rename($request->name);
 

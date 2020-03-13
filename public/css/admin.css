@@ -1,55 +1,66 @@
-.user-image {
-  width: 50px;
-  height: 50px;
+html,
+body {
+  height: 100%;
+  background-color: rgba(var(--b3f, 250, 250, 250), 1);
+  font-family: "Rubik", sans-serif;
 }
 
-.link-custom {
-  font-size: 16px;
+.custom-tabs a.nav-link {
+  text-transform: uppercase;
+  border-bottom: 2px solid inherit !important;
+  color: #9e9e9e;
 }
 
-.btn-custom {
-  font-size: 16px;
-  color: #1d68a7;
+.custom-tabs a.active {
+  border: none;
+  border-radius: 0;
+  background-color: inherit !important;
+  border-bottom: 2px solid #262626 !important;
+  color: #262626 !important;
 }
 
-.fullname {
-  font-size: 14px;
-  font-weight: 700;
+.custom-tabs a:hover {
+  color: #9e9e9e !important;
 }
 
-.username {
-  color: #3462ad;
+.btn-danger {
+  background-color: inherit !important;
+  border: 0;
+  color: #c41818 !important;
 }
 
-.card-header {
+.btn-danger:hover {
+  color: #850000 !important;
+}
+
+.input-group-text {
+  background-color: inherit;
+  border-left: none;
+}
+
+.input-group input {
+  border-right-color: white;
+}
+
+.input-group input:focus {
+  box-shadow: none;
+  outline: none !important;
+}
+
+.card-footer {
   background-color: inherit;
 }
 
-table {
-  table-layout: fixed;
+.sort {
+  width: 300px;
 }
 
-.btn-custom:hover {
-  color: #0f436e;
+td {
+  vertical-align: middle !important;
 }
 
-.card-body .list-group-item {
-  border: none !important;
-}
-
-.link-icon {
-  display: inline-block;
-  width: 20px;
-}
-
-.auth {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.avatar img {
-  width: 200px;
-  height: 200px;
-  border-radius: 10px;
+.subject img {
+  width: 40px;
+  height: 40px;
 }
 

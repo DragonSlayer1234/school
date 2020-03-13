@@ -25,8 +25,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::all();
-        return view('admin.teachers.index', compact('teachers'));
+        $users = Teacher::paginate(10);
+        $active = 'teacher';
+        $title = 'учителя';
+        return view('admin.users.index', compact('users', 'active', 'title'));
     }
 
     /**
@@ -36,7 +38,9 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('admin.teachers.create');
+        $title = 'Создать учителя';
+        $active = 'teacher';
+        return view('admin.users.create', compact('title', 'active'));
     }
 
     /**
@@ -47,7 +51,12 @@ class TeacherController extends Controller
      */
     public function store(CreateTeacherRequest $request)
     {
-        $this->teacherService->generate($request);
+        $teacher = Teacher::generate(
+            $request->username,
+            $request->firstname,
+            $request->surname,
+            $request->lastname
+        );
 
         return redirect()->route('admin.teacher.index');
     }

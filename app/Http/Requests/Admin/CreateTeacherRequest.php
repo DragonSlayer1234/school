@@ -24,10 +24,10 @@ class CreateTeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|unique:teachers,login|alpha|string|max:60',
+            'username' => 'required|unique:teachers,username|alpha|string|max:60',
             'firstname' => 'required|alpha',
-            'surname' => 'required|alpha',
-            'lastname' => 'alpha|nullable'
+            'lastname' => 'required|alpha',
+            'surname' => 'alpha|nullable'
         ];
     }
 }

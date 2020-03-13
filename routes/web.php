@@ -23,8 +23,8 @@ Route::get('olympiads/passed', 'OlympiadController@passed')->name('olympiad.pass
 Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
 Route::get('olympiad/{olympiad}/participants', 'OlympiadController@participants')->name('olympiad.participants');
 Route::get('olympiad/{olympiad}/winners', 'OlympiadController@winners')->name('olympiad.winners');
-Route::post('download', 'FileWorkController@download')->name('download');
-Route::post('upload', 'ImageController@upload')->name('upload');
+Route::get('download', 'FileController@download')->name('download');
+Route::post('upload/image', 'FileController@uploadImage');
 
 Route::get('change-password', 'Auth\ChangePasswordController@showPasswordForm')->name('show-password-form');
 Route::post('change-password', 'Auth\ChangePasswordController@changePassword')->name('change-password');
@@ -88,6 +88,8 @@ Route::group([
     ], function() {
 
         Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
+        Route::get('profile/change-password', 'ProfileController@passwordForm')->name('profile.password-form');
+        Route::post('profile/change-password', 'ProfileController@changePassword')->name('profile.change-password');
         Route::put('profile/update', 'ProfileController@update')->name('profile.update');
 
         Route::group([
@@ -96,25 +98,22 @@ Route::group([
 
             Route::get('', 'CabinetController@index')->name('cabinet.index');
 
-            Route::get('my-olympiads/draft', 'OlympiadController@draft')->name('olympiad.draft');
-            Route::get('my-olympiads/checking', 'OlympiadController@checking')->name('olympiad.checking');
-            Route::get('my-olympiads/moderating', 'OlympiadController@moderating')->name('olympiad.moderating');
-            Route::get('my-olympiads/rejected', 'OlympiadController@rejected')->name('olympiad.rejected');
-            Route::get('my-olympiads/{olympiad}/answers', 'OlympiadController@answers')->name('olympiad.answers');
-            Route::get('my-olympiad/create', 'OlympiadController@create')->name('olympiad.create');
+            Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
+            Route::get('olympiad/{olympiad}/answers', 'OlympiadController@answers')->name('olympiad.answers');
+            Route::get('olympiad/create', 'OlympiadController@create')->name('olympiad.create');
             Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
-            Route::post('my-olympiad', 'OlympiadController@store')->name('olympiad.store');
-            Route::post('my-olympiad/{olympiad}/to-moderation', 'OlympiadController@toModeration')->name('olympiad.to-moderation');
-            Route::post('my-olympiads/{olympiad}/announce', 'OlympiadController@announce')->name('olympiad.announce');
-
-            Route::post('participant/{participant}/mark', 'ParticipantController@mark')->name('participant.mark');
-            Route::post('winner/{participant}/choose', 'WinnerController@choose')->name('winner.choose');
-
-            Route::get('work/{olympiad}/choose-type', 'WorkController@chooseType')->name('work.choose-type');
-
-            Route::get('file-work/{olympiad}/create', 'FileWorkController@create')->name('file-work.create');
-            Route::post('file-work/{olympiad}/attach', 'FileWorkController@attach')->name('file-work.attach');
-            Route::delete('file-work/{olympiad}/detach', 'FileWorkController@detach')->name('file-work.detach');
+            Route::post('olympiad', 'OlympiadController@store')->name('olympiad.store');
+            // Route::post('my-olympiad/{olympiad}/to-moderation', 'OlympiadController@toModeration')->name('olympiad.to-moderation');
+            // Route::post('my-olympiads/{olympiad}/announce', 'OlympiadController@announce')->name('olympiad.announce');
+            //
+            // Route::post('participant/{participant}/mark', 'ParticipantController@mark')->name('participant.mark');
+            // Route::post('winner/{participant}/choose', 'WinnerController@choose')->name('winner.choose');
+            //
+            // Route::get('work/{olympiad}/choose-type', 'WorkController@chooseType')->name('work.choose-type');
+            //
+            // Route::get('file-work/{olympiad}/create', 'FileWorkController@create')->name('file-work.create');
+            // Route::post('file-work/{olympiad}/attach', 'FileWorkController@attach')->name('file-work.attach');
+            // Route::delete('file-work/{olympiad}/detach', 'FileWorkController@detach')->name('file-work.detach');
 
         });
     });
