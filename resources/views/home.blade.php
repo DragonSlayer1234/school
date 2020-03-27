@@ -2,53 +2,175 @@
 
 @section('content')
 
-          <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="first-slide" src="https://cadelta.ru/images/sekiro_shadows_die_twice_obzor.jpg" alt="First slide">
-            <div class="container">
-              <div class="carousel-caption text-left">
-                <h1>Example headline.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="second-slide" src="https://tvoi-setevichok.ru/wp-content/uploads/2019/03/post_5c9378b661db6.jpg" alt="Second slide">
-            <div class="container">
-              <div class="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="third-slide" src="https://www.zastavki.com/pictures/originals/2019Games_Screenshot_computer_game_Sekiro__Shadows_Die_Twice__2019_133914_.jpg" alt="Third slide">
-            <div class="container">
-              <div class="carousel-caption text-right">
-                <h1>One more for good measure.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
 
-          
+
+    <!-- Hero section -->
+    <section class="hero-section">
+        <div class="hero-slider owl-carousel">
+            <div class="hs-item set-bg" data-setbg="img/414982.jpg">
+                <div class="hs-text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="hs-subtitle">Krasavci</div>
+                                <h2 class="hs-title">Lorem Ipsum is simply dummy text</h2>
+                                <p class="hs-des">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div class="site-btn">Go to news</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-item set-bg" data-setbg="img/kBjxu2.jpg">
+                <div class="hs-text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="hs-subtitle">Molodci</div>
+                                <h2 class="hs-title">Lorem Ipsum is simply dummy text</h2>
+                                <p class="hs-des">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                <div class="site-btn">Go to news</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero section end -->
+
+    <!-- Blog section -->
+    <section class="blog-section spad-1">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>LATEST NEWS</h3>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="blog-item">
+                        <div class="blog-thumb set-bg" data-setbg="img/blog/1.jpg"></div>
+                        <div class="blog-content">
+                            <h4>Parents who try to be their children’s best friends</h4>
+                            <div class="blog-meta">
+                                <span><i class="fa fa-calendar-o"></i> 24 Mar 2018</span>
+                                <span><i class="fa fa-user"></i> Owen Wilson</span>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="blog-item">
+                        <div class="blog-thumb set-bg" data-setbg="img/blog/2.jpg"></div>
+                        <div class="blog-content">
+                            <h4>Graduations could be delayed as external examiners</h4>
+                            <div class="blog-meta">
+                                <span><i class="fa fa-calendar-o"></i> 23 Mar 2018</span>
+                                <span><i class="fa fa-user"></i> Owen Wilson</span>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="blog-item">
+                        <div class="blog-thumb set-bg" data-setbg="img/blog/3.jpg"></div>
+                        <div class="blog-content">
+                            <h4>Private schools adopt a Ucas style application system</h4>
+                            <div class="blog-meta">
+                                <span><i class="fa fa-calendar-o"></i> 24 Mar 2018</span>
+                                <span><i class="fa fa-user"></i> Owen Wilson</span>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="blog-item">
+                        <div class="blog-thumb set-bg" data-setbg="img/blog/4.jpg"></div>
+                        <div class="blog-content">
+                            <h4>Cambridge digs in at the top of university league table</h4>
+                            <div class="blog-meta">
+                                <span><i class="fa fa-calendar-o"></i> 23 Mar 2018</span>
+                                <span><i class="fa fa-user"></i> Owen Wilson</span>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog section -->
+
+    <!-- Event section -->
+    <section class="event-section spad-1">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>ACTIVE TOP OLYMPIADS</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6 event-item">
+                    <div class="event-thumb">
+                        <img src="img/414982.jpg" alt="">
+                        <div class="event-date">
+                            <span>24 Mar 2018</span>
+                        </div>
+                    </div>
+                    <div class="event-info">
+                        <h4>WITCHERTANU SABAGINAN<br>MEMLEKETTIK OLYMPIADA</h4>
+                        <p><i class="fa fa-calendar-o"></i> 08:00 AM - 10:00 AM </p>
+                        <a href="" class="event-readmore">REGISTER <i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 event-item">
+                    <div class="event-thumb">
+                        <img src="img/414982.jpg" alt="">
+                        <div class="event-date">
+                            <span>22 Mar 2018</span>
+                        </div>
+                    </div>
+                    <div class="event-info">
+                        <h4>WITCHERTANU SABAGINAN<br>MEMLEKETTIK OLYMPIADA</h4>
+                        <p><i class="fa fa-calendar-o"></i> 08:00 AM - 10:00 AM</p>
+                        <a href="" class="event-readmore">REGISTER <i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Event section end -->
+
+
+    <!-- Gallery section -->
+    <div class="gallery-section">
+        <div class="gallery">
+            <div class="grid-sizer"></div>
+            <div class="gallery-item gi-big set-bg" data-setbg="img/gallery/1.jpg">
+                <a class="img-popup" href="img/gallery/1.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item set-bg" data-setbg="img/gallery/2.jpg">
+                <a class="img-popup" href="img/gallery/2.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item set-bg" data-setbg="img/gallery/3.jpg">
+                <a class="img-popup" href="img/gallery/3.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item gi-long set-bg" data-setbg="img/gallery/5.jpg">
+                <a class="img-popup" href="img/gallery/5.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item gi-big set-bg" data-setbg="img/gallery/8.jpg">
+                <a class="img-popup" href="img/gallery/8.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item gi-long set-bg" data-setbg="img/gallery/4.jpg">
+                <a class="img-popup" href="img/gallery/4.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item set-bg" data-setbg="img/gallery/6.jpg">
+                <a class="img-popup" href="img/gallery/6.jpg"><i class="ti-plus"></i></a>
+            </div>
+            <div class="gallery-item set-bg" data-setbg="img/gallery/7.jpg">
+                <a class="img-popup" href="img/gallery/7.jpg"><i class="ti-plus"></i></a>
+            </div>
+        </div>
+    </div>
+
 @endsection

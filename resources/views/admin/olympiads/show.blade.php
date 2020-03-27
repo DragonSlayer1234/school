@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 @include('admin.layouts.alert')
-                
+
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0">
@@ -21,8 +21,8 @@
                         </p>
                         <p>Предмет: {{$olympiad->subject->name}}</p>
                         <p>Цена: {{ $olympiad->paid ? $olympiad->cost : 'Free' }}</p>
-                        <p>Начало: {{$olympiad->start_date}}</p>
-                        <p>Конец: {{$olympiad->end_date}}</p>
+                        <p>Начало: {{ $olympiad->getStartDate()->isoFormat('D MMMM YYYY г. в HH:mm') }}</p>
+                        <p>Конец: {{ $olympiad->getEndDate()->isoFormat('D MMMM YYYY г. в HH:mm') }}</p>
 
                     </div>
                 </div>

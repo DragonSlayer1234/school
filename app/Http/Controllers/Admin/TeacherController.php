@@ -54,8 +54,8 @@ class TeacherController extends Controller
         $teacher = Teacher::generate(
             $request->username,
             $request->firstname,
-            $request->surname,
-            $request->lastname
+            $request->lastname,
+            $request->surname
         );
 
         return redirect()->route('admin.teacher.index');

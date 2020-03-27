@@ -8,13 +8,16 @@ class Participant extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['olympiad_id', 'student_id'];
+    protected $fillable = ['olympiad_id', 'student_id', 'end_time'];
 
-    public static function new($olympiad, $student)
+    protected $dates = ['end_time'];
+
+    public static function new($olympiad, $student, $end)
     {
         return static::create([
             'olympiad_id' => $olympiad,
-            'student_id' => $student
+            'student_id' => $student,
+            'end_time' => $end
         ]);
     }
 

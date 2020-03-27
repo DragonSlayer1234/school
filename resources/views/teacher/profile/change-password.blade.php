@@ -2,83 +2,71 @@
 
 @section('content')
 
-    <div class="card">
-        <div class="card-body p-0">
-            <div class="row">
-                <div class="col-3 side-menu">
-                    @include('teacher.layouts.nav', ['active' => 'profile.password'])
-                </div>
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-9">
+                @include('layouts.alert')
 
-                <div class="col-9 main">
-                    @include('teacher.layouts.alert')
+                <h5 class="mb-4 text-center">Сменить пароль</h5>
 
-                    <h5 class="header mb-4">Сменить пароль</h5>
+                <form method="post" action="{{route('teacher.profile.change-password')}}">
+                    @csrf
 
-                    <form method="post" action="{{route('teacher.profile.change-password')}}">
-                        @csrf
+                    <div class="form-group row justify-content-center">
+                        <label for="currentPassword" class="col-3 col-form-label">Текущий пароль</label>
+                        <div class="col-7 align-self-center">
+                            <input
+                            type="password"
+                            class="form-control{{ $errors->has('currentPassword') ? ' is-invalid' : '' }}"
+                            id="currentPassword"
+                            name="currentPassword"
+                            >
 
-                        <div class="form-group row justify-content-center">
-                            <label for="currentPassword" class="col-3 col-form-label">Текущий пароль</label>
-                            <div class="col-7 align-self-center">
-                                <input
-                                type="password"
-                                class="form-control{{ $errors->has('currentPassword') ? ' is-invalid' : '' }}"
-                                id="currentPassword"
-                                name="currentPassword"
-                                >
-
-                                @error('currentPassword')
-                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
+                            @error('currentPassword')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
+                    </div>
 
-                        <div class="form-group row justify-content-center">
-                            <label for="password" class="col-3 col-form-label">Новый пароль</label>
-                            <div class="col-7 align-self-center">
-                                <input
-                                type="password"
-                                class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                id="password"
-                                name="password"
-                                >
+                    <div class="form-group row justify-content-center">
+                        <label for="password" class="col-3 col-form-label">Новый пароль</label>
+                        <div class="col-7 align-self-center">
+                            <input
+                            type="password"
+                            class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                            id="password"
+                            name="password"
+                            >
 
-                                @error('password')
-                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
+                            @error('password')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
+                    </div>
 
-                        <div class="form-group row justify-content-center">
-                            <label for="passwordConfirm" class="col-3 col-form-label">Подтверждение нового пароля</label>
-                            <div class="col-7 align-self-center">
-                                <input
-                                type="password"
-                                class="form-control{{ $errors->has('passwordConfirm') ? ' is-invalid' : '' }}"
-                                id="passwordConfirm"
-                                name="passwordConfirm"
-                                >
+                    <div class="form-group row justify-content-center">
+                        <label for="passwordConfirm" class="col-3 col-form-label">Подтверждение нового пароля</label>
+                        <div class="col-7 align-self-center">
+                            <input
+                            type="password"
+                            class="form-control{{ $errors->has('passwordConfirm') ? ' is-invalid' : '' }}"
+                            id="passwordConfirm"
+                            name="passwordConfirm"
+                            >
 
-                                @error('passwordConfirm')
-                                <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
+                            @error('passwordConfirm')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
+                    </div>
 
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary btn-md">Сменить пароль</button>
-                        </div>
-                    </form>
-
-                </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="site-btn">Сменить пароль</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-
-
-
-
-
+    </main>
 
 
 

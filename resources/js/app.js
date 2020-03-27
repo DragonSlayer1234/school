@@ -8,9 +8,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+require('owl.carousel');
+require('jquery-countdown');
+require('masonry-layout');
+require('magnific-popup');
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
-require('admin-lte');
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
@@ -41,3 +45,11 @@ Vue.component('subject-image', require('./components/SubjectImage.vue').default)
 const app = new Vue({
     el: '#app',
 });
+
+
+/* =================================
+------------------------------------
+	Unica - University Template
+	Version: 1.0
+ ------------------------------------
+ ====================================*/

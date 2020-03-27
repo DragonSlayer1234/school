@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class Olympiad extends Model
 {
@@ -16,12 +17,10 @@ class Olympiad extends Model
 
     protected $fillable = [
         'name', 'start_date', 'end_date', 'cost', 'subject_id', 'teacher_id',
-        'status', 'work_id', 'description'
+        'status', 'work_id', 'description', 'olympiad_duration'
     ];
 
     public $timestamps = false;
-
-    protected $dates = ['start_date', 'end_date'];
 
     public static function getStatuses()
     {
@@ -41,7 +40,7 @@ class Olympiad extends Model
     }
 
     public static function new($author, $subject, $work, $name, $description,
-                                 $startDate, $endDate, $cost)
+                                 $startDate, $endDate, $cost, $duration)
     {
         return static::create([
             'teacher_id' => $author,
@@ -52,6 +51,7 @@ class Olympiad extends Model
             'start_date' => $startDate,
             'end_date' => $endDate,
             'cost' => $cost,
+            'duration' => $duration,
             'status' => self::STATUS_MODERATION
         ]);
     }
@@ -67,6 +67,12 @@ class Olympiad extends Model
             return $query->where('status', $status);
         }
         return $query->where('status', static::STATUS_MODERATION);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', static::STATUS_UPCOMING)
+                    ->orWhere('status', static::STATUS_ACTIVE);
     }
 
     public function canChangeToModeration()
@@ -106,12 +112,14 @@ class Olympiad extends Model
 
     private function isStartTime()
     {
-        return $this->start_date->diffInDays(Carbon::now()) === 0;
+        $now = Carbon::now();
+        return $this->start_date->timestamps() < $now->timestamps();
     }
 
     private function isEndDate()
     {
-        return $this->end_date->diffInDays(Carbon::now()) === 0;
+        $now = Carbon::now();
+        return $this->end_date->timestamps() < $now->timestamps();
     }
 
     public function teacher()
@@ -144,7 +152,15 @@ class Olympiad extends Model
         if ($this->hasParticipant($student)) {
             return;
         }
-        return Participant::new($this->id, $student->id);
+        $end = Carbon::now();
+        $time = Carbon::createFromFormat('H:i:s', $this->duration);
+        $end->addHour($time->hour);
+        $end->addMinute($time->minute);
+
+        if ($end->timestamp > $this->end_date->timestamp) {
+            $end = $this->end_date;
+        }
+        return Participant::new($this->id, $student->id, $end);
     }
 
     public function hasParticipant(Student $student)
@@ -194,10 +210,24 @@ class Olympiad extends Model
         $this->save();
     }
 
-    public function getAllDates()
+    public function getStartDate()
     {
-        return $this->start_date->locale('ru')->isoFormat('D MMMM YYYY')
-                . ' - ' .
-                $this->end_date->locale('ru')->isoFormat('D MMMM YYYY');
+        return Carbon::parse( $this->start_date)->locale('ru');
+    }
+
+    public function getEndDate()
+    {
+        return Carbon::parse($this->end_date)->locale('ru');
+    }
+
+    public function getDuration()
+    {
+        CarbonInterval::setLocale('ru');
+        return CarbonInterval::createFromFormat('H:i', $this->duration);
+    }
+
+    public function getCost()
+    {
+        return $this->cost === 0 ? 'Бесплатно' : $this->cost;
     }
 }

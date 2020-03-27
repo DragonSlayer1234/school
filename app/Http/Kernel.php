@@ -62,7 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'generated.password' => \App\Http\Middleware\GeneratedPassword::class,
-        'empty.profile' => \App\Http\Middleware\EmptyProfile::class
+        'empty.profile' => \App\Http\Middleware\EmptyProfile::class,
+        'active.olympiad' => \App\Http\Middleware\RedirectIfActiveOlympiad::class
     ];
 
     /**

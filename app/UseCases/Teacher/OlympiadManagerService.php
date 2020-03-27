@@ -23,9 +23,11 @@ class OlympiadManagerService
             $request->subject,
             $work->id,
             $request->name,
+            $request->description,
             $request->startDate,
             $request->endDate,
-            $request->cost
+            $request->cost,
+            $request->duration
         );
 
         return $olympiad;

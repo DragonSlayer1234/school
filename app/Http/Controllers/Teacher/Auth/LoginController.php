@@ -35,7 +35,7 @@ class LoginController extends Controller
         }
 
         $authenticate = Auth::guard('teacher')->attempt(
-            $request->only(['login', 'password']),
+            $request->only(['username', 'password']),
             $request->filled('remember')
         );
 
@@ -44,12 +44,12 @@ class LoginController extends Controller
             $this->clearLoginAttempts($request);
             $user = Auth::user();
 
-            return redirect()->intended(route('teacher.cabinet.index'));
+            return redirect()->intended(route('home'));
         }
 
         $this->incrementLoginAttempts($request);
 
-        throw ValidationException::withMessages(['login' => [trans('auth.failed')]]);
+        throw ValidationException::withMessages(['username' => [trans('auth.failed')]]);
     }
 
 
@@ -62,6 +62,6 @@ class LoginController extends Controller
 
     protected function username()
     {
-        return 'login';
+        return 'username';
     }
 }

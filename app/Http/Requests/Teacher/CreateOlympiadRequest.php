@@ -26,11 +26,13 @@ class CreateOlympiadRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|alpha_dash',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'subject' => 'required|exists:subjects,id',
             'startDate' => 'required|date|after_or_equal:today',
             'endDate' => 'required|date|after:startDate',
             'cost' => 'required|integer',
+            'duration' => 'required',
             'work' => 'required|file'
         ];
     }

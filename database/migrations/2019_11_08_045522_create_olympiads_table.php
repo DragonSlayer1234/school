@@ -23,6 +23,7 @@ class CreateOlympiadsTable extends Migration
             $table->integer('cost');
             $table->datetime('start_date');
             $table->datetime('end_date');
+            $table->string('duration');
             $table->string('status');
         });
     }

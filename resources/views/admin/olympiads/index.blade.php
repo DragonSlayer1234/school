@@ -58,7 +58,9 @@
                             <td>{{ $olympiad->name }}</td>
                             <td class="text-center">{{ $olympiad->teacher->getFullname() }}</td>
                             <td class="text-center">{{ $olympiad->subject->name }}</td>
-                            <td class="text-center">{{ $olympiad->getAllDates() }}</td>
+                            <td class="text-center">{{ $olympiad->getStartDate()->format('d.m.Y') }}
+                            -
+                            {{ $olympiad->getEndDate()->format('d.m.Y') }}</td>
                             <td>
                                 <a class="btn btn-success" href="{{ route('admin.olympiad.show', $olympiad->id) }}">Подробнее</a>
                             </td>

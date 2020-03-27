@@ -11,13 +11,10 @@ class ProfileService
     {
         $teacher->fill([
             'firstname' => $request->firstname,
-            'surname' => $request->surname,
-            'lastname' => $request->lastname
+            'lastname' => $request->lastname,
+            'surname' => $request->surname
         ]);
 
-        if ($teacher->isEmptyProfile()) {
-            $teacher->status = Teacher::STATUS_ACTIVE;
-        }
         $teacher->save();
     }
 

@@ -25,8 +25,8 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'firstname' => 'required|alpha',
-            'surname' => 'required|alpha',
-            'lastname' => 'nullable|alpha'
+            'lastname' => 'required|alpha',
+            'surname' => 'nullable|alpha'
         ];
     }
 }

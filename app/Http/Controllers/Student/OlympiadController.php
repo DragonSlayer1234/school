@@ -11,10 +11,16 @@ use App\Participant;
 
 class OlympiadController extends Controller
 {
-    public function join(ParticipantService $participantService, Olympiad $olympiad)
+    public function join(Request $request, Olympiad $olympiad)
     {
-        $participant = $participantService->add($olympiad, Auth::id());
+        $student = $request->user();
+        $olympiad->addParticipant($student);
 
-        return redirect()->route('student.file-answer.paper', compact('participant'));
+        return redirect()->route('student.olympiad.answer', $olympiad);
+    }
+
+    public function answer(Olympiad $olympiad)
+    {
+        return view('student.olympiads.answer', compact('olympiad'));
     }
 }

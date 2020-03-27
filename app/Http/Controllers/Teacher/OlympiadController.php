@@ -11,55 +11,20 @@ use App\UseCases\Teacher\OlympiadManagerService;
 use App\Subject;
 use App\Participant;
 use App\Winner;
+use App\File;
 use LogicException;
 use DomainException;
 
 class OlympiadController extends Controller
 {
-    private $olympiadManager;
-
-    public function __construct(OlympiadManagerService $olympiadManager)
+    public function index(Request $request)
     {
-        $this->olympiadManager = $olympiadManager;
-    }
+        $teacher = $request->user();
+        $status = $request->status;
+        $olympiads = $teacher->olympiads()->byStatus($status)->paginate(10);
 
-    public function index()
-    {
-        $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_MODERATING)
-                    ->get();
-        return view('teacher.olympiads.index', compact('olympiads'));
+        return view('teacher.olympiads.index', compact('olympiads', 'status'));
     }
-
-    public function upcoming()
-    {
-        $olympiads = Olympiad::author(Auth::id())
-                    ->byStatus(Olympiad::STATUS_UPCOMING)
-                    ->get();
-        return view('teacher.olympiads.upcoming', compact('olympiads'));
-    }
-
-    // public function checking()
-    // {
-    //     $olympiads = Olympiad::author(Auth::id())
-    //                 ->byStatus(Olympiad::STATUS_CHECKING)
-    //                 ->get();
-    //     return view('teacher.olympiads.checking', compact('olympiads'));
-    // }
-    //
-    // public function rejected()
-    // {
-    //     $olympiads = Olympiad::author(Auth::id())
-    //                 ->byStatus(Olympiad::STATUS_REJECTED)
-    //                 ->get();
-    //     return view('teacher.olympiads.rejected', compact('olympiads'));
-    // }
-    //
-    // public function answers(Olympiad $olympiad)
-    // {
-    //     $participants = $olympiad->participants()->answered()->get();
-    //     return view('teacher.olympiads.answers', compact('olympiad', 'participants'));
-    // }
 
     public function create()
     {
@@ -70,7 +35,24 @@ class OlympiadController extends Controller
 
     public function store(CreateOlympiadRequest $request)
     {
-        $olympiad = $this->olympiadManager->create($request);
+        $teacher = $request->user();
+        $path = $request->work->store("works/{$teacher->id}", 'public');
+
+        $work = File::create([
+            'path' => $path
+        ]);
+
+        $olympiad = Olympiad::new (
+            $teacher->id,
+            $request->subject,
+            $work->id,
+            $request->name,
+            $request->description,
+            $request->startDate,
+            $request->endDate,
+            $request->cost,
+            $request->duration
+        );
 
         return redirect()->route('teacher.olympiad.index');
     }
@@ -78,50 +60,5 @@ class OlympiadController extends Controller
     public function show(Olympiad $olympiad)
     {
         return view('teacher.olympiads.show', compact('olympiad'));
-    }
-
-    // public function toModeration(Request $request, Olympiad $olympiad)
-    // {
-    //     try {
-    //         $this->olympiadManager->sendToModeration($olympiad);
-    //     } catch (LogicException $e) {
-    //         $request->session()->flash('error', $e->getMessage());
-    //     }
-    //
-    //     return redirect()->route('teacher.olympiad.draft');
-    // }
-    //
-    // public function announce(Olympiad $olympiad)
-    // {
-    //     try {
-    //         $this->olympiadManager->announce($olympiad);
-    //     } catch (LogicException $e) {
-    //         $request->session()->flash('error', $e->getMessage());
-    //     }
-    //
-    //     return redirect()->route('teacher.olympiad.checking');
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Olympiad  $olympiad
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Olympiad $olympiad)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Olympiad  $olympiad
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Olympiad $olympiad)
-    {
-        //
     }
 }

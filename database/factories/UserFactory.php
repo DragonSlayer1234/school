@@ -5,6 +5,8 @@ use App\User;
 use App\Admin;
 use App\Student;
 use App\Teacher;
+use App\Olympiad;
+use App\File;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -53,8 +55,28 @@ $factory->define(Teacher::class, function (Faker $faker) {
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        'login' => $faker->unique()->userName,
+        'username' => $faker->unique()->userName,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
+    ];
+});
+
+$factory->define(Olympiad::class, function (Faker $faker) {
+
+    $work = File::create([
+        'path' => '12345'
+    ]);
+
+    return [
+        'name' => $faker->name,
+        'subject_id' => 1,
+        'teacher_id' => 1,
+        'work_id' => $work->id,
+        'cost' => 0,
+        'start_date' => '2020-03-28 09:00',
+        'end_date' => '2020-03-28 20:00',
+        'description' => $faker->text,
+        'duration' => '01:00',
+        'status' => Olympiad::STATUS_MODERATION
     ];
 });

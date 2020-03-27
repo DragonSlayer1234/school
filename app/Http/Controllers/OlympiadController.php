@@ -7,10 +7,16 @@ use App\Olympiad;
 
 class OlympiadController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('active.olympiad')->only('show');    
+    }
+
     public function index()
     {
         $olympiads = Olympiad::active()->get();
-        return view('olympiads.index', compact('olympiads'));
+        $active = 'active';
+        return view('olympiads.index', compact('olympiads', 'active'));
     }
 
     public function participants(Olympiad $olympiad)
