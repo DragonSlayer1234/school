@@ -3,91 +3,84 @@
 
 @section('content')
 
-    <main class="container p-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col">
-                                <form action="{{ route('teacher.olympiad.index') }}">
-                                    <div class="form-row">
-                                        <div class="form-group col mb-0">
-                                            <select class="form-control custom-select" name="status">
-                                                @foreach (App\Olympiad::getStatuses() as $key => $value)
-                                                    <option
-                                                        value="{{ $key }}"
-                                                        {{ $key === $status ? 'selected' : '' }}
-                                                    >
-                                                        {{ $value }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group col mb-0">
-                                            <button class="btn px-0" type="submit"><i class="fas fa-lg fa-sort-amount-up-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="col-4">
-                                <div class="d-inline-block">
-                                    <div class="input-group mb-0">
-                                        <input type="text" class="form-control" placeholder="Поиск по названию">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a class="float-right btn btn-main" href="{{ route("teacher.olympiad.create") }}">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
+    <main class="container py-5">
+      <div class="row">
+        <div class="col-12">
 
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20%;">Название</th>
-                                    <th class="text-center" style="width: 20%;">Автор</th>
-                                    <th class="text-center" style="width: 15%;">Предмет</th>
-                                    <th class="text-center" style="width: 35%;">Дата проведения</th>
-                                    <th class="text-center" style="width: 10%;">Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($olympiads as $olympiad)
-                                    <tr>
-                                        <td>{{ $olympiad->name }}</td>
-                                        <td class="text-center">{{ $olympiad->teacher->getFullname() }}</td>
-                                        <td class="text-center">{{ $olympiad->subject->name }}</td>
-                                        <td class="text-center">{{ $olympiad->getStartDate()->format('d.m.Y') }}
-                                        -
-                                        {{ $olympiad->getEndDate()->format('d.m.Y') }}</td>
-                                        <td>
-                                            @if($olympiad->isRejected())
-                                                <a class="btn btn-success" href="{{ route('teacher.olympiad.edit', $olympiad->id) }}">Изменить</a>
-                                            @else
-                                                <a class="btn btn-success" href="{{ route('teacher.olympiad.show', $olympiad->id) }}">Подробнее</a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+            <a class="float-right btn btn-main" href="{{ route("teacher.olympiad.create") }}">
+                <i class="fas fa-plus"></i>
+            </a>
 
-                    <div class="card-footer">
-                        {{ $olympiads->links() }}
-                    </div>
-                </div>
-            </div>
+          <h3 class="text-center title">Олимпиады</h3>
+
+          <h5>Сортировка по:</h5>
+
+          <div class="my-3">
+              <form class="form-inline" action="{{ route('teacher.olympiad.index') }}">
+                      <select class="form-control custom-select mr-2" name="status">
+                          <option disabled>Тип олимпиады</option>
+                          <option value="" {{ $selected->status === null ? 'selected' : '' }}>Все олимпиады</option>
+                          @foreach (App\Olympiad::getStatuses() as $key => $value)
+                              <option
+                                  value="{{ $key }}"
+                                  {{ $key === $selected->status ? 'selected' : '' }}
+                              >
+                                  {{ $value }}
+                              </option>
+                          @endforeach
+                      </select>
+
+                      <select class="form-control custom-select mr-2" name="date">
+                          <option {{ $selected->date === null ? 'selected' : '' }} disabled>По дате</option>
+                          <option {{ $selected->date === 'new' ? 'selected' : '' }} value="new">Сначала новые</option>
+                          <option {{ $selected->date === 'old' ? 'selected' : '' }} value="old">Сначала старые</option>
+                      </select>
+
+                      <select class="form-control custom-select mr-2" name="subject">
+                          <option disabled>По предмету</option>
+                          <option value="" {{ $selected->subject === null ? 'selected' : '' }}>Все предметы</option>
+                          @foreach ($subjects as $subject)
+                              <option {{ (int)$selected->subject === $subject->id ? 'selected' : '' }} value="{{ $subject->id }}">{{ $subject->name }}</option>
+                          @endforeach
+                      </select>
+
+                      <button type="submit" class="btn btn-primary">Сортировать</button>
+              </form>
+
+
+          </div>
+
+        <table class="table olympiad-table">
+          <thead>
+            <tr>
+              <th>Олимпиада</th>
+              <th>Дата проведения</th>
+              <th>Цена</th>
+              <th>Предмет</th>
+              <th>Длительность</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            @foreach ($olympiads as $olympiad)
+                <tr>
+                  <td><a href="{{ route('olympiad.show', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a></td>
+                  <td>
+                      {{ $olympiad->getStartDate()->format('d.m.Y') }}
+                      -
+                      {{ $olympiad->getEndDate()->format('d.m.Y') }}
+                  </td>
+                  <td>{{ $olympiad->cost === 0 ? 'Бесплатно' : "$olympiad->cost тг." }}</td>
+                  <td>{{ $olympiad->subject->name }}</td>
+                  <td>{{ $olympiad->getDuration() }}</td>
+                </tr>
+            @endforeach
+
+          </tbody>
+        </table>
         </div>
+      </div>
     </main>
 
 @endsection

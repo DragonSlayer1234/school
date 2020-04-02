@@ -12,8 +12,6 @@
                   <form method="post" action="{{route('admin.subject.store')}}" enctype="multipart/form-data">
                       @csrf
 
-                      <subject-image></subject-image>
-
                       <div class="form-group">
                           <input
                               type="text"

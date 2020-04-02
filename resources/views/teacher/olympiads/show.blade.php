@@ -27,6 +27,31 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-11">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 90%">Участник</th>
+                                    <th>Место</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($olympiad->winners as $winner)
+                                    <tr>
+                                        <td>{{ $winner->participant->student->getFullname() }}</td>
+                                        <td class="text-center">{{ $winner->place }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="text-center" colspan="2">Участники отсутствуют</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-5 main-olympiad">
                 <h5 class="mb-3">{{ $olympiad->name }}</h5>
@@ -56,13 +81,11 @@
                                 <i class="far fa-file-pdf fa-lg"></i> pidor.pdf
                                 <a href="#" class="float-right"> <i class="fas fa-download"></i></a>
                             </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
 
-
-
-
-
-    @endsection
+@endsection

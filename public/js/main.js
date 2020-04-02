@@ -99,7 +99,7 @@
 var window_w = $(window).innerWidth();
 $(window).on('load', function () {
   /*------------------
-  	Preloder
+  Preloder
   --------------------*/
   $(".loader").fadeOut();
   $("#preloder").delay(400).fadeOut("slow");
@@ -107,14 +107,14 @@ $(window).on('load', function () {
 
 (function ($) {
   /*------------------
-  	Navigation
+  Navigation
   --------------------*/
   $('.nav-switch').on('click', function (event) {
     $('.main-menu').slideToggle(400);
     event.preventDefault();
   });
   /*------------------
-  	Background set
+  Background set
   --------------------*/
 
   $('.set-bg').each(function () {
@@ -122,7 +122,7 @@ $(window).on('load', function () {
     $(this).css('background-image', 'url(' + bg + ')');
   });
   /*------------------
-  	Hero Slider
+  Hero Slider
   --------------------*/
 
   var window_h = $(window).innerHeight();
@@ -144,14 +144,14 @@ $(window).on('load', function () {
     autoplay: true
   });
   /*------------------
-  	Counter
+  Counter
   --------------------*/
 
   $(".counter").countdown("2018/07/01", function (event) {
     $(this).html(event.strftime("<div class='counter-item'><h4>%D</h4>Days</div>" + "<div class='counter-item'><h4>%H</h4>hours</div>" + "<div class='counter-item'><h4>%M</h4>Mins</div>" + "<div class='counter-item'><h4>%S</h4>secs</div>"));
   });
   /*------------------
-  	Gallery
+  Gallery
   --------------------*/
 
   $('.gallery').find('.gallery-item').each(function () {
@@ -169,7 +169,7 @@ $(window).on('load', function () {
     columnWidth: '.grid-sizer'
   });
   /*------------------
-  	Testimonial
+  Testimonial
   --------------------*/
 
   $('.testimonial-slider').owlCarousel({
@@ -183,13 +183,29 @@ $(window).on('load', function () {
     autoplay: true
   });
   /*------------------
-  	Popup
+  Popup
   --------------------*/
 
   $('.img-popup').magnificPopup({
     type: 'image',
     mainClass: 'img-popup-warp',
     removalDelay: 400
+  });
+  $(function () {
+    $('.dates').datetimepicker({
+      icons: {
+        time: "far fa-clock"
+      },
+      format: 'YYYY-MM-DD HH:mm'
+    });
+  });
+  $(function () {
+    $('#duration').datetimepicker({
+      icons: {
+        time: "far fa-clock"
+      },
+      format: 'HH:mm'
+    });
   });
 })(jQuery);
 

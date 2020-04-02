@@ -24,8 +24,7 @@ class CreateSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|file|image',
-            'name' => 'required|unique:subjects,name|alpha'
+            'name' => 'required|unique:subjects,name'
         ];
     }
 }

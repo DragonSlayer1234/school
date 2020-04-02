@@ -1,9 +1,9 @@
 /* =================================
 ------------------------------------
-  Unica - University Template
-  Version: 1.0
- ------------------------------------
- ====================================*/
+Unica - University Template
+Version: 1.0
+------------------------------------
+====================================*/
 
 /*----------------------------------------*/
 /* Template default CSS
@@ -82,7 +82,7 @@ ol {
 }
 
 /*---------------------
-	Helper CSS
+Helper CSS
 -----------------------*/
 
 .spad {
@@ -126,26 +126,51 @@ ol {
 }
 
 /*---------------------
-	Commom elements
+Commom elements
 -----------------------*/
 
 /* Buttons */
 
 .site-btn {
 	position: relative;
-	display: inline-block;
-	text-transform: uppercase;
-	background: #11365c;
-	color: #fff;
-	padding: 18px 30px;
-	font-size: 14px;
-	font-weight: 500;
-	line-height: 14px;
-	border-radius: 50px;
-	min-width: 170px;
-	text-align: center;
-	border: none;
-	cursor: pointer;
+    display: inline-block;
+    text-transform: uppercase;
+    background: #11365c;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #11365c;
+    cursor: pointer;
+}
+
+.site-btn:hover {
+	background: white;
+    color: #11365c;
+    border: 2px solid #11365c;
+}
+
+.custom-btn {
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    background: inherit;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.custom-btn:hover{
+    background: white;
+    color: inherit;
+    border: 2px solid inherit;
 }
 
 /* Image Popup */
@@ -196,19 +221,19 @@ ol {
 @keyframes loader {
 	0% {
 		-webkit-transform: rotate(0deg);
-		        transform: rotate(0deg);
+		transform: rotate(0deg);
 		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 	50% {
 		-webkit-transform: rotate(180deg);
-		        transform: rotate(180deg);
+		transform: rotate(180deg);
 		border: 4px solid #673ab7;
 		border-left-color: transparent;
 	}
 	100% {
 		-webkit-transform: rotate(360deg);
-		        transform: rotate(360deg);
+		transform: rotate(360deg);
 		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
@@ -233,7 +258,7 @@ ol {
 }
 
 /*---------------------
-	Header section
+Header section
 -----------------------*/
 
 .header-section {
@@ -279,8 +304,8 @@ ol {
 	top: 0;
 	border: 2px solid #11365c;
 	-webkit-transform: rotate(45deg);
-	    -ms-transform: rotate(45deg);
-	        transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
 	border-radius: 2px;
 }
 
@@ -371,7 +396,7 @@ ol {
 
 
 /*---------------------
-	Hero Section
+Hero Section
 -----------------------*/
 
 .hs-item {
@@ -485,7 +510,7 @@ ol {
 
 
 /*---------------------
-	Event Section
+Event Section
 -----------------------*/
 
 .event-item {
@@ -555,8 +580,12 @@ ol {
 }
 
 /*---------------------
-	Gallery Section
+Gallery Section
 -----------------------*/
+
+.gallery-section {
+	margin-bottom: 50px;
+}
 
 .gallery .gallery-item {
 	width: 12.5%;
@@ -629,7 +658,7 @@ ol {
 }
 
 /*---------------------
-	Blog Section
+Blog Section
 -----------------------*/
 
 .blog-item {
@@ -671,124 +700,88 @@ ol {
 
 
 /*---------------------
-	Footer Section
+Footer Section
 -----------------------*/
 
 .footer-section {
-	background-color: black;
-	background-image: url("../img/footer-bg.png");
-	background-repeat: no-repeat;
-	background-position: center 75px;
+background-color: #081624;
+background-repeat: no-repeat;
+}
+
+.footer-image{
+margin: 0px !important;
 }
 
 .footer-section .footer-top {
-	padding: 65px 15px;
+padding: 15px 15px;
 }
 
 .footer-section .copyright {
-	border-top: 1px solid #312f56;
-	padding: 27px 0;
-	text-align: center;
+border-top: 1px solid white;
+text-align: center;
 }
 
 .footer-section .copyright p {
-	color: #b7b7b7;
-	margin-bottom: 0;
+color: #b7b7b7;
+margin-bottom: 0;
 }
 
 .footer-section .copyright p a {
-	color: #fff;
-	font-weight: 500;
+color: #fff;
+font-weight: 500;
 }
 
 .footer-section .copyright p a:hover {
-	color: #11365c;
+color: #11365c;
 }
 
 .footer-widget .fw-title {
-	text-transform: uppercase;
-	color: #fff;
-	margin-bottom: 25px;
-	padding-top: 10px;
+text-transform: uppercase;
+color: white;
+margin-bottom: 25px;
+padding-top: 10px;
 }
 
 .footer-widget p,
 .footer-widget span {
-	color: #b7b7b7;
+color: #b7b7b7;
 }
 
 .footer-widget ul {
-	list-style: none;
+list-style: none;
 }
 
 .footer-widget .about-widget img {
-	margin-bottom: 30px;
+margin-bottom: 30px;
 }
 
 .footer-widget .about-widget p {
-	margin-bottom: 35px;
+margin-bottom: 35px;
 }
 
+.social{
+text-align: center;
+}
 .footer-widget .social a {
-	color: #b7b7b7;
-	margin-right: 15px;
-}
-
-.footer-widget .dobule-link ul {
-	display: inline-block;
-}
-
-.footer-widget .dobule-link ul a {
-	display: block;
-	font-size: 14px;
-	color: #b7b7b7;
-	margin-bottom: 15px;
-}
-
-.footer-widget .dobule-link ul a:hover {
-	color: #11365c;
-}
-
-.footer-widget .dobule-link ul li:last-child a {
-	margin-bottom: 0;
-}
-
-.footer-widget .dobule-link ul:last-child {
-	margin-left: 50px;
-}
-
-.footer-widget .recent-post li {
-	margin-bottom: 25px;
-}
-
-.footer-widget .recent-post p {
-	margin-bottom: 5px;
-}
-
-.footer-widget .recent-post span {
-	font-size: 12px;
-}
-
-.footer-widget .recent-post span i {
-	color: #11365c;
-	margin-right: 5px;
+color: white;
+margin-right: 15px;
 }
 
 .footer-widget .contact li {
-	margin-bottom: 15px;
-	display: block;
+margin-bottom: 15px;
+display: block;
 }
 
 .footer-widget .contact li p {
-	margin-bottom: 0;
+margin-bottom: 0;
 }
 
 .footer-widget .contact i {
-	font-size: 12px;
+font-size: 12px;
 }
 
 /*---------------------
-	Other Pages
+Other Pages
 ----------------------
 ======================*/
 
@@ -839,7 +832,7 @@ ol {
 }
 
 /*---------------------
-	About page
+About page
 -----------------------*/
 
 .about-text h5 {
@@ -1032,7 +1025,7 @@ ol {
 }
 
 /*---------------------
-	Blog Page
+Blog Page
 -----------------------*/
 
 .post-item {
@@ -1261,7 +1254,7 @@ ol {
 	color: #b7b7b7;
 	background-color: transparent;
 	-webkit-transform: rotateY(180deg);
-	        transform: rotateY(180deg);
+	transform: rotateY(180deg);
 }
 
 .widget .recent-post-widget .rp-item {
@@ -1327,12 +1320,12 @@ ol {
 	color: #111111;
 	border-left: 3px solid #11365c;
 	-webkit-box-shadow: 0 0 40px #f2f2f2;
-	        box-shadow: 0 0 40px #f2f2f2;
+	box-shadow: 0 0 40px #f2f2f2;
 	margin: 40px 0 35px;
 }
 
 /*---------------------
-	Contact page
+Contact page
 -----------------------*/
 
 .map-section {
@@ -1370,7 +1363,7 @@ ol {
 }
 
 /*------------------
-	Responsive
+Responsive
 ---------------------*/
 
 @media (min-width: 1200px) {
@@ -1599,64 +1592,185 @@ ol {
 
 
 .title {
-    font-weight: 500;
-  }
+	font-weight: 500;
+}
 
-  .type {
-    display: inline-block;
-    padding: 5px 15px;
-    width: 130px;
-    text-align: center;
-    font-weight: 500;
-    border: 1px solid  #003099;
-    color: black;
-    margin: 0;
-  }
+.type {
+	display: inline-block;
+	padding: 5px 15px;
+	width: 130px;
+	text-align: center;
+	font-weight: 500;
+	border: 1px solid  #11365c;
+	color: black;
+	margin: 0;
+}
 
-  .type-right {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-left: 0 !important;
-  }
+.type-right {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-left: 0 !important;
+}
 
-  .type-center {
+.type-center {
 
-  }
+}
 
-  .type-left {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-right: 0 !important;
-  }
+.type-left {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-right: 0 !important;
+}
 
-  .type:hover {
-    color: #003099;
-  }
+.type:hover {
+	color: #11365c;
+}
 
-  .type-active {
-    background-color: #003099;
-    color: white !important;
-  }
+.type-active {
+	background-color: #11365c;
+	color: white !important;
+}
 
-  td {
-    padding: 18px 12px !important;
-  }
+.olympiad-table td {
+	padding: 18px 12px !important;
+}
 
-  .olympiad-table th {
-    border: none;
-    font-weight: normal;
-    border-bottom: 1px solid #003099 !important;
-  }
+.olympiad-table th {
+	font-size: 16px;
+	font-weight: 700 !important;
+	border: none;
+	font-weight: normal;
+	border-bottom: 2px solid #11365c !important;
+}
 
-  .olympiad-table {
-    font-size: 14px;
-  }
+.olympiad-table {
+	font-size: 14px;
+}
 
-  .olympiad-link {
-    font-weight: 500;
-    color: black;
-  }
+.olympiad-link {
+	font-weight: 600;
+	color: #11365c;
+}
 
-  .olympiad-link:hover {
-    color: #003099;
-  }
+.olympiad-link:hover {
+	color: #1d69b8;
+}
+
+.table-div input{
+	border:none;
+	border-bottom: 1px solid #11365c;
+	font-weight: 600;
+	color: black;
+	text-align:center;
+	background-color: inherit;
+}
+
+.name-td{
+	font-weight: 600;
+	color: black;
+}
+
+.table-div{
+	display: inline-block;
+	padding: 0px;
+}
+
+.table-div ul {
+	list-style-type: none;
+}
+
+.first-li{
+	font-size: 15px;
+	font-weight: 700 !important;
+}
+
+.next-li{
+	padding: 15px;
+	border-bottom: 1px solid #a4aba6;
+}
+
+.table-div .btn{
+	padding: 0px;
+	padding-left: 5px;
+}
+
+.bb {
+	border-bottom: 3px solid #11365c !important;
+}
+
+.participants-header {
+	font-weight: 600;
+	color: black;
+}
+
+.participants li {
+	background-color: inherit !important;
+	border: none;
+	border-radius: 0 !important;
+	text-align: center;
+}
+
+.bb-light {
+	border-bottom: 1px solid #11365c !important;
+}
+
+.place {
+	height: 26px;
+	border: none;
+	background-color: inherit!important;
+	border-bottom: 1px solid #11365c;
+	width: auto !important;
+	border-radius: 0;
+	cursor: pointer;
+}
+
+.place:focus {
+	box-shadow: none;
+	border-bottom: 1px solid #11365c;
+}
+
+.type-center {
+	margin-left: -4px;
+	margin-right: -4px;
+}
+
+.gold {
+	color: #c9ac00;
+}
+
+.bronze {
+	color: #cd7f32;
+}
+
+.silver {
+	color: #999999;
+}
+
+.dropdown-menu {
+	width: auto !important;
+	min-width: auto !important;
+}
+
+.dropdown-item {
+	padding: 10px 10px !important;
+	color: #11365c !important;
+}
+
+.login-modal {
+	margin-top: 11.8px;
+}
+
+.btn-primary {
+	background-color: #11365c;
+	border-radius: 20px;
+	border: none;
+	font-weight: 600;
+}
+
+.btn-primary:hover {
+	background-color: #081624;
+}
+
+select:focus {
+	box-shadow: none !important;
+}

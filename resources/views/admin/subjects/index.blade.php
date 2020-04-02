@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-5">
 
                 <div class="card subject">
                     <div class="card-header">
@@ -40,14 +40,7 @@
                                 @foreach($subjects as $subject)
                                     <tr>
                                         <td>
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <img class="rounded-circle" src="/storage/{{ $subject->image }}" alt="">
-                                                </div>
-                                                <div class="col-10 align-self-center">
-                                                    {{ $subject->name }}
-                                                </div>
-                                            </div>
+                                            {{ $subject->name }}
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route("admin.subject.edit", $subject->id) }}"><i class="fas fa-pen"></i></a>

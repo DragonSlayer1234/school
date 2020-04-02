@@ -3,6 +3,8 @@
     <main class="container-fluid main-container py-5">
         <div class="row justify-content-center">
           <div class="col-3 px-5">
+              <h5 class="mb-3 text-center">Участники олимпиады</h5>
+
                 <table class="table">
                   <thead>
                     <tr>
@@ -14,11 +16,48 @@
                       @forelse ($olympiad->participants as $participant)
                           <tr>
                               <td>{{ $participant->student->getFullname() }}</td>
-                              <td>{{ $participant->mark }}</td>
+                              <td class="text-center">{{ $participant->mark }}</td>
                           </tr>
                       @empty
                           <tr>
                               <td class="text-center" colspan="2">Участники отсутствуют</td>
+                          </tr>
+                      @endforelse
+                  </tbody>
+                </table>
+
+                <h5 class="my-3 text-center">Победители</h5>
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 90%">Участник</th>
+                      <th>Место</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      @forelse ($olympiad->winners as $winner)
+                          <tr>
+                              <td>{{ $winner->participant->student->getFullname() }}</td>
+                              <td class="text-center">
+                                @if ($winner->place === 1)
+                                    <span class="gold" title="Первое место">
+                                          <i class="fas fa-trophy"></i>
+                                    </span>
+                                @elseif ($winner->place === 2)
+                                    <span class="silver" title="Второе место">
+                                          <i class="fas fa-trophy"></i>
+                                    </span>
+                                @elseif ($winner->place === 3)
+                                    <span class="bronze" title="Третье место">
+                                          <i class="fas fa-trophy"></i>
+                                    </span>
+                                @endif
+                              </td>
+                          </tr>
+                      @empty
+                          <tr>
+                              <td class="text-center" colspan="2">Победители не объявлены</td>
                           </tr>
                       @endforelse
                   </tbody>

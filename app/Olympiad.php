@@ -17,7 +17,7 @@ class Olympiad extends Model
 
     protected $fillable = [
         'name', 'start_date', 'end_date', 'cost', 'subject_id', 'teacher_id',
-        'status', 'work_id', 'description', 'olympiad_duration'
+        'status', 'work_id', 'description', 'duration'
     ];
 
     public $timestamps = false;
@@ -34,9 +34,23 @@ class Olympiad extends Model
         ];
     }
 
+    public static function getViewStatuses()
+    {
+        return [
+            self::STATUS_UPCOMING => 'Предстоящие',
+            self::STATUS_ACTIVE => 'Активные',
+            self::STATUS_FINISHED => 'Прошедшие',
+        ];
+    }
+
     public static function isCorrectStatus($status)
     {
         return in_array($status, array_keys(self::getStatuses()));
+    }
+
+    public static function isCorrectViewStatus($status)
+    {
+        return in_array($status, array_keys(self::getViewStatuses()));
     }
 
     public static function new($author, $subject, $work, $name, $description,
@@ -95,11 +109,6 @@ class Olympiad extends Model
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function isDraft()
-    {
-        return $this->status === self::STATUS_DRAFT;
-    }
-
     public function isRejected()
     {
         return $this->status === self::STATUS_REJECTED;
@@ -113,13 +122,13 @@ class Olympiad extends Model
     private function isStartTime()
     {
         $now = Carbon::now();
-        return $this->start_date->timestamps() < $now->timestamps();
+        return $this->getStartDate()->timestamp < $now->timestamp;
     }
 
     private function isEndDate()
     {
         $now = Carbon::now();
-        return $this->end_date->timestamps() < $now->timestamps();
+        return $this->getEndDate()->timestamp < $now->timestamp;
     }
 
     public function teacher()
@@ -157,8 +166,8 @@ class Olympiad extends Model
         $end->addHour($time->hour);
         $end->addMinute($time->minute);
 
-        if ($end->timestamp > $this->end_date->timestamp) {
-            $end = $this->end_date;
+        if ($end->timestamp > $this->getEndDate()->timestamp) {
+            $end = $this->getEndDate();
         }
         return Participant::new($this->id, $student->id, $end);
     }
@@ -167,6 +176,26 @@ class Olympiad extends Model
     {
         return $this->participants()
                     ->where('student_id', $student->id)
+                    ->exists();
+    }
+
+    public function setPlace(Participant $participant, $place)
+    {
+        if ($this->hasWinner($participant)) {
+            $winner = $this->winners()
+                            ->where('participant_id', $participant->id)
+                            ->first();
+            $winner->place = $place;
+            $winner->save();
+            return $winner;
+        }
+        return Winner::new($this->id, $participant->id, $place);
+    }
+
+    public function hasWinner(Participant $participant)
+    {
+        return $this->winners()
+                    ->where('participant_id', $participant->id)
                     ->exists();
     }
 
@@ -210,6 +239,15 @@ class Olympiad extends Model
         $this->save();
     }
 
+    public function finished()
+    {
+        if (!$this->isCheck()) {
+            throw new \DomainException('Данная олимпиада не соответствует требованиям');
+        }
+        $this->status = self::STATUS_FINISHED;
+        $this->save();
+    }
+
     public function getStartDate()
     {
         return Carbon::parse( $this->start_date)->locale('ru');
@@ -223,7 +261,7 @@ class Olympiad extends Model
     public function getDuration()
     {
         CarbonInterval::setLocale('ru');
-        return CarbonInterval::createFromFormat('H:i', $this->duration);
+        return CarbonInterval::createFromFormat('H:i:s', $this->duration);
     }
 
     public function getCost()

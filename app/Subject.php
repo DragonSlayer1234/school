@@ -9,14 +9,13 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'image'
+        'name'
     ];
 
-    public static function new($name, $image)
+    public static function new($name)
     {
         return static::create([
-            'name' => $name,
-            'image' => $image
+            'name' => $name
         ]);
     }
 

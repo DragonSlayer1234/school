@@ -39,8 +39,7 @@ class SubjectController extends Controller
      */
     public function store(CreateSubjectRequest $request)
     {
-        $path = $request->image->store('subjects/', 'public');
-        Subject::new($request->name, $path);
+        Subject::new($request->name);
 
         return redirect()->route('admin.subject.index');
     }

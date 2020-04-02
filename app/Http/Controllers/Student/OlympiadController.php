@@ -16,11 +16,23 @@ class OlympiadController extends Controller
         $student = $request->user();
         $olympiad->addParticipant($student);
 
-        return redirect()->route('student.olympiad.answer', $olympiad);
+        return redirect()->route('student.olympiad.show', $olympiad);
     }
 
-    public function answer(Olympiad $olympiad)
+    public function show(Request $request, Olympiad $olympiad)
     {
-        return view('student.olympiads.answer', compact('olympiad'));
+        $student = $request->user();
+        $participant = $olympiad->participants()
+                                ->where('student_id', $student->id)
+                                ->first();
+        return view('student.olympiads.show', compact('olympiad', 'participant'));
+    }
+
+    public function history(Request $request)
+    {
+        $student = $request->user();
+        $participants = Participant::where('student_id', $student->id)->get();
+
+        return view('student.olympiads.history', compact('participants'));
     }
 }

@@ -9,7 +9,9 @@
 
 
         <div class="text-center my-4">
-          <a href="" class="type type-left">Прошедшие</a><a href="" class="type type-center type-active">Активные</a><a href="" class="type type-right">Будущие</a>
+          <a href="{{ route('olympiad.index', ['status' => 'finished']) }}" class="type type-left {{ $status === 'finished' ? 'type-active': '' }}">Прошедшие</a>
+          <a href="{{ route('olympiad.index', ['status' => 'active']) }}" class="type type-center {{ $status === 'active' ? 'type-active': '' }}">Активные</a>
+          <a href="{{ route('olympiad.index', ['status' => 'upcoming']) }}" class="type type-right {{ $status === 'upcoming' ? 'type-active': '' }}">Будущие</a>
         </div>
 
         <table class="table olympiad-table">
@@ -40,6 +42,7 @@
 
           </tbody>
         </table>
+        {{ $olympiads->links() }}
         </div>
       </div>
     </main>

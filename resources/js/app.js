@@ -8,10 +8,12 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+window.moment = require('moment');
 require('owl.carousel');
 require('jquery-countdown');
 require('masonry-layout');
 require('magnific-popup');
+require('tempusdominus-bootstrap-4');
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
@@ -34,7 +36,7 @@ Vue.use(IconsPlugin);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('olympiad', require('./components/Olympiad.vue').default);
-Vue.component('subject-image', require('./components/SubjectImage.vue').default);
+Vue.component('type-filter', require('./components/TypeFilter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -80,30 +80,29 @@
                     <!-- widget -->
                     <div class="col-sm-6 col-lg-3 footer-widget">
                         <div class="about-widget">
-                            <img src="img/logo-light.png" alt="">
-                            <p>orem ipsum dolor sit amet, consecter adipiscing elite. Donec minos varius, viverra justo ut, aliquet nisl.</p>
+                            <img src="https://tvoi-setevichok.ru/wp-content/uploads/2019/03/post_5c9378b661db6.jpg" class="footer-image" alt="">
                             <div class="social pt-1">
-                                <a href=""><i class="fa fa-twitter-square"></i></a>
-                                <a href=""><i class="fa fa-facebook-square"></i></a>
-                                <a href=""><i class="fa fa-google-plus-square"></i></a>
+                                <a href=""><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href=""><i class="fab fa-facebook fa-lg"></i></a>
+                                <a href=""><i class="fab fa-google-plus-g fa-lg"></i></a>
+                                <a href=""><i class="fab fa-instagram fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
                     <!-- widget -->
-                    <div class="col-sm-6 col-lg-3 footer-widget">
-                        <h6 class="fw-title">USEFUL LINK</h6>
+                    <div class="col-6 footer-widget">
+                        <h6 class="fw-title">Про школу</h6>
                         <div class="dobule-link">
-                            <ul>
-                                <li><a href="">Home</a></li>
-                                <li><a href="">About us</a></li>
-                                <li><a href="">News</a></li>
-                                <li><a href="">Olympiads</a></li>
-                            </ul>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-lg-3 footer-widget">
-                        <h6 class="fw-title">CONTACT</h6>
+                        <h6 class="fw-title">Контакты</h6>
                         <ul class="contact">
                             <li><p><i class="fa fa-map-marker"></i> 123</p></li>
                             <li><p><i class="fa fa-phone"></i> 123</p></li>
@@ -117,7 +116,7 @@
             <div class="copyright">
                 <div class="container">
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <script>document.write(new Date().getFullYear());</script>
+
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>

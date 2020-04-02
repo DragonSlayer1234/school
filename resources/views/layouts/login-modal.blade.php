@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#loginModal">
+<button type="button" class="custom-btn float-right login-modal" data-toggle="modal" data-target="#loginModal">
     Login
 </button>
 
@@ -13,8 +13,8 @@
       </div>
       <div class="modal-body">
         <h5 class="mb-3 text-center">Login as</h5>
-        <a href="{{ route('teacher.login') }}" class="btn btn-primary form-control mb-2">Teacher</a>
-        <a href="{{ route('student.login') }}" class="btn btn-primary form-control">Student</a>
+        <a href="{{ route('teacher.login') }}" class="site-btn form-control mb-2">Teacher</a>
+        <a href="{{ route('student.login') }}" class="site-btn form-control">Student</a>
       </div>
     </div>
   </div>

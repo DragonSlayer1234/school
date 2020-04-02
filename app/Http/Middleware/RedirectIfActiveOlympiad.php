@@ -19,7 +19,7 @@ class RedirectIfActiveOlympiad
     {
         if (Auth::guard('student')->check() &&
             $request->olympiad->isActive()) {
-            return redirect()->route('student.olympiad.answer', $request->olympiad);
+            return redirect()->route('student.olympiad.show', $request->olympiad);
         }
         return $next($request);
     }

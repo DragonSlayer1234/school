@@ -21,9 +21,9 @@ class RedirectIfAuthenticated
             if ($guard === 'admin') {
                 return redirect()->route('admin.home');
             } elseif ($guard === 'teacher') {
-                return redirect()->route('teacher.cabinet.index');
+                return redirect()->route('home');
             } elseif ($guard === 'student') {
-                return redirect()->route('student.cabinet.index');
+                return redirect()->route('home');
             }
             return redirect('/home');
         }

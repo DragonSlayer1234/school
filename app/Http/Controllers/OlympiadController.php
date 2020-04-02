@@ -9,14 +9,20 @@ class OlympiadController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('active.olympiad')->only('show');    
+        $this->middleware('active.olympiad')->only('show');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $olympiads = Olympiad::active()->get();
-        $active = 'active';
-        return view('olympiads.index', compact('olympiads', 'active'));
+        $status = $request->status;
+        if ($status === null) {
+            $status = 'active';
+        } elseif (!Olympiad::isCorrectViewStatus($status)) {
+            abort(404);
+        }
+        $olympiads = Olympiad::byStatus($status)->paginate(10);
+
+        return view('olympiads.index', compact('olympiads', 'status'));
     }
 
     public function participants(Olympiad $olympiad)

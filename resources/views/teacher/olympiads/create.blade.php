@@ -44,39 +44,75 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="startDate" class="col-3 col-form-label">Дата проведения</label>
-                    <div class="col-4">
-                        <input type="text" id="startDate" class="form-control {{ $errors->has('startDate') ? ' is-invalid' : '' }}" name="startDate" value="{{ old('startDate') }}">
-                        @error('startDate')
-                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                        @enderror
+                <div class="form-row">
+                    <label for="name" class="col-3 col-form-label">Дата проведения</label>
+                    <div class="form-group col-4">
+                        <div class="input-group date dates" id="startDate" data-target-input="nearest">
+                            <input
+                            placeholder="Начало"
+                            type="text"
+                            class="form-control datetimepicker-input {{ $errors->has('startDate') ? ' is-invalid' : '' }}"
+                            data-target="#startDate"
+                            name="startDate"
+                            />
+                            @error('startDate')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
+                            <div class="input-group-append" data-target="#startDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <input type="text" id="endDate" class="form-control {{ $errors->has('endDate') ? ' is-invalid' : '' }}" name="endDate" value="{{ old('endDate') }}">
-                        @error('endDate')
-                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                        @enderror
+
+                    <div class="form-group col-4">
+                        <div class="input-group date dates" id="endDate" data-target-input="nearest">
+                            <input
+                            placeholder="Окончание"
+                            type="text"
+                            class="form-control datetimepicker-input {{ $errors->has('endDate') ? ' is-invalid' : '' }}"
+                            data-target="#endDate"
+                            name="endDate"
+                            />
+                            @error('endDate')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
+                            <div class="input-group-append" data-target="#endDate" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="cost" class="col-3 col-form-label">Цена</label>
                     <div class="col-8">
-                        <input type="number" id="cost" class="form-control {{ $errors->has('cost') ? ' is-invalid' : '' }}" name="cost" value="{{ old('cost') }}">
-                        @error('cost')
-                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
-                        @enderror
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="cost"><i class="fas fa-tenge"></i></span>
+                            </div>
+                            <input type="number" id="cost" class="form-control {{ $errors->has('cost') ? ' is-invalid' : '' }}" name="cost" value="{{ old('cost') }}">
+                            @error('cost')
+                            <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="duration" class="col-3 col-form-label">Длительность</label>
-                    <div class="col-8">
-                        <input type="text" id="duration" class="form-control {{ $errors->has('duration') ? ' is-invalid' : '' }}" name="duration" value="{{ old('duration') }}">
+                    <div class="col-8 input-group date" id="duration" data-target-input="nearest">
+                        <input
+                        type="text"
+                        class="form-control datetimepicker-input {{ $errors->has('duration') ? ' is-invalid' : '' }}"
+                        data-target="#duration"
+                        name="duration"
+                        />
                         @error('duration')
                         <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
+                        <div class="input-group-append" data-target="#duration" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
                     </div>
                 </div>
 

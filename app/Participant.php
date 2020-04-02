@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Participant extends Model
 {
@@ -36,15 +37,31 @@ class Participant extends Model
         return $this->belongsTo(File::class, 'answer_id');
     }
 
+    public function winner()
+    {
+        return $this->hasOne(Winner::class);
+    }
+
     public function hasAnswer()
     {
         return $this->answer()->exists();
+    }
+
+    public function isWinner()
+    {
+        return $this->winner()->exists();
     }
 
     public function mark($mark)
     {
         $this->mark = $mark;
         $this->save();
+    }
+
+    public function canAnswer()
+    {
+        $now = Carbon::now();
+        return $now->timestamp < $this->end_time->timestamp;
     }
 
     public function addAnswer(File $answer)

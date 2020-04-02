@@ -46,6 +46,10 @@ Route::group([
             Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
             Route::get('olympiad/create', 'OlympiadController@create')->name('olympiad.create');
             Route::post('olympiad', 'OlympiadController@store')->name('olympiad.store');
+            Route::post('olympiad/{olympiad}/finish', 'OlympiadController@finish')->name('olympiad.finish');
+
+            Route::post('participant/{participant}/mark', 'ParticipantController@mark')->name('participant.mark');
+            Route::post('participant/{participant}/set-place', 'ParticipantController@setPlace')->name('participant.set-place');
 
         });
     });
@@ -81,7 +85,9 @@ Route::group([
             Route::put('profile/update', 'ProfileController@update')->name('profile.update');
 
             Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
+            Route::get('olympiad/history', 'OlympiadController@history')->name('olympiad.history');
             Route::post('olympiad/{olympiad}/join', 'OlympiadController@join')->name('olympiad.join');
+            Route::post('olympiad/{olympiad}/answer', 'ParticipantController@answer')->name('olympiad.answer');
         });
     });
 });
