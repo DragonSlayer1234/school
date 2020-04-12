@@ -65,7 +65,7 @@
           </div>
 
           <div class="col-5 main-olympiad">
-                <h5 class="mb-3">Примите участвие в олимпиаде {{ $olympiad->name }}</h5>
+                <h5 class="mb-3">{{ $olympiad->name }}</h5>
                 <p class="mb-5"><i class="far fa-calendar-alt"></i> Дата проведения: {{ $olympiad->getStartDate()->isoFormat('D MMMM YYYY г.') }}
                 - {{ $olympiad->getEndDate()->isoFormat('D MMMM YYYY г.') }}</p>
                 <h5>ОБ ОЛИМПИАДЕ</h5>
@@ -81,11 +81,11 @@
                 <p><i class="fas fa-tenge"></i> Цена за участие: {{ $olympiad->getCost() }}</p>
 
                 <hr>
-                <h5>Как проходит олимпиада</h5>
+                <h5 class="mb-2">Как проходит олимпиада</h5>
                 <p>Участники собираются в Астане накануне открытия, 25 апреля. Далее в течение трёх дней они решают задачи по экономике, финансовой грамотности и анализируют бизнес-кейсы.</p>
 
                 <hr>
-                <h5>
+                <h5 class="mb-2">
                   Как принять участие
                 </h5>
                 <p>

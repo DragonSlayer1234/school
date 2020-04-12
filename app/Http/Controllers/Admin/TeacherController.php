@@ -12,12 +12,6 @@ use App\Teacher;
 
 class TeacherController extends Controller
 {
-    private $teacherService;
-
-    public function __construct(TeacherService $teacherService)
-    {
-        $this->teacherService = $teacherService;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -92,27 +86,20 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
-        $this->teacherService->updateInformation($teacher, $request);
+        $teacher->edit(
+            $request->firstname,
+            $request->lastname,
+            $request->surname
+        );
 
         return redirect()->route('admin.teacher.index');
     }
 
     public function resetPassword(Teacher $teacher)
     {
-        $this->teacherService->resetPassword($teacher);
+        $teacher->resetPassword();
         Auth::guard('teacher')->logout();
 
         return redirect()->route('admin.teacher.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

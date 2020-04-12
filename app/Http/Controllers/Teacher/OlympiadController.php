@@ -12,6 +12,7 @@ use App\Subject;
 use App\Participant;
 use App\Winner;
 use App\File;
+use App\UseCases\OlympiadSorter;
 use LogicException;
 use DomainException;
 
@@ -25,7 +26,8 @@ class OlympiadController extends Controller
         $selected->status = $request->status;
         $selected->subject = $request->subject;
         $selected->date = $request->date;
-        $olympiads = $this->sortOlympiad($teacher->olympiads(), $selected);
+
+        $olympiads = OlympiadSorter::sort($teacher->olympiads(), $selected);
 
         return view('teacher.olympiads.index',
                 compact('olympiads', 'selected', 'subjects'));
@@ -82,22 +84,5 @@ class OlympiadController extends Controller
         }
 
         return redirect()->route('teacher.olympiad.index');
-    }
-
-    private function sortOlympiad($olympiads, $selected)
-    {
-        if ($selected->status !== null) {
-            $olympiads->byStatus($selected->status);
-        }
-        if ($selected->subject !== null) {
-            $olympiads->where('subject_id', $selected->subject);
-        }
-        if ($selected->date === 'new') {
-            $olympiads->orderBy('start_date', 'desc');
-        } elseif ($selected->date === 'old') {
-            $olympiads->orderBy('start_date', 'asc');
-        }
-
-        return $olympiads->get();
     }
 }

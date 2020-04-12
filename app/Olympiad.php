@@ -266,6 +266,6 @@ class Olympiad extends Model
 
     public function getCost()
     {
-        return $this->cost === 0 ? 'Бесплатно' : $this->cost;
+        return $this->cost === 0 ? 'Бесплатно' : "$this->cost тг.";
     }
 }

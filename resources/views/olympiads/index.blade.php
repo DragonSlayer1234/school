@@ -9,9 +9,32 @@
 
 
         <div class="text-center my-4">
-          <a href="{{ route('olympiad.index', ['status' => 'finished']) }}" class="type type-left {{ $status === 'finished' ? 'type-active': '' }}">Прошедшие</a>
-          <a href="{{ route('olympiad.index', ['status' => 'active']) }}" class="type type-center {{ $status === 'active' ? 'type-active': '' }}">Активные</a>
-          <a href="{{ route('olympiad.index', ['status' => 'upcoming']) }}" class="type type-right {{ $status === 'upcoming' ? 'type-active': '' }}">Будущие</a>
+          <a href="{{ route('olympiad.index', ['status' => 'finished']) }}" class="type type-left {{ $selected->status === 'finished' ? 'type-active': '' }}">Прошедшие</a>
+          <a href="{{ route('olympiad.index', ['status' => 'active']) }}" class="type type-center {{ $selected->status === 'active' ? 'type-active': '' }}">Активные</a>
+          <a href="{{ route('olympiad.index', ['status' => 'upcoming']) }}" class="type type-right {{ $selected->status === 'upcoming' ? 'type-active': '' }}">Будущие</a>
+        </div>
+
+        <h5>Сортировка по:</h5>
+
+        <div class="my-3">
+            <form class="form-inline" action="{{ route('olympiad.index') }}">
+
+                    <select class="form-control custom-select mr-2" name="date">
+                        <option {{ $selected->date === null ? 'selected' : '' }} disabled>По дате</option>
+                        <option {{ $selected->date === 'new' ? 'selected' : '' }} value="new">Сначала новые</option>
+                        <option {{ $selected->date === 'old' ? 'selected' : '' }} value="old">Сначала старые</option>
+                    </select>
+
+                    <select class="form-control custom-select mr-2" name="subject">
+                        <option disabled>По предмету</option>
+                        <option value="" {{ $selected->subject === null ? 'selected' : '' }}>Все предметы</option>
+                        @foreach ($subjects as $subject)
+                            <option {{ (int)$selected->subject === $subject->id ? 'selected' : '' }} value="{{ $subject->id }}">{{ $subject->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Сортировать</button>
+            </form>
         </div>
 
         <table class="table olympiad-table">
@@ -34,7 +57,7 @@
                       -
                       {{ $olympiad->getEndDate()->format('d.m.Y') }}
                   </td>
-                  <td>{{ $olympiad->cost === 0 ? 'Бесплатно' : $olympiad->cost }}</td>
+                  <td>{{ $olympiad->getCost() }}</td>
                   <td>{{ $olympiad->subject->name }}</td>
                   <td>{{ $olympiad->getDuration() }}</td>
                 </tr>
@@ -42,7 +65,6 @@
 
           </tbody>
         </table>
-        {{ $olympiads->links() }}
         </div>
       </div>
     </main>

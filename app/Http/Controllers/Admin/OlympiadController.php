@@ -12,13 +12,6 @@ use LogicException;
 
 class OlympiadController extends Controller
 {
-    private $olympiadManager;
-
-    public function __construct(OlympiadManagerService $olympiadManager)
-    {
-        $this->olympiadManager = $olympiadManager;
-    }
-
     public function index(Request $request)
     {
         $status = $request->status;
@@ -79,7 +72,7 @@ class OlympiadController extends Controller
     public function finish(Request $request, Olympiad $olympiad)
     {
         try {
-            $this->olympiadManager->finish($olympiad);
+            $olympiad->changeToCheck();
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
         }

@@ -12,12 +12,6 @@ use App\Student;
 
 class StudentController extends Controller
 {
-    private $studentService;
-
-    public function __construct(StudentService $studentService)
-    {
-        $this->studentService = $studentService;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -92,27 +86,20 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        $this->studentService->updateInformation($student, $request);
+        $student->edit(
+            $request->firstname,
+            $request->lastname,
+            $request->surname
+        );
 
         return redirect()->route('admin.student.index');
     }
 
     public function resetPassword(Student $student)
     {
-        $this->studentService->resetPassword($student);
+        $student->resetPassword();
         Auth::guard('student')->logout();
 
         return redirect()->route('admin.student.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

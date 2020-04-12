@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Olympiad;
+use App\Subject;
+use App\UseCases\OlympiadSorter;
 
 class OlympiadController extends Controller
 {
@@ -14,15 +16,17 @@ class OlympiadController extends Controller
 
     public function index(Request $request)
     {
-        $status = $request->status;
-        if ($status === null) {
-            $status = 'active';
-        } elseif (!Olympiad::isCorrectViewStatus($status)) {
-            abort(404);
-        }
-        $olympiads = Olympiad::byStatus($status)->paginate(10);
+        $teacher = $request->user();
+        $subjects = Subject::all();
+        $selected = collect();
+        $selected->status = $request->status;
+        $selected->subject = $request->subject;
+        $selected->date = $request->date;
 
-        return view('olympiads.index', compact('olympiads', 'status'));
+        $olympiads = OlympiadSorter::getSortedView($selected);
+
+        return view('olympiads.index',
+            compact('olympiads', 'subjects', 'selected'));
     }
 
     public function participants(Olympiad $olympiad)

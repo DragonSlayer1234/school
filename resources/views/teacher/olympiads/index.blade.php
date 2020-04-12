@@ -65,7 +65,13 @@
 
             @foreach ($olympiads as $olympiad)
                 <tr>
-                  <td><a href="{{ route('olympiad.show', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a></td>
+                  <td>
+                      @if ($olympiad->isCheck())
+                        <a href="{{ route('teacher.olympiad.check', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a>
+                      @else
+                        <a href="{{ route('olympiad.show', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a>
+                      @endif
+                  </td>
                   <td>
                       {{ $olympiad->getStartDate()->format('d.m.Y') }}
                       -
