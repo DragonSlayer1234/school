@@ -68,6 +68,8 @@
                   <td>
                       @if ($olympiad->isCheck())
                         <a href="{{ route('teacher.olympiad.check', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a>
+                      @elseif ($olympiad->isRejected())
+                        <a href="{{ route('teacher.olympiad.reason', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a>
                       @else
                         <a href="{{ route('olympiad.show', $olympiad) }}" class="olympiad-link">{{ $olympiad->name }}</a>
                       @endif

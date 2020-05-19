@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/paper-kit.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,7 +21,7 @@
 </head>
 <style media="screen">
 html, body, #app, .container, .row {
-    height: 100%;
+    height: 100% !important;
 }
 </style>
 <body>

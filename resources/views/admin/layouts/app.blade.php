@@ -50,6 +50,13 @@
                                   Предметы
                               </a>
                             </li>
+
+                            <li class="nav-item">
+                               <a class="nav-link" href="{{ route('admin.news.index') }}">
+                                   <span class="mr-1"><i class="fas fa-newspaper"></i></span>
+                                   Новости
+                               </a>
+                             </li>
                     </ul>
 
                     <ul class="navbar-nav ml-auto">
@@ -92,5 +99,6 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

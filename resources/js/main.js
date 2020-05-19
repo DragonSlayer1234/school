@@ -126,6 +126,7 @@ $(window).on('load', function() {
 			format: 'HH:mm'
 		});
 	});
+	
 
 
 

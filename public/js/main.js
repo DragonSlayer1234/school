@@ -218,7 +218,7 @@ $(window).on('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/laraex/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /var/www/school/school/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

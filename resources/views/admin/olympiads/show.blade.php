@@ -35,10 +35,35 @@
                                 @csrf
                                 <button class="btn btn-success" type="submit">Принять</button>
                             </form>
-                            <form action="{{ route('admin.olympiad.reject', $olympiad->id) }}" method="post">
-                                @csrf
-                                <button class="btn btn-primary" type="submit">Отклонить</button>
-                            </form>
+
+                            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#rejectModal">Отклонить</button>
+
+                            <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Reject Olympiad</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{{ route('admin.olympiad.reject', $olympiad->id) }}" method="post">
+                                        @csrf
+                                        <div class="form-group">
+                                          <textarea class="form-control @error('reason') is-invalid @enderror" name="reason" placeholder="Type a reason"></textarea>
+                                            @error('reason')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Отклонить</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
                         @elseif ($olympiad->isUpcoming())
                             <form action="{{ route('admin.olympiad.start', $olympiad->id) }}" method="post">

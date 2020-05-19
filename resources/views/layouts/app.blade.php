@@ -9,6 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Favicon -->
+     <script src="https://kit.fontawesome.com/0ad84e0e4b.js" crossorigin="anonymous"></script>
     <link href="img/favicon.ico" rel="shortcut icon"/>
 
     <!-- Google Fonts -->
@@ -33,7 +34,7 @@
         <header class="header-section">
     		<div class="container">
     			<!-- logo -->
-    			<a href="index.html" class="site-logo"><img src="" alt=""></a>
+    			<a href="index.html" class="site-logo"><img src="images/U1lWpn3DIIA.jpg" alt=""></a>
     			<div class="nav-switch">
     				<i class="fa fa-bars"></i>
     			</div>
@@ -58,8 +59,9 @@
     		<div class="container">
     			<ul class="main-menu">
     				<li class="active"><a href="{{ route('home') }}">Главная</a></li>
-    				<li><a href="about.html">О нас</a></li>
-    				<li><a href="blog.html">Новости</a></li>
+    				<li><a href="{{ route('about') }}">О нас</a></li>
+    				<li><a href="{{ route('news.index') }}">Новости</a></li>
+            <li><a href="{{ route('show-document') }}">Документация</a></li>
     				<li><a href="contact.html">Контакты</a></li>
     				<li><a href="{{ route('olympiad.index') }}">Олимпиады</a></li>
 
@@ -75,43 +77,42 @@
 
         <!-- Footer section -->
         <footer class="footer-section">
-            <div class="container footer-top">
-                <div class="row">
-                    <!-- widget -->
-                    <div class="col-sm-6 col-lg-3 footer-widget">
-                        <div class="about-widget">
-                            <img src="https://tvoi-setevichok.ru/wp-content/uploads/2019/03/post_5c9378b661db6.jpg" class="footer-image" alt="">
-                            <div class="social pt-1">
-                                <a href=""><i class="fab fa-twitter fa-lg"></i></a>
-                                <a href=""><i class="fab fa-facebook fa-lg"></i></a>
-                                <a href=""><i class="fab fa-google-plus-g fa-lg"></i></a>
-                                <a href=""><i class="fab fa-instagram fa-lg"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- widget -->
-                    <div class="col-6 footer-widget">
-                        <h6 class="fw-title">Про школу</h6>
-                        <div class="dobule-link">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-                        </div>
-                    </div>
 
-                    <div class="col-sm-6 col-lg-3 footer-widget">
-                        <h6 class="fw-title">Контакты</h6>
-                        <ul class="contact">
-                            <li><p><i class="fa fa-map-marker"></i> 123</p></li>
-                            <li><p><i class="fa fa-phone"></i> 123</p></li>
-                            <li><p><i class="fa fa-envelope"></i> 123</p></li>
-                            <li><p><i class="fa fa-clock-o"></i> 123</p></li>
-                        </ul>
-                    </div>
-                </div>
+          <div class=" footer-top">
+            <div class="row align-items-center">
+
+          <div class="col-3 footer-widget">
+            <div class="about-widget">
+              <div class="social">
+              <h6 class="fw-title">Social media</h6>
+              </div>
+              <div class="social">
+                <a href=""><i class="fab fa-twitter fa-lg"></i></a>
+                <a href=""><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href=""><i class="fab fa-google-plus-g fa-lg"></i></a>
+                <a href=""><i class="fab fa-instagram fa-lg"></i></a>
+              </div>
             </div>
+          </div>
+
+          <div class="col-6  footer-widget">
+            <h5 class="fw-title">Cпециализированная школа-интернат имени Жамбыла </h5>
+          </div>
+
+          <div class="col-3 footer-widget">
+            <div class="about-widget">
+              <div class="text-align-center" style="color:white">
+                <i class="fa fa-map-marker fa-lg"></i> 17-53-25 |
+                <i class="fa fa-phone fa-lg"></i> 8(7212)-46-32-48 |
+              </div>
+              <div class="text-align-center" style="color:white">
+                <i class="fa fa-envelope fa-lg"></i> chetotam@gmail.com |
+                <i class="fa fa-clock-o fa-lg"></i> 9:00 - 18:00
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
             <!-- copyright -->
             <div class="copyright">
                 <div class="container">
@@ -120,6 +121,7 @@
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
+                <hr>
             </footer>
             <!-- Footer section end-->
         </div>

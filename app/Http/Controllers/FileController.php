@@ -13,10 +13,9 @@ class FileController extends Controller
         return response()->download(storage_path("app/public/{$request->path}"));
     }
 
-    public function uploadImage(UploadImageRequest $request)
+    public function uploadImage(Request $request)
     {
-        $path = $request->image->store('tmp-image/', 'public');
-
-        return "/storage/$path" ;
+        $path = str_replace('public', '/storage', $request->file('file')->store('public/tmp-images'));
+        return $path;
     }
 }

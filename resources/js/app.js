@@ -14,14 +14,8 @@ require('jquery-countdown');
 require('masonry-layout');
 require('magnific-popup');
 require('tempusdominus-bootstrap-4');
+require('summernote/dist/summernote-bs4');
 
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
-
-
-// Install BootstrapVue
-Vue.use(BootstrapVue);
-// Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin);
 
 /**
  * The following block of code may be used to automatically register your
@@ -47,6 +41,8 @@ Vue.component('type-filter', require('./components/TypeFilter.vue').default);
 const app = new Vue({
     el: '#app',
 });
+
+
 
 
 /* =================================

@@ -69,6 +69,11 @@ class OlympiadController extends Controller
         return view('teacher.olympiads.show', compact('olympiad'));
     }
 
+    public function rejectReason(Olympiad $olympiad)
+    {
+        return view('teacher.olympiads.reject-reason', compact('olympiad'));
+    }
+
     public function check(Olympiad $olympiad)
     {
         return view('teacher.olympiads.check', compact('olympiad'));
@@ -85,4 +90,6 @@ class OlympiadController extends Controller
 
         return redirect()->route('teacher.olympiad.index');
     }
+
+
 }

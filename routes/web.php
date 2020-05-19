@@ -5,12 +5,21 @@ Route::get('test', function(){
 });
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('about', 'HomeController@about')->name('about');
+Route::get('documentation', 'HomeController@showDocument')->name('show-document');
+Route::get('teacher-documentation', 'HomeController@showTeacherDocument')->name('show-teacher-document');
+Route::get('contact', 'HomeController@contact')->name('contact');
 
 Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
 Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
 
+Route::get('news', 'NewsController@index')->name('news.index');
+Route::get('news/{news}/show', 'NewsController@show')->name('news.show');
+
 Route::get('download', 'FileController@download')->name('download');
-Route::post('upload/image', 'FileController@uploadImage');
+Route::post('upload/image', 'FileController@uploadImage')->name('upload-image');
+
+
 
 Route::group([
     'prefix'=>'teacher',
@@ -43,6 +52,7 @@ Route::group([
 
             Route::get('olympiads', 'OlympiadController@index')->name('olympiad.index');
             Route::get('olympiad/{olympiad}/check', 'OlympiadController@check')->name('olympiad.check');
+            Route::get('olympiad/{olympiad}/reject-reason', 'OlympiadController@rejectReason')->name('olympiad.reason');
             Route::get('olympiad/{olympiad}/show', 'OlympiadController@show')->name('olympiad.show');
             Route::get('olympiad/create', 'OlympiadController@create')->name('olympiad.create');
             Route::post('olympiad', 'OlympiadController@store')->name('olympiad.store');
@@ -128,6 +138,10 @@ Route::group([
         Route::post('olympiad/{olympiad}/reject', 'OlympiadController@reject')->name('olympiad.reject');
         Route::post('olympiad/{olympiad}/start', 'OlympiadController@start')->name('olympiad.start');
         Route::post('olympiad/{olympiad}/finish', 'OlympiadController@finish')->name('olympiad.finish');
+
+        Route::get('news', 'NewsController@index')->name('news.index');
+        Route::get('news/create', 'NewsController@create')->name('news.create');
+        Route::post('news', 'NewsController@store')->name('news.store');
 
     });
 

@@ -9,6 +9,8 @@ use App\Olympiad;
 use App\Subject;
 use DomainException;
 use LogicException;
+use App\Http\Requests\RejectedReasonRequest;
+use App\RejectedReason;
 
 class OlympiadController extends Controller
 {
@@ -43,10 +45,11 @@ class OlympiadController extends Controller
         return redirect()->route('admin.olympiad.index');
     }
 
-    public function reject(Request $request, Olympiad $olympiad)
+    public function reject(RejectedReasonRequest $request, Olympiad $olympiad)
       {
         try {
             $olympiad->changeToRejected();
+            RejectedReason::new($olympiad->id, $request->reason);
             $request->session()->flash('success', 'Олимпиада была успешно отклонена');
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());

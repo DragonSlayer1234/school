@@ -63,20 +63,20 @@ $factory->define(Admin::class, function (Faker $faker) {
 
 $factory->define(Olympiad::class, function (Faker $faker) {
 
-    $work = File::create([
-        'path' => '12345'
-    ]);
+    // $work = File::create([
+    //     'path' => 'https://vk.com/doc433558132_544553746?hash=b2dc6f79dfcb3f6df6&dl=55a670f71f258c55d3'
+    // ]);
 
     return [
         'name' => $faker->name,
-        'subject_id' => 1,
+        'subject_id' => rand(1, 10),
         'teacher_id' => 1,
-        'work_id' => $work->id,
-        'cost' => 0,
-        'start_date' => '2020-03-28 09:00',
-        'end_date' => '2020-03-28 20:00',
+        'work_id' => 1,
+        'cost' => rand(0, 1000),
+        'start_date' => '2020-04-21 09:00',
+        'end_date' => '2020-04-26 20:00',
         'description' => $faker->text,
-        'duration' => '01:00',
-        'status' => Olympiad::STATUS_MODERATION
+        'duration' => '02:00',
+        'status' => Olympiad::STATUS_ACTIVE
     ];
 });

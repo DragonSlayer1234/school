@@ -70,6 +70,11 @@ class Olympiad extends Model
         ]);
     }
 
+    public function reason()
+    {
+        return $this->hasOne(RejectedReason::class);
+    }
+
     public function scopeAuthor($query, $teacher)
     {
         return $query->where('teacher_id', $teacher);

@@ -95,8 +95,13 @@ Helper CSS
   padding-top: 50px;
 }
 
+.spad-team {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
 .section-title {
-  margin-bottom: 70px;
+  margin-bottom: 0px;
 }
 
 .section-title h3 {
@@ -693,6 +698,7 @@ Footer Section
 .footer-section {
   background-color: #081624;
   background-repeat: no-repeat;
+  text-align: center;
 }
 
 .footer-image {
@@ -709,7 +715,7 @@ Footer Section
 }
 
 .footer-section .copyright p {
-  color: #b7b7b7;
+  color: white !important;
   margin-bottom: 0;
 }
 
@@ -719,19 +725,19 @@ Footer Section
 }
 
 .footer-section .copyright p a:hover {
-  color: #11365c;
+  color: white;
 }
 
 .footer-widget .fw-title {
   text-transform: uppercase;
-  color: white;
-  margin-bottom: 25px;
+  color: white !important;
+  margin-bottom: 10px;
   padding-top: 10px;
 }
 
 .footer-widget p,
 .footer-widget span {
-  color: #b7b7b7;
+  color: white !important;
 }
 
 .footer-widget ul {
@@ -751,7 +757,7 @@ Footer Section
 }
 
 .footer-widget .social a {
-  color: white;
+  color: white !important;
   margin-right: 15px;
 }
 
@@ -765,6 +771,7 @@ Footer Section
 }
 
 .footer-widget .contact i {
+  color: white !important;
   font-size: 12px;
 }
 
@@ -825,7 +832,7 @@ About page
 
 .about-text h5 {
   font-weight: 400;
-  margin-bottom: 12px;
+  margin-bottom: 7px;
 }
 
 .about-text .about-list {
@@ -964,7 +971,7 @@ About page
   overflow: hidden;
   position: relative;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .member .member-pic:after {
@@ -1798,5 +1805,62 @@ Responsive
 
 select:focus {
   box-shadow: none !important;
+}
+
+.d-type {
+  display: inline-block;
+  padding: 5px 15px;
+  text-align: center;
+  font-weight: 600;
+  color: black;
+  margin: 0;
+}
+
+.d-type:hover {
+  color: #11365c;
+}
+
+.d-type-active {
+  border-bottom: 2px solid #11365c;
+}
+
+.custom-container {
+  padding: 0 200px;
+}
+
+.card-header {
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 14px;
+  background-color: inherit;
+}
+
+.list-group-item {
+  border: none;
+  font-size: 14px;
+}
+
+.subject-img img {
+  width: 40px;
+  height: 40px;
+}
+
+.olympiad-date {
+  font-size: 12px;
+}
+
+.news-date {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.news-header {
+  height: 72px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  height: 251px;
 }
 
