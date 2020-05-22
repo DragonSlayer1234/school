@@ -17,7 +17,7 @@ class OlympiadController extends Controller
     public function index(Request $request)
     {
         $status = $request->status;
-        $olympiads = Olympiad::byStatus($status)->paginate(10);
+        $olympiads = Olympiad::byStatus($status)->get();
 
         return view('admin.olympiads.index', compact('olympiads', 'status'));
     }
@@ -38,11 +38,13 @@ class OlympiadController extends Controller
         try {
             $olympiad->changeToUpcoming();
             $request->session()->flash('success', 'Олимпиада была успешно принята');
+            $status = 'upcoming';
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
+            return redirect()->route('admin.olympiad.show', $olympiad->id);
         }
 
-        return redirect()->route('admin.olympiad.index');
+        return redirect()->route('admin.olympiad.index', compact('status'));
     }
 
     public function reject(RejectedReasonRequest $request, Olympiad $olympiad)
@@ -51,11 +53,13 @@ class OlympiadController extends Controller
             $olympiad->changeToRejected();
             RejectedReason::new($olympiad->id, $request->reason);
             $request->session()->flash('success', 'Олимпиада была успешно отклонена');
+            $status = 'rejected';
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
+            return redirect()->route('admin.olympiad.show', $olympiad->id);
         }
 
-        return redirect()->route('admin.olympiad.index');
+        return redirect()->route('admin.olympiad.index', compact('status'));
     }
 
     public function start(Request $request, Olympiad $olympiad)
@@ -63,22 +67,27 @@ class OlympiadController extends Controller
         try {
             $olympiad->changeToActive();
             $request->session()
-                    ->flash('success', "Олимпиада {$olympiad->name}  началась");
+                    ->flash('success', "Олимпиада {$olympiad->name} началась");
+            $status = 'active';
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
             return redirect()->route('admin.olympiad.show', $olympiad->id);
         }
 
-        return redirect()->route('admin.olympiad.index');
+        return redirect()->route('admin.olympiad.index', compact('status'));
     }
 
     public function finish(Request $request, Olympiad $olympiad)
     {
         try {
             $olympiad->changeToCheck();
+            $request->session()
+                    ->flash('success', "Олимпиада {$olympiad->name} теперь находится на проверке");
+            $status = 'check';
         } catch (DomainException | LogicException $e) {
             $request->session()->flash('error', $e->getMessage());
+            return redirect()->route('admin.olympiad.show', $olympiad->id);
         }
-        return redirect()->route('admin.olympiad.index');
+        return redirect()->route('admin.olympiad.index', compact('status'));
     }
 }

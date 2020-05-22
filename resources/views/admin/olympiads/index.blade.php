@@ -70,10 +70,6 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="card-footer">
-            {{ $olympiads->links() }}
-        </div>
     </div>
 
 @endsection

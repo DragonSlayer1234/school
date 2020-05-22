@@ -44,10 +44,9 @@ class OlympiadController extends Controller
     {
         $teacher = $request->user();
         $path = $request->work->store("works/{$teacher->id}", 'public');
+        $name = $request->work->getClientOriginalName();
 
-        $work = File::create([
-            'path' => $path
-        ]);
+        $work = File::new($path, $name);
 
         $olympiad = Olympiad::new (
             $teacher->id,

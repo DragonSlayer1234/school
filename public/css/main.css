@@ -1864,3 +1864,51 @@ select:focus {
   height: 251px;
 }
 
+.olympiad-card {
+  font-size: 12px;
+}
+
+.btn-accordion:hover {
+  cursor: pointer;
+}
+
+.o-footer {
+  border-top: 2px solid #11365c;
+  background-color: inherit;
+}
+
+.card-body p {
+  margin: 0;
+}
+
+.olympiad-dates {
+  padding: 5px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.pagination li a,
+.pagination li span {
+  display: inline-block;
+  min-width: 35px;
+  height: 35px;
+  border: 1px solid #e1e1e1;
+  color: #636363;
+  padding-top: 7px;
+  font-size: 14px;
+  margin-right: 10px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.pagination li a:hover,
+.pagination li.active span {
+  background: #11365c !important;
+  border-color: #11365c;
+  color: #fff;
+}
+
+.reject-reason {
+  border: 2px solid red;
+}
+

@@ -15,7 +15,7 @@ class FileController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $path = str_replace('public', '/storage', $request->file('file')->store('public/tmp-images'));
+        $path = str_replace('public', '/storage', $request->image->store('public/tmp-images'));
         return $path;
     }
 }

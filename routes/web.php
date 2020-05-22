@@ -141,6 +141,7 @@ Route::group([
 
         Route::get('news', 'NewsController@index')->name('news.index');
         Route::get('news/create', 'NewsController@create')->name('news.create');
+        Route::post('news/{news}/delete', 'NewsController@delete')->name('news.delete');
         Route::post('news', 'NewsController@store')->name('news.store');
 
     });

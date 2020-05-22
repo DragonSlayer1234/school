@@ -18,6 +18,7 @@
 
         <div class="my-3">
             <form class="form-inline" action="{{ route('olympiad.index') }}">
+                    <input type="hidden" name="status" value="{{ $selected->status }}">
 
                     <select class="form-control custom-select mr-2" name="date">
                         <option {{ $selected->date === null ? 'selected' : '' }} disabled>По дате</option>

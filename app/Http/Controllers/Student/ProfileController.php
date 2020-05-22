@@ -27,7 +27,7 @@ class ProfileController extends Controller
         $student->edit(
                         $request->firstname,
                         $request->lastname,
-                        $student->surname
+                        $request->surname
                       );
 
         $request->session()->flash('success', 'Данные обновлены');

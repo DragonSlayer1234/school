@@ -10,17 +10,21 @@
                                 <tr>
                                     <th style="width: 90%">Участник</th>
                                     <th>Результат</th>
+                                    <th>Место</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($olympiad->participants as $participant)
+                                @forelse ($olympiad->getParticipants() as $participant)
                                     <tr>
                                         <td>{{ $participant->student->getFullname() }}</td>
-                                        <td class="text-center">{{ $participant->mark }}</td>
+                                        <td class="text-center">{{ $participant->mark ?? 'Неизвестно' }}</td>
+                                        <td class="text-center">
+                                            <place :place="{{ $participant->place ?? 0 }}"></place>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td class="text-center" colspan="2">Участники отсутствуют</td>
+                                        <td class="text-center" colspan="3">Участники отсутствуют</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -65,22 +69,50 @@
                             <p><b>Длительность:</b> {{ $olympiad->getDuration() }}</p>
 
                             @if ($olympiad->hasParticipant(Auth::guard('student')->user()))
-                                <p><b>Задание к олимпиаде</b></p>
-                                <p class="file">
-                                    <i class="far fa-file-pdf fa-lg"></i> pidor.pdf
-                                    <a href="#" class="float-right"> <i class="fas fa-download"></i></a>
+                                <p class="mb-2"><b>Задание к олимпиаде</b></p>
+                                <p class="file text-truncate">
+                                    <a href="{{ route('download', ['path' => $olympiad->work->path]) }}"><i class="fas fa-file-alt"></i> {{ $olympiad->work->name }}</a>
+                                    {{-- <i class="far fa-file-pdf fa-lg"></i>
+                                    <a href="#" class="float-right"> <i class="fas fa-download"></i></a> --}}
                                 </p>
 
-                                <p><b>Ответ к олимпиаде</b></p>
+                                <p class="mb-2"><b>Ответ к олимпиаде</b></p>
                                 <p class="file">
                                     @if ($participant->hasAnswer())
-                                        <a href="{{ route('download', ['path' => $participant->answer->path]) }}" class="float-right"> <i class="fas fa-download"></i></a>
+                                        <a href="{{ route('download', ['path' => $participant->answer->path]) }}"><i class="fas fa-file-alt"></i> {{ $participant->answer->name }}</a>
                                     @else
-                                        <form action="{{ route('student.olympiad.answer', $olympiad) }}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="file" name="answer">
-                                            <button type="submit" class="btn btn-success float-right">Прикрепить</button>
-                                        </form>
+                                        <button type="submit" class="btn btn-primary"  data-toggle="modal" data-target="#answerModal">
+                                            Загрузить ответ
+                                        </button>
+
+                                        <div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="answerModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="answerModalLabel">Загрузить ответ</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('student.olympiad.answer', $olympiad) }}" method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label for="comment">Введите замечания: </label>
+                                                                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="answer">Загрузите свою работу: </label>
+                                                                <input type="file" name="answer" style="border:none" class="form-control pl-0" id="answer">
+                                                            </div>
+                                                            <hr>
+                                                            <button type="submit" class="btn btn-primary float-right">Отправить ответ</button>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
                                 </p>
 
@@ -102,7 +134,7 @@
 
                                     <form action="{{ route('student.olympiad.join', $olympiad) }}" method="post">
                                         @csrf
-                                        <button type="submit" class="btn btn-success float-right">Принять участие</button>
+                                        <button type="submit" class="site-btn">Принять участие</button>
                                     </form>
                                 @endif
                             </div>

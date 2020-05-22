@@ -7,7 +7,7 @@
       <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card">
-                  <div class="card-header">Create news</div>
+                  <div class="card-header">Создать новость</div>
                     <div class="">
                       <img class="card-img-top" src="" id="img">
                     </div>
@@ -16,15 +16,15 @@
                       @csrf
 
                       <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" placeholder="Enter title" name="title" value="{{old('title')}}">
+                        <label for="title">Название</label>
+                        <input type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" id="title" placeholder="Введите название" name="title" value="{{old('title')}}">
                         @error('title')
                             <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
                       </div>
                       <div class="custom-file">
                          <input type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" id="image" name="image">
-                         <label class="custom-file-label" for="image">Attach a preview image</label>
+                         <label class="custom-file-label" for="image">Прикрепить главное изображение</label>
                          @error('image')
                              <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                          @enderror
@@ -32,7 +32,7 @@
 
                        <div class="form-group">
                          <br>
-                         <label for="description">Description</label>
+                         <label for="description">Описание</label>
                          <textarea id="description" name="description" rows="8" cols="50" class="form-control"></textarea>
                          @error('description')
                              <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
@@ -40,14 +40,14 @@
                        </div>
 
                       <div class="form-group">
-                        <label for="text">Content</label>
+                        <label for="text">Контент</label>
                         <textarea id="text" name="text" rows="8" cols="50" class="form-control summernote"></textarea>
                         @error('text')
                             <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
                         @enderror
                       </div>
 
-                      <button type="submit" class="btn btn-primary">Create</button>
+                      <button type="submit" class="btn btn-primary">Создать</button>
                     </form>
                   </div>
               </div>
@@ -80,7 +80,7 @@ $(document).ready(function() {
       });
       function sendFile(file, editor, welEditable) {
           data = new FormData();
-          data.append("file", file);
+          data.append("image", file);
           $.ajax({
               data: data,
               type: "POST",
@@ -95,7 +95,7 @@ $(document).ready(function() {
       };
       function uploadImage(file) {
           data = new FormData();
-          data.append("file", file);
+          data.append("image", file);
           $.ajax({
               data: data,
               type: "POST",

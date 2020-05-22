@@ -13,11 +13,14 @@ class ParticipantController extends Controller
     {
         $student = $request->user();
         $participant = $olympiad->participants()->where('student_id', $student->id)->first();
-        if($participant != null && $participant->canAnswer()){
+
+        if($participant != null && $participant->canAnswer()) {
             $path = $request->answer->store("answers/{$student->id}", 'public');
-            $file = File::create(['path'=>$path]);
+            $name = $request->answer->getClientOriginalName();
+            $file = File::new($path, $name, $request->comment);
             $participant->addAnswer($file);
         }
+
         return redirect()->route('student.olympiad.show', $olympiad);
     }
 }

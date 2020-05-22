@@ -17,8 +17,7 @@ class ParticipantController extends Controller
 
     public function setPlace(Request $request, Participant $participant)
     {
-        $olympiad = $participant->olympiad;
-        $olympiad->setPlace($participant, $request->place);
+        $participant->setPlace($request->place);
 
         return redirect()->route('teacher.olympiad.check', $participant->olympiad);
     }

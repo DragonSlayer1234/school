@@ -31,6 +31,9 @@ require('summernote/dist/summernote-bs4');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('olympiad', require('./components/Olympiad.vue').default);
 Vue.component('type-filter', require('./components/TypeFilter.vue').default);
+Vue.component('subject-image', require('./components/SubjectImage.vue').default);
+Vue.component('p-mark', require('./components/Mark.vue').default);
+Vue.component('place', require('./components/Place.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

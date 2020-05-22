@@ -50,7 +50,7 @@
                  <li class="list-group-item">
                    <div class="row">
                      <div class="col-2 subject-img p-0 text-right">
-                       <img src="https://vignette.wikia.nocookie.net/naruto/images/2/21/Profile_Jiraiya.PNG/revision/latest/scale-to-width-down/340?cb=20160115173538" class="rounded-circle">
+                       <img src="{{ $olympiad->subject->image }}" class="rounded-circle">
                      </div>
                      <div class="col">
                        <p class="mb-0 olympiad-date text-muted">
@@ -70,7 +70,7 @@
             @foreach ($news as $post)
               <div class="col-4 mb-4">
                 <div class="card">
-    							<img class="card-img-top" src="{{ $post->image }}" alt="Card image cap">
+    							<img class="card-img-top img-fluid" src="{{ $post->preview_image }}" alt="Card image cap">
                   <div class="card-body">
     								<p class="news-date"><i class="fas fa-calendar-alt"></i> {{$post->created_at->isoFormat('D MMM YYYY')}}</p>
     								<h5 class="news-header"><a href="{{ route('news.show', $post) }}" class="olympiad-link">{{$post->title}}</a></h5>

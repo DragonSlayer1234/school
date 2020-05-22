@@ -32,6 +32,8 @@ export default {
             }).then((response) => {
                 this.path = response.data;
                 console.log(response.data)
+            }).catch((error) => {
+                console.log(error.response)
             });
         }
     }

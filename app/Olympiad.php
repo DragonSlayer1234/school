@@ -151,9 +151,16 @@ class Olympiad extends Model
         return $this->hasMany(Participant::class);
     }
 
-    public function winners()
+    public function getParticipants()
     {
-        return $this->hasMany(Winner::class);
+        $winners = $this->participants()
+                        ->where('place', '<>', null)
+                        ->orderBy('place')
+                        ->get();
+        $other = $this->participants()
+                        ->where('place', null)
+                        ->get();
+        return $winners->concat($other);
     }
 
     public function work()
@@ -184,26 +191,6 @@ class Olympiad extends Model
                     ->exists();
     }
 
-    public function setPlace(Participant $participant, $place)
-    {
-        if ($this->hasWinner($participant)) {
-            $winner = $this->winners()
-                            ->where('participant_id', $participant->id)
-                            ->first();
-            $winner->place = $place;
-            $winner->save();
-            return $winner;
-        }
-        return Winner::new($this->id, $participant->id, $place);
-    }
-
-    public function hasWinner(Participant $participant)
-    {
-        return $this->winners()
-                    ->where('participant_id', $participant->id)
-                    ->exists();
-    }
-
     public function changeToUpcoming()
     {
         if (!$this->isModeration()) {
@@ -227,7 +214,7 @@ class Olympiad extends Model
         if (!$this->isUpcoming()) {
             throw new \DomainException('Данная олимпиада не соответствует требованиям');
         } elseif (!$this->isStartTime()) {
-            throw new \LogicException('Дата начала и текущая дата не совпадают ');
+            throw new \LogicException('Дата начала и текущая дата не совпадают');
         }
         $this->status = self::STATUS_ACTIVE;
         $this->save();
@@ -238,7 +225,7 @@ class Olympiad extends Model
         if (!$this->isActive()) {
             throw new \DomainException('Данная олимпиада не соответствует требованиям');
         } elseif (!$this->isEndDate()) {
-            throw new \LogicException('Current time does not match the end date');
+            throw new \LogicException('Текущая дата и дата окончания не совпадают');
         }
         $this->status = self::STATUS_CHECK;
         $this->save();

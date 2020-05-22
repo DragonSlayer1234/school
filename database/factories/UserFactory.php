@@ -73,8 +73,8 @@ $factory->define(Olympiad::class, function (Faker $faker) {
         'teacher_id' => 1,
         'work_id' => 1,
         'cost' => rand(0, 1000),
-        'start_date' => '2020-04-21 09:00',
-        'end_date' => '2020-04-26 20:00',
+        'start_date' => '2020-05-21 09:00',
+        'end_date' => '2020-05-26 20:00',
         'description' => $faker->text,
         'duration' => '02:00',
         'status' => Olympiad::STATUS_ACTIVE

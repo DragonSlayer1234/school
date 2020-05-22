@@ -19,6 +19,7 @@ class CreateParticipantsTable extends Migration
             $table->integer('student_id')->unsigned();
             $table->integer('answer_id')->unsigned()->nullable();
             $table->integer('mark')->nullable();
+            $table->integer('place')->nullable();
             $table->datetime('end_time');
         });
     }

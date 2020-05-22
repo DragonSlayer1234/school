@@ -11,10 +11,10 @@ class NewsController extends Controller
     {
         $news = News::orderByDesc('created_at')->paginate(6);
         $recentNews = News::latest()->limit(6)->get();
-        
+
         return view('news.index', compact('news', 'recentNews'));
     }
-    
+
     public function show(News $news)
     {
         $posts = News::where('id', '<>', $news->id)->latest()->limit(6)->get();
